@@ -42,6 +42,22 @@ class Fairb0x {
     return this.Mail.getMessages(query, this);
   }
 
+  storeValue(key, value){
+    return this.SwarmStore.storeValue(key, value, this);
+    //file was stored
+    //there was a problem
+      //network
+      //something else
+  }
+
+  retrieveValue(key){
+    return this.SwarmStore.retrieveValue(key, this);
+    //file was stored
+    //there was a problem
+      //network
+      //something else
+  }  
+
   store(file, encryptionCallback, uploadCallback){
     return this.SwarmStore.store(this, file, encryptionCallback, uploadCallback);
     //file was stored
