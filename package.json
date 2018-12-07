@@ -1,0 +1,22 @@
+{
+  "name": "fds",
+  "version": "1.0.1",
+  "description": "Rails for Web3 Generation",
+  "main": "index.js",
+  "browser": "FDS-browser.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eth-ens-namehash": "^2.0.8",
+    "ethereum-ens": "https://github.com/ensdomains/ensjs",
+    "ethereumjs-wallet": "^0.6.2",
+    "file-saver": "^1.3.8",
+    "swarm-feeds": "git+ssh://git@gitlab.datafund.net:significance/swarm-feeds.git",
+    "web3": "1.0.0-beta.34",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "dependencies": {}
+}
