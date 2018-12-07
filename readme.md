@@ -1,7 +1,7 @@
-#FDS Society
-##App Toolkit for the Web3 Generation
+# FDS Society
+## App Toolkit for the Web3 Generation
 
-#Example Usage
+# Example Usage
 
 ```
 
