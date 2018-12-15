@@ -59,7 +59,7 @@ class Fairb0x {
   }  
 
   store(file, encryptionCallback, uploadCallback){
-    return this.SwarmStore.store(this, file, encryptionCallback, uploadCallback);
+    return this.SwarmStore.storeFile(this, file, encryptionCallback, uploadCallback);
     //file was stored
     //there was a problem
       //network
