@@ -1,7 +1,7 @@
 {
   "name": "fds",
   "version": "1.0.2",
-  "description": "Rails for Web3 Generation",
+  "description": "App Toolkit for the Web3 Generation",
   "main": "index.js",
   "browser": "FDS-browser.js",
   "scripts": {
