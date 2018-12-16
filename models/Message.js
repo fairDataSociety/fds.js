@@ -29,7 +29,13 @@ class Message {
   // getters
 
   getFile(decryptProgressCallback, downloadProgressCallback){
-    return this.Mail.receive(this.account, this, decryptProgressCallback, downloadProgressCallback);
+    if(this.to === this.account.subdomain){
+      return this.Mail.receive(this.account, this, decryptProgressCallback, downloadProgressCallback);      
+    }else if(this.from === this.account.subdomain){
+      return this.Mail.retrieveSent(this.account, this, decryptProgressCallback, downloadProgressCallback);      
+    }else{
+      throw Error('there was a problem...')
+    }
     //returns File object
     //there was a problem
       //network
