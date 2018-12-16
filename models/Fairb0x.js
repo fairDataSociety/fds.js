@@ -10,14 +10,10 @@ class Fairb0x {
     this.Mail = this.Account.Mail;
     this.SwarmStore = this.Account.SwarmStore;
 
-
-
     this.subdomain = attrs.subdomain;
     this.wallet = attrs.wallet;
     return this;
   }
-
-  // getters
 
   toJSON(){
     return {
@@ -27,14 +23,9 @@ class Fairb0x {
   }
 
   send(recipientSubdomain, file, encryptionCallback, uploadCallback){
-    return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback);
-    //file was sent
-    //there was a problem
-      //network
-      //something else    
+    return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback); 
   }
 
-  //selects messages based on very simple query for now
   messages(query = 'received'){
     if(['received','sent', 'saved'].indexOf(query) === -1){
       throw new Error('must be of type received, sent or saved');
@@ -44,31 +35,17 @@ class Fairb0x {
 
   storeValue(key, value){
     return this.SwarmStore.storeValue(key, value, this);
-    //file was stored
-    //there was a problem
-      //network
-      //something else
   }
 
   retrieveValue(key){
     return this.SwarmStore.retrieveValue(key, this);
-    //file was stored
-    //there was a problem
-      //network
-      //something else
   }  
 
   store(file, encryptionCallback, uploadCallback){
     return this.SwarmStore.storeFile(this, file, encryptionCallback, uploadCallback);
-    //file was stored
-    //there was a problem
-      //network
-      //something else
   }
 
   stored(query){
-    //selects personal stored files based on some simple query (stupid simple DSL for now?)
-    //returns swarmhash array
     return this.SwarmStore.getStored(query, this);
   }
 

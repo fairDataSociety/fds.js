@@ -3,7 +3,6 @@ let Mail = require('../lib/FDS-Mail.js');
 
 class Message {
   constructor(attrs, config, account){
-    // if(attrs.order === undefined) throw new Error('order must be defined');
     if(attrs.to === undefined) throw new Error('to must be defined');
     if(attrs.from === undefined) throw new Error('from must be defined');
     if(attrs.hash === undefined) throw new Error('from must be defined');
@@ -26,8 +25,6 @@ class Message {
     }
   }
 
-  // getters
-
   getFile(decryptProgressCallback, downloadProgressCallback){
     if(this.to === this.account.subdomain){
       return this.Mail.receive(this.account, this, decryptProgressCallback, downloadProgressCallback);      
@@ -36,18 +33,10 @@ class Message {
     }else{
       throw Error('there was a problem...')
     }
-    //returns File object
-    //there was a problem
-      //network
-      //something else
   }
 
   saveAs(){
-    return this.getFile().then(file => FileSaver.saveAs(file));
-    //the file should download automatically
-    //there was a problem
-      //network
-      //something else     
+    return this.getFile().then(file => FileSaver.saveAs(file));  
   }
 }
 

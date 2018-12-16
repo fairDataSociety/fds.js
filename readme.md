@@ -14,10 +14,6 @@ window.FDS = new FDS({
         registryAddress: '0xee5af2b4fd212115c7044e2b714a62a3e3c60675',
         fifsRegistrarContractAddress: '0x585d3c0023f46842d4e17eeaabeda9cde18468a4',
         resolverContractAddress: '0xfb007deb7de0d073bd65e2f2ba0bcce8d657af0b'
-      },
-      accountStore: {
-        method: 'filesystem',
-        location: '~/.fds/accounts'
       }
     });
 

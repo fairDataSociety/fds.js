@@ -1,14 +1,7 @@
-//really high level - the intention here is for jquery level 1 developers to be able to make a basic app.
-
-// let XMLHTTPRequest = require('xmlhttprequest');
-// let localstorage = require('node-localstorage');
-
 let Account = require('./lib/FDS-Account.js');
 let AccountStore = require('./lib/FDS-AccountStore.js');
 let Wallet = require('./lib/FDS-Wallet.js');
-
 let Crypto = require('./lib/FDS-Crypto.js');
-
 
 class FDS {
 
@@ -18,7 +11,6 @@ class FDS {
 
     this.currentAccount = null;
 
-    //exposes level 2 in FDS variable for more fine grained control.
     this.Account = new Account(config);
     this.Crypto = Crypto;
   }
