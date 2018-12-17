@@ -1,6 +1,6 @@
 let FileSaver = require('file-saver');
 
-class Fairb0x {
+class Account {
 
   constructor(attrs, Account){
     if(attrs.subdomain === undefined) throw new Error('subdomain must be defined');
@@ -59,4 +59,4 @@ class Fairb0x {
 
 }
 
-module.exports = Fairb0x;
+module.exports = Account;
