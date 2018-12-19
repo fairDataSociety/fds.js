@@ -5,7 +5,7 @@ class Message {
   constructor(attrs, config, account){
     if(attrs.to === undefined) throw new Error('to must be defined');
     if(attrs.from === undefined) throw new Error('from must be defined');
-    if(attrs.hash === undefined) throw new Error('from must be defined');
+    if(attrs.hash === undefined) throw new Error('hash must be defined');
 
     this.to = attrs.to
     this.from = attrs.from
