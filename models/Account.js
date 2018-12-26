@@ -41,6 +41,14 @@ class Account {
     return this.SwarmStore.retrieveValue(key, this);
   }  
 
+  storeEncryptedValue(key, value){
+    return this.SwarmStore.storeEncryptedValue(key, value, this);
+  }
+
+  retrieveDecryptedValue(key){
+    return this.SwarmStore.retrieveDecryptedValue(key, this);
+  }    
+
   store(file, encryptionCallback, uploadCallback){
     return this.SwarmStore.storeFile(this, file, encryptionCallback, uploadCallback);
   }
