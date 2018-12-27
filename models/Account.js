@@ -53,6 +53,14 @@ class Account {
     return this.SwarmStore.storeFile(this, file, encryptionCallback, uploadCallback);
   }
 
+  getContacts(){
+    return this.SwarmStore.getContacts(this);
+  }
+
+  storeContact(contact){
+    return this.SwarmStore.storeContact(this, contact);
+  }
+
   stored(query){
     return this.SwarmStore.getStored(query, this);
   }

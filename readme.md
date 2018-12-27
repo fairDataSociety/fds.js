@@ -7,7 +7,7 @@
 import FDS from 'fds';
 
 window.FDS = new FDS({
-      domain: 'resolver.eth',
+      // domain: 'resolver.eth',
       swarmGateway: 'http://localhost:8500', 
       ethGateway: 'http://localhost:8545',
       faucetAddress: 'http://localhost:3001/gimmie',
@@ -17,10 +17,6 @@ window.FDS = new FDS({
         registryAddress: '0x4916cf0632485bab3c396c96f09ec62f2a6d4084',
         fifsRegistrarContractAddress: '0x30555534c2a94d5b73cbfa3ac8adf8151fe23fd8',
         resolverContractAddress: '0xac4b6917475a9cf86e6588a248017eb2a07b7afa'
-      },
-      accountStore: {
-        method: 'filesystem',
-        location: '~/.fds/accounts'
       }
     });
 
@@ -29,8 +25,8 @@ window.FDS = new FDS({
 
 let simulateCreateTwoAndSend = ()=>{
 
-  let r1 = Math.floor(Math.random() * 10101);
-  let r2 = Math.floor(Math.random() * 10101);
+  let r1 = Math.floor(Math.random() * 1010101);
+  let r2 = Math.floor(Math.random() * 1010101);
   let account1, account2 = null;
   window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
     account1 = account;
@@ -43,7 +39,7 @@ let simulateCreateTwoAndSend = ()=>{
   }).then(()=>{
     return window.FDS.UnlockAccount(account1.subdomain, 'test').then((acc1)=>{
       let r = Math.floor(Math.random() * 10101);
-      let file = new File(['hello world'], `test${r}.txt`, {type: 'text/plain'});
+      let file = new File([`hello world ${r}`], `test${r}.txt`, {type: 'text/plain'});
       acc1.send(account2.subdomain, file, console.log, console.log).then((message)=>{
         console.log(`>>>> successfully sent ${message} to ${account2.subdomain}`);
       });
@@ -51,6 +47,13 @@ let simulateCreateTwoAndSend = ()=>{
   }).then(()=>{
     console.log(`window.FDS.UnlockAccount('${account2.subdomain}', 'test').then((acc2)=>{
       acc2.messages().then((messages)=>{
+        console.log('m', messages.length)
+        messages[0].getFile().then(console.log)
+        messages[0].saveAs();
+      })
+    })`)
+    console.log(`window.FDS.UnlockAccount('${account1.subdomain}', 'test').then((acc2)=>{
+      acc2.messages('sent').then((messages)=>{
         console.log('m', messages.length)
         messages[0].getFile().then(console.log)
         messages[0].saveAs();
@@ -195,4 +198,5 @@ simulateCreateTwoAndSend();
 // createAndStoreEncryptedValue();
 // createAndBackup();
 // createDeleteAndRestore();
+
 ```
