@@ -22,8 +22,8 @@ class Account {
     }
   }
 
-  send(recipientSubdomain, file, encryptionCallback, uploadCallback){
-    return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback); 
+  send(recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback){
+    return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback); 
   }
 
   messages(query = 'received'){
