@@ -4,8 +4,6 @@
 # Example Usage
 
 ```
-import FDS from 'fds';
-
 window.FDS = new FDS({
       // domain: 'resolver.eth',
       swarmGateway: 'http://localhost:8500', 
@@ -23,7 +21,7 @@ window.FDS = new FDS({
 
 
 
-let simulateCreateTwoAndSend = ()=>{
+let simulateCreateTwoAndSendTwo = ()=>{
 
   let r1 = Math.floor(Math.random() * 1010101);
   let r2 = Math.floor(Math.random() * 1010101);
@@ -40,7 +38,7 @@ let simulateCreateTwoAndSend = ()=>{
     return window.FDS.UnlockAccount(account1.subdomain, 'test').then((acc1)=>{
       let r = Math.floor(Math.random() * 10101);
       let file = new File([`hello world ${r}`], `test${r}.txt`, {type: 'text/plain'});
-      acc1.send(account2.subdomain, file, console.log, console.log).then((message)=>{
+      return acc1.send(account2.subdomain, file, console.log, console.log, console.log).then((message)=>{
         console.log(`>>>> successfully sent ${message} to ${account2.subdomain}`);
       });
     })
@@ -60,6 +58,14 @@ let simulateCreateTwoAndSend = ()=>{
       })
     })`)
     //todo check from sent mailbox too
+  }).then(()=>{
+    return window.FDS.UnlockAccount(account1.subdomain, 'test').then((acc1)=>{
+      let r = Math.floor(Math.random() * 10101);
+      let file = new File([`hello world 2${r}`], `test${r}-snd.txt`, {type: 'text/plain'});
+      acc1.send(account2.subdomain, file, console.log, console.log, console.log).then((message)=>{
+        console.log(`>>>> successfully sent ${message} to ${account2.subdomain}`);
+      });
+    })
   });
 
 }
@@ -192,7 +198,7 @@ let createAndStoreEncryptedValue = ()=>{
   });
 }
 
-simulateCreateTwoAndSend();
+simulateCreateTwoAndSendTwo();
 // createAndStore();
 // createAndStoreValue();
 // createAndStoreEncryptedValue();
