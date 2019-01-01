@@ -1,5 +1,38 @@
-# FDS Society
+```
+__/\\\\\\\\\\\\\\\__/\\\\\\\\\\\\________/\\\\\\\\\\\___        
+ _\/\\\///////////__\/\\\////////\\\____/\\\/////////\\\_       
+  _\/\\\_____________\/\\\______\//\\\__\//\\\______\///__      
+   _\/\\\\\\\\\\\_____\/\\\_______\/\\\___\////\\\_________     
+    _\/\\\///////______\/\\\_______\/\\\______\////\\\______    
+     _\/\\\_____________\/\\\_______\/\\\_________\////\\\___   
+      _\/\\\_____________\/\\\_______/\\\___/\\\______\//\\\__  
+       _\/\\\_____________\/\\\\\\\\\\\\/___\///\\\\\\\\\\\/___ 
+        _\///______________\////////////_______\///////////_____
+         _________FAIR___________DATA______________SOCIETY_______
+```
+# FDS.js Framework
 ## App Toolkit for the Web3 Generation
+
+FDS.js provides a very simple framework to create apps utilising the Ethereum and Swarm networks.
+
+It provides simple encrypted file storage, key value storage and message sending with baked in authentication for javascript web applications.
+
+Coming soon:
+
+  - Threads/Groups
+  - Send ETH/Tokens
+  - Upload Unencrypted
+  - Upload hosted website
+  - Public Post Feed
+  - Markdown to Blog Post Publishing Platform
+
+It requires an Ethereum and Swarm public gateway. 
+
+All data is fully encrypted before it leaves the browser and all transactions are signed within the browser.
+
+Wallets are stored in a password protected format in your browser.
+
+You may deploy your own subdomain for ENS resolution, or use fdsociety defaults.
 
 # Example Usage
 
