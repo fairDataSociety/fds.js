@@ -49,8 +49,8 @@ class Account {
     return this.SwarmStore.retrieveDecryptedValue(key, this);
   }    
 
-  store(file, encryptionCallback, uploadCallback){
-    return this.SwarmStore.storeFile(this, file, encryptionCallback, uploadCallback);
+  store(file, encryptionCallback, uploadCallback, progressMessageCallback){
+    return this.SwarmStore.storeFile(this, file, encryptionCallback, uploadCallback, progressMessageCallback);
   }
 
   getContacts(){
