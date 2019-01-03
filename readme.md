@@ -11,7 +11,7 @@ __/\\\\\\\\\\\\\\\__/\\\\\\\\\\\\________/\\\\\\\\\\\___
          _________FAIR___________DATA______________SOCIETY_______
 ```
 # FDS.js Framework
-## App Toolkit for the Web3 Generation
+## App Toolkit for the Web3 Generation ✌️
 
 FDS.js provides a very simple framework to create apps utilising the Ethereum and Swarm networks.
 
