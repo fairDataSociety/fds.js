@@ -17,8 +17,11 @@ FDS.js provides a very simple framework to create apps utilising the Ethereum an
 
 It provides simple encrypted file storage, key value storage and message sending with baked in authentication for javascript web applications.
 
+For now you will need to set up an FDS faucet to provide your users with enough test ether.
+
 Coming soon:
 
+  - Wallet top up
   - Threads/Groups
   - Send ETH/Tokens
   - Upload Unencrypted
@@ -34,20 +37,24 @@ Wallets are stored in a password protected format in your browser.
 
 You may deploy your own subdomain for ENS resolution, or use fdsociety defaults.
 
+## Important!
+
+Pending security review! Not ready for production, just yet, some come ;)
+
 # Example Usage
 
 ```
 window.FDS = new FDS({
       // domain: 'resolver.eth',
       swarmGateway: 'http://localhost:8500', 
-      ethGateway: 'http://localhost:8545',
-      faucetAddress: 'http://localhost:3001/gimmie',
+      ethGateway: 'http://46.101.44.145:8545',
+      faucetAddress: 'https://dfaucet-2.herokuapp.com/gimmie',
       httpTimeout: 1000,      
       ensConfig: {
         domain: 'resolver.eth',
-        registryAddress: '0x4916cf0632485bab3c396c96f09ec62f2a6d4084',
-        fifsRegistrarContractAddress: '0x30555534c2a94d5b73cbfa3ac8adf8151fe23fd8',
-        resolverContractAddress: '0xac4b6917475a9cf86e6588a248017eb2a07b7afa'
+        registryAddress: '0x309cb2ad217b3d673f53d404369234c5e51e8844',
+        fifsRegistrarContractAddress: '0x6edaaffffa8678da1e2275c78d56f4d5e1f0dfb4',
+        resolverContractAddress: '0x3969509b5db6b786d0e0b12386405c0faee66414'
       }
     });
 
@@ -115,7 +122,7 @@ let createAndStore = ()=>{
     return window.FDS.UnlockAccount(account1.subdomain, 'test').then((acc1)=>{
       let r = Math.floor(Math.random() * 10101);
       let file = new File(['hello storage world'], `test${r}.txt`, {type: 'text/plain'});
-      acc1.store(file, console.log, console.log).then((stored)=>{
+      acc1.store(file, console.log, console.log, console.log).then((stored)=>{
         console.log(`>>>> successfully stored ${stored} for ${acc1.subdomain}`);
       });
     })
