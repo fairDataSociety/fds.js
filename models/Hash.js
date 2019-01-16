@@ -4,9 +4,12 @@ class Hash {
   constructor(attrs, account){
     if(attrs.address === undefined) throw new Error('address must be defined');
     if(attrs.file === undefined) throw new Error('file must be defined');
+    if(attrs.time === undefined) throw new Error('time must be defined');
 
-    this.address = attrs.address
-    this.file = attrs.file
+    this.address = attrs.address;
+    this.file = attrs.file;
+    this.time = attrs.time;
+    
     this.account = account;
     this.SwarmStore = this.account.SwarmStore;
 
@@ -20,7 +23,8 @@ class Hash {
         name: this.file.name,
         type: this.file.type,
         size: this.file.size
-      }
+      },
+      time: this.time
     }
   }
 
