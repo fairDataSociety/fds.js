@@ -29,7 +29,7 @@ class Hash {
   }
 
   getFile(decryptProgressCallback, downloadProgressCallback){
-    return this.SwarmStore.retrieve(this.account, this, decryptProgressCallback, downloadProgressCallback);
+    return this.SwarmStore.retrieveFile(this.account, this, decryptProgressCallback, downloadProgressCallback);
   }
 
   saveAs(){

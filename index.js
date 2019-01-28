@@ -1,5 +1,5 @@
 let Account = require('./lib/FDS-Account.js');
-let AccountStore = require('./lib/FDS-AccountStore.js');
+let UserStore = require('./lib/FDS-UserStore.js');
 let Wallet = require('./lib/FDS-Wallet.js');
 let Crypto = require('./lib/FDS-Crypto.js');
 
@@ -15,18 +15,22 @@ class FDS {
     this.Crypto = Crypto;
   }
 
+  /**
+   * Retrieves accounts stored in localstorage.
+   * @GetAccounts
+   */ 
   GetAccounts(){
     return this.Account.getAll();
   }
 
   /**
    * Creates an FDS account with associated ENS name and stores the account info in localstorage.
-   * @createAccount
+   * @CreateAccount
    * @param {string} subdomain - the subdomain of the ENS record.
    * @param {string} password - password for wallet encryption.
    * @returns {promise} outcome of attempt to create account, Account object or error.      
    */  
-  CreateAccount(subdomain, password, feedbackMessageCallback){
+  CreateAccount(subdomain, password, feedbackMessageCallback = console.log){
     return this.Account.create(subdomain, password, feedbackMessageCallback).then((account)=>{
       return account;
     }).then(()=>{
@@ -64,13 +68,12 @@ class FDS {
 
 
   /**
-   * Retrieves an FDS account from localstorage ready to unlock.
+   * Removes unlocked keys from memory.
    * @get
    * @param {string} subdomain
-   * @param {string} password
    * @returns {boolean} true if successful
    */
-  LockCurrentAccount(subdomain, password){
+  LockAccount(subdomain){
     // retrieve account
     // unlock it
     this.currentAccount = null;
