@@ -22,7 +22,7 @@ class Account {
     }
   }
 
-  send(recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback){
+  send(recipientSubdomain, file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log){
     return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback); 
   }
 
@@ -49,7 +49,7 @@ class Account {
     return this.SwarmStore.retrieveDecryptedValue(key, this);
   }    
 
-  store(file, encryptionCallback, uploadCallback, progressMessageCallback){
+  store(file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log){
     return this.SwarmStore.storeFile(this, file, encryptionCallback, uploadCallback, progressMessageCallback);
   }
 

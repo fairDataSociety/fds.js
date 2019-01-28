@@ -28,7 +28,7 @@ class Hash {
     }
   }
 
-  getFile(decryptProgressCallback, downloadProgressCallback){
+  getFile(decryptProgressCallback = console.log, downloadProgressCallback = console.log){
     return this.SwarmStore.retrieveFile(this.account, this, decryptProgressCallback, downloadProgressCallback);
   }
 

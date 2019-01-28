@@ -25,7 +25,7 @@ class Message {
     }
   }
 
-  getFile(decryptProgressCallback, downloadProgressCallback){
+  getFile(decryptProgressCallback = console.log, downloadProgressCallback = console.log){
     if(this.to === this.account.subdomain){
       return this.Mail.receive(this.account, this, decryptProgressCallback, downloadProgressCallback);      
     }else if(this.from === this.account.subdomain){
