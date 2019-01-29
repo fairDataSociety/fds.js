@@ -27,7 +27,8 @@ var fds = new FDS({
   swarmGateway: 'http://46.101.44.145:8500', 
   ethGateway: 'http://46.101.44.145:8545',
   faucetAddress: 'https://dfaucet-2.herokuapp.com/gimmie',
-  httpTimeout: 1000,      
+  httpTimeout: 1000,
+  gasPrice: 50, //gwei    
   ensConfig: {
     domain: 'resolver.eth',
     registryAddress: '0x309cb2ad217b3d673f53d404369234c5e51e8844',
