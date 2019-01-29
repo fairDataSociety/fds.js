@@ -200,13 +200,13 @@ account.retrieveValue('key-1').then(console.log);
 ##### Store Encrypted Value
 
 ```
-account.storeEncryptedValue('key-1', 'hello encrypted value world');
+account.storeEncryptedValue('key-e1', 'hello encrypted value world');
 ```
 
 ##### Retreive Encrypted Value
 
 ```
-account.retrieveDecryptedValue('key-1').then(console.log);
+account.retrieveDecryptedValue('key-e1').then(console.log);
 // 'hello encrypted value world'
 ```
 
