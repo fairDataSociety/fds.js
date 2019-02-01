@@ -42,11 +42,11 @@ class Account {
   }  
 
   storeEncryptedValue(key, value){
-    return this.SwarmStore.storeEncryptedValue(key, value, this);
+    return this.SwarmStore.storeEncryptedValue(key, value, this, this.privateKey);
   }
 
   retrieveDecryptedValue(key){
-    return this.SwarmStore.retrieveDecryptedValue(key, this);
+    return this.SwarmStore.retrieveDecryptedValue(key, this.address, this.privateKey);
   }    
 
   store(file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log){
