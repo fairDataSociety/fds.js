@@ -1,6 +1,6 @@
 let FileSaver = require('file-saver');
 
-class Account {
+class User {
 
   constructor(attrs, Account){
     if(attrs.subdomain === undefined) throw new Error('subdomain must be defined');
@@ -65,6 +65,13 @@ class Account {
     return this.SwarmStore.getStored(query, this);
   }
 
+  getBackup(){
+    return {
+      data: JSON.stringify(this.wallet), 
+      name: `fairdrop-wallet-${this.subdomain}-backup.json` 
+    }
+  }
+
   getBackupFile(){
     return new File([JSON.stringify(this.wallet)], `fairdrop-wallet-${this.subdomain}-backup.json`, {type: 'application/json'});
   }
@@ -75,4 +82,4 @@ class Account {
 
 }
 
-module.exports = Account;
+module.exports = User;
