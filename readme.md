@@ -12,7 +12,7 @@ __/\\\\\\\\\\\\\\\__/\\\\\\\\\\\\________/\\\\\\\\\\\___
 ```
 
 # FDS.js Framework
-## App Toolkit for the Web3 Generation ✌️
+## Serverless App Toolkit for the Web3 Generation ✌️
 
 FDS.js is a very simple framework to create apps using the Ethereum and Swarm networks.
 
