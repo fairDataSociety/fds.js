@@ -31,7 +31,7 @@ class Message {
     }else if(this.from === this.account.subdomain){
       return this.Mail.retrieveSent(this.account, this, decryptProgressCallback, downloadProgressCallback);      
     }else{
-      throw Error('there was a problem...')
+        throw Error('there was a problem...');
     }
   }
 

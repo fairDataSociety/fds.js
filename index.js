@@ -18,6 +18,7 @@ class FDS {
   /**
    * Retrieves accounts stored in localstorage.
    * @GetAccounts
+   * @returns {any} all accounts
    */ 
   GetAccounts(){
     return this.Account.getAll();
@@ -28,6 +29,7 @@ class FDS {
    * @CreateAccount
    * @param {string} subdomain - the subdomain of the ENS record.
    * @param {string} password - password for wallet encryption.
+   * @param {any} feedbackMessageCallback callback
    * @returns {promise} outcome of attempt to create account, Account object or error.      
    */  
   CreateAccount(subdomain, password, feedbackMessageCallback = console.log){
@@ -42,8 +44,8 @@ class FDS {
   /**
    * Retrieves an FDS account from localstorage unlocks, and sets as context.
    * @get
-   * @param {string} subdomain
-   * @param {string} password
+   * @param {string} subdomain name
+   * @param {string} password to use
    * @returns {boolean} true if successful
    */
   UnlockAccount(subdomain, password){
@@ -65,13 +67,10 @@ class FDS {
     return this.Account.delete(subdomain);
   }
 
-
-
   /**
    * Removes unlocked keys from memory.
    * @get
-   * @param {string} subdomain
-   * @returns {boolean} true if successful
+   * @param {string} subdomain name
    */
   LockAccount(subdomain){
     // retrieve account
@@ -82,8 +81,7 @@ class FDS {
   /**
    * Restores an FDS account from a string.
    * @get
-   * @param {string} subdomain
-   * @param {string} walletJSON
+   * @param {string} file wallet in JSON
    * @returns {boolean} true if successful
    */
   RestoreAccount(file){
@@ -93,7 +91,7 @@ class FDS {
   /**
    * Intigates download of a FDS wallet backup file.
    * @get
-   * @param {string} subdomain
+   * @param {string} subdomain name
    * @returns {boolean} true if successful
    */
   BackupAccount(subdomain){
