@@ -2,3 +2,4 @@ node_modules
 bin
 .vs
 obj
+/.package-lock.json
