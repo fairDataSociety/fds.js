@@ -40,12 +40,19 @@ class User {
     * @param {any} message that points to file
     * @param {any} decryptionCallback callback 
     * @param {any} downloadCallback callback
-    * @param {any} progressMessageCallback callback
     * @returns {any} returns file if success
     */
-   async receive(message, decryptionCallback = console.log, downloadCallback = console.log, progressMessageCallback = console.log) {
-      let file = await this.Mail.receive(this, message, decryptionCallback, downloadCallback, progressMessageCallback);
-      return file;
+    async receive(message, decryptionCallback = console.log, downloadCallback = console.log) {
+        if (message.to === this.subdomain) {
+            return await this.Mail.receive(this, message, decryptionCallback, downloadCallback);
+        } else if (message.from === this.subdomain) {
+            return await this.Mail.retrieveSent(this, message, decryptionCallback, downloadCallback);
+        } else {
+            throw Error('there was a problem...');
+        }
+
+//      let file = await this.Mail.receive(this, message, decryptionCallback, downloadCallback, progressMessageCallback);
+//      return file;
   }
 
     /**
