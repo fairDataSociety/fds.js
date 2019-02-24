@@ -42,7 +42,7 @@ class User {
     * @param {any} downloadCallback callback
     * @returns {any} returns file if success
     */
-    async receive(message, decryptionCallback = console.log, downloadCallback = console.log) {
+  async receive(message, decryptionCallback = console.log, downloadCallback = console.log) {
         if (message.to === this.subdomain) {
             return await this.Mail.receive(this, message, decryptionCallback, downloadCallback);
         } else if (message.from === this.subdomain) {
@@ -50,9 +50,6 @@ class User {
         } else {
             throw Error('there was a problem...');
         }
-
-//      let file = await this.Mail.receive(this, message, decryptionCallback, downloadCallback, progressMessageCallback);
-//      return file;
   }
 
     /**
