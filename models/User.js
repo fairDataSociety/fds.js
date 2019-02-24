@@ -35,6 +35,19 @@ class User {
     return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback); 
   }
 
+  /**
+    * Receive file
+    * @param {any} message that points to file
+    * @param {any} decryptionCallback callback 
+    * @param {any} downloadCallback callback
+    * @param {any} progressMessageCallback callback
+    * @returns {any} returns file if success
+    */
+   async receive(message, decryptionCallback = console.log, downloadCallback = console.log, progressMessageCallback = console.log) {
+      let file = await this.Mail.receive(this, message, decryptionCallback, downloadCallback, progressMessageCallback);
+      return file;
+  }
+
     /**
      * Get messages
      * @param {any} query to lookup to
@@ -124,7 +137,7 @@ class User {
     return this.SwarmStore.getStored(query, this);
   }
     /** Get backup of wallet 
-     * @returns {any} wallet
+     * @returns {any} file
      */
   getBackup(){
     return {

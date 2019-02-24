@@ -7,10 +7,10 @@ class Message {
     if(attrs.from === undefined) throw new Error('from must be defined');
     if(attrs.hash === undefined) throw new Error('hash must be defined');
 
-    this.to = attrs.to
-    this.from = attrs.from
-    this.hash = attrs.hash
-    this.account = account
+    this.to = attrs.to;
+    this.from = attrs.from;
+    this.hash = attrs.hash;
+    this.account = account;
 
     this.Mail = this.account.Mail;
 
@@ -18,13 +18,19 @@ class Message {
   }
 
   toJSON(){
-    return {
-      to: this.to,
-      from: this.from,
-      hash: this.hash.toJSON()
-    }
+      return {
+          to: this.to,
+          from: this.from,
+          hash: this.hash.toJSON()
+      };
   }
 
+  /**
+    * get file for this message
+    * @param {any} decryptProgressCallback callback
+    * @param {any} downloadProgressCallback callback
+    * @returns {File} file 
+   */
   getFile(decryptProgressCallback = console.log, downloadProgressCallback = console.log){
     if(this.to === this.account.subdomain){
       return this.Mail.receive(this.account, this, decryptProgressCallback, downloadProgressCallback);      
