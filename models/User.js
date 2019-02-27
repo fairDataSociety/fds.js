@@ -58,7 +58,7 @@ class User {
      * @param {any} progressMessageCallback callback
      * @returns {any} result
      */
-  getBalance(recipientAddress, amount){
+  getBalance(){
     return this.Tx.getBalance(this.address); 
   }    
 
