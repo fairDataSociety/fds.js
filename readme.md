@@ -155,6 +155,10 @@ fds.RestoreAccount(backupFile);
  // File { name: "fairdrop-wallet-test2153-backup.json", size: 486, type: "text/json", webkitRelativePath: ""}
 ```
 
+##### Restore Account from Private Key
+
+```FDS.Account.restoreFromPrivateKey('subdomain', 'password', 'private-key-without-0x').then(console.log);```
+
 #### Storage
 
 ##### Store File
