@@ -8,6 +8,7 @@ class User {
 
     this.Account = Account;
     this.Mail = this.Account.Mail;
+    this.Tx = this.Account.Tx;
     this.SwarmStore = this.Account.SwarmStore;
 
     this.subdomain = attrs.subdomain;
@@ -34,6 +35,32 @@ class User {
   send(recipientSubdomain, file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log){
     return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback); 
   }
+
+    /**
+     * Send file 
+     * @param {any} recipientSubdomain name 
+     * @param {any} file to send 
+     * @param {any} encryptionCallback callback
+     * @param {any} uploadCallback callback
+     * @param {any} progressMessageCallback callback
+     * @returns {any} result
+     */
+  sendTokens(recipientAddress, amount){
+    return this.Tx.sendTokens(this, recipientAddress, amount); 
+  }  
+
+    /**
+     * Send file 
+     * @param {any} recipientSubdomain name 
+     * @param {any} file to send 
+     * @param {any} encryptionCallback callback
+     * @param {any} uploadCallback callback
+     * @param {any} progressMessageCallback callback
+     * @returns {any} result
+     */
+  getBalance(recipientAddress, amount){
+    return this.Tx.getBalance(this.address); 
+  }    
 
   /**
     * Receive file
