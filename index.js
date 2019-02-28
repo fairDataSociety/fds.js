@@ -2,6 +2,7 @@ let Account = require('./lib/FDS-Account.js');
 let UserStore = require('./lib/FDS-UserStore.js');
 let Wallet = require('./lib/FDS-Wallet.js');
 let Crypto = require('./lib/FDS-Crypto.js');
+let Tx = require('./lib/FDS-Tx.js');
 
 class FDS {
 
@@ -12,6 +13,8 @@ class FDS {
     this.currentAccount = null;
 
     this.Account = new Account(config);
+    this.Tx = new Tx(config);
+
     this.Crypto = Crypto;
   }
 
