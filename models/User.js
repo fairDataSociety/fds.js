@@ -54,7 +54,7 @@ sendTokens(recipientAddress, amount){
 */
 async sendTokensTo(subdomain, amount) {
     let contact = await this.lookupContact(subdomain, console.log, console.log, console.log);
-    let hex = contact.publicKey.substring(2, 132);
+    let hex = "0x" + contact.publicKey.substring(2, 132);
     let hash = this.Tx.web3.utils.keccak256(hex);
     let recipientAddress = "0x" + hash.slice(24 + 2);
     return this.Tx.sendTokens(this, recipientAddress, amount);
