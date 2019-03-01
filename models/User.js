@@ -1,3 +1,19 @@
+// Copyright 2019 The FairDataSociety Authors
+// This file is part of the FairDataSociety library.
+//
+// The FairDataSociety library is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// The FairDataSociety library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with the FairDataSociety library. If not, see <http://www.gnu.org/licenses/>.
+
 let FileSaver = require('file-saver');
 
 class User {
@@ -36,28 +52,15 @@ class User {
     return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback); 
   }
 
-    /**
-     * Send file 
-     * @param {any} recipientSubdomain name 
-     * @param {any} file to send 
-     * @param {any} encryptionCallback callback
-     * @param {any} uploadCallback callback
-     * @param {any} progressMessageCallback callback
-     * @returns {any} result
-     */
-  sendTokens(recipientAddress, amount){
+/* sendTokens to address 
+ */
+  sendTokens(recipientAddress, amount) {
     return this.Tx.sendTokens(this, recipientAddress, amount); 
   }  
 
-    /**
-     * Send file 
-     * @param {any} recipientSubdomain name 
-     * @param {any} file to send 
-     * @param {any} encryptionCallback callback
-     * @param {any} uploadCallback callback
-     * @param {any} progressMessageCallback callback
-     * @returns {any} result
-     */
+/** Get balance
+ * @returns {any} balance
+ * */
   getBalance(){
     return this.Tx.getBalance(this.address); 
   }    
