@@ -52,10 +52,10 @@ sendTokens(recipientAddress, amount){
 * @param {any} amount in ethers
 * @returns {any} result
 */
-sendTokensTo(subdomain, amount) {
-    let contact = lookupContact(subdomain);
+async sendTokensTo(subdomain, amount) {
+    let contact = await this.lookupContact(subdomain, console.log, console.log, console.log);
     let hex = contact.publicKey.substring(2, 132);
-    let hash = account.Tx.web3.utils.keccak256(hex);
+    let hash = this.Tx.web3.utils.keccak256(hex);
     let recipientAddress = "0x" + hash.slice(24 + 2);
     return this.Tx.sendTokens(this, recipientAddress, amount);
 } 
