@@ -19,6 +19,9 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="AUTHORS" />
+    <Content Include="COPYING" />
+    <Content Include="COPYING.LESSER" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="readme.md" />
@@ -50,6 +53,9 @@
     <Folder Include="fds\fds" />
     <Folder Include="lib" />
     <Folder Include="models" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="lib\FDS-Tx.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
