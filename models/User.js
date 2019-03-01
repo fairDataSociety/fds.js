@@ -36,18 +36,29 @@ class User {
     return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback); 
   }
 
-    /**
-     * Send file 
-     * @param {any} recipientSubdomain name 
-     * @param {any} file to send 
-     * @param {any} encryptionCallback callback
-     * @param {any} uploadCallback callback
-     * @param {any} progressMessageCallback callback
-     * @returns {any} result
-     */
-  sendTokens(recipientAddress, amount){
-    return this.Tx.sendTokens(this, recipientAddress, amount); 
-  }  
+/**
+ * send tokens
+ * @param {any} recipientAddress 0xfff
+ * @param {any} amount in eth
+ * @returns {any} transaction
+ */
+sendTokens(recipientAddress, amount){
+   return this.Tx.sendTokens(this, recipientAddress, amount); 
+} 
+
+/**
+* Send amount of tokens to subdomain
+* @param {any} subdomain to whom to send subdomain
+* @param {any} amount in ethers
+* @returns {any} result
+*/
+sendTokensTo(subdomain, amount) {
+    let contact = lookupContact(subdomain);
+    let hex = contact.publicKey.substring(2, 132);
+    let hash = account.Tx.web3.utils.keccak256(hex);
+    let recipientAddress = "0x" + hash.slice(24 + 2);
+    return this.Tx.sendTokens(this, recipientAddress, amount);
+} 
 
     /**
      * Send file 
