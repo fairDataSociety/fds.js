@@ -1,3 +1,19 @@
+// Copyright 2019 The FairDataSociety Authors
+// This file is part of the FairDataSociety library.
+//
+// The FairDataSociety library is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// The FairDataSociety library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with the FairDataSociety library. If not, see <http://www.gnu.org/licenses/>.
+
 let FileSaver = require('file-saver');
 
 class User {
@@ -23,52 +39,46 @@ class User {
       };
   }
 
-    /**
-     * Send file 
-     * @param {any} recipientSubdomain name 
-     * @param {any} file to send 
-     * @param {any} encryptionCallback callback
-     * @param {any} uploadCallback callback
-     * @param {any} progressMessageCallback callback
-     * @returns {any} result
-     */
+  /**
+   * Send file 
+   * @param {any} recipientSubdomain name 
+   * @param {any} file to send 
+   * @param {any} encryptionCallback callback
+   * @param {any} uploadCallback callback
+   * @param {any} progressMessageCallback callback
+   * @returns {any} result
+   */
   send(recipientSubdomain, file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log){
     return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback); 
   }
 
-/**
- * send tokens
- * @param {any} recipientAddress 0xfff
- * @param {any} amount in eth
- * @returns {any} transaction
- */
-sendTokens(recipientAddress, amount){
-   return this.Tx.sendTokens(this, recipientAddress, amount); 
-} 
-
-/**
-* Send amount of tokens to subdomain
-* @param {any} subdomain to whom to send subdomain
-* @param {any} amount in ethers
-* @returns {any} result
-*/
-async sendTokensTo(subdomain, amount) {
-    let contact = await this.lookupContact(subdomain, console.log, console.log, console.log);
-    let hex = "0x" + contact.publicKey.substring(2, 132);
-    let hash = this.Tx.web3.utils.keccak256(hex);
-    let recipientAddress = "0x" + hash.slice(24 + 2);
-    return this.Tx.sendTokens(this, recipientAddress, amount);
-} 
-
-    /**
-     * Send file 
-     * @param {any} recipientSubdomain name 
-     * @param {any} file to send 
-     * @param {any} encryptionCallback callback
-     * @param {any} uploadCallback callback
-     * @param {any} progressMessageCallback callback
-     * @returns {any} result
-     */
+  /**
+   * send tokens
+   * @param {any} recipientAddress 0xfff
+   * @param {any} amount in eth
+   * @returns {any} transaction
+   */
+  sendTokens(recipientAddress, amount){
+     return this.Tx.sendTokens(this, recipientAddress, amount); 
+  } 
+  
+  /**
+  * Send amount of tokens to subdomain
+  * @param {any} subdomain to whom to send subdomain
+  * @param {any} amount in ethers
+  * @returns {any} result
+  */
+  async sendTokensTo(subdomain, amount) {
+      let contact = await this.lookupContact(subdomain, console.log, console.log, console.log);
+      let hex = "0x" + contact.publicKey.substring(2, 132);
+      let hash = this.Tx.web3.utils.keccak256(hex);
+      let recipientAddress = "0x" + hash.slice(24 + 2);
+      return this.Tx.sendTokens(this, recipientAddress, amount);
+  } 
+  
+  /** Get balance
+   * @returns {any} balance
+   * */
   getBalance(){
     return this.Tx.getBalance(this.address); 
   }    
