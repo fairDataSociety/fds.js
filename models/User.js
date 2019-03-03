@@ -39,28 +39,46 @@ class User {
       };
   }
 
-    /**
-     * Send file 
-     * @param {any} recipientSubdomain name 
-     * @param {any} file to send 
-     * @param {any} encryptionCallback callback
-     * @param {any} uploadCallback callback
-     * @param {any} progressMessageCallback callback
-     * @returns {any} result
-     */
+  /**
+   * Send file 
+   * @param {any} recipientSubdomain name 
+   * @param {any} file to send 
+   * @param {any} encryptionCallback callback
+   * @param {any} uploadCallback callback
+   * @param {any} progressMessageCallback callback
+   * @returns {any} result
+   */
   send(recipientSubdomain, file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log){
     return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback); 
   }
 
-/* sendTokens to address 
- */
-  sendTokens(recipientAddress, amount) {
-    return this.Tx.sendTokens(this, recipientAddress, amount); 
-  }  
-
-/** Get balance
- * @returns {any} balance
- * */
+  /**
+   * send tokens
+   * @param {any} recipientAddress 0xfff
+   * @param {any} amount in eth
+   * @returns {any} transaction
+   */
+  sendTokens(recipientAddress, amount){
+     return this.Tx.sendTokens(this, recipientAddress, amount); 
+  } 
+  
+  /**
+  * Send amount of tokens to subdomain
+  * @param {any} subdomain to whom to send subdomain
+  * @param {any} amount in ethers
+  * @returns {any} result
+  */
+  async sendTokensTo(subdomain, amount) {
+      let contact = await this.lookupContact(subdomain, console.log, console.log, console.log);
+      let hex = "0x" + contact.publicKey.substring(2, 132);
+      let hash = this.Tx.web3.utils.keccak256(hex);
+      let recipientAddress = "0x" + hash.slice(24 + 2);
+      return this.Tx.sendTokens(this, recipientAddress, amount);
+  } 
+  
+  /** Get balance
+   * @returns {any} balance
+   * */
   getBalance(){
     return this.Tx.getBalance(this.address); 
   }    
