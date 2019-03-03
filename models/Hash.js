@@ -5,7 +5,7 @@ class Hash {
     if(attrs.address === undefined) throw new Error('address must be defined');
     if(attrs.file === undefined) throw new Error('file must be defined');
     if(attrs.time === undefined) throw new Error('time must be defined');
-    if(attrs.iv === undefined) throw new Error('iv must be defined');
+    // if(attrs.iv === undefined) throw new Error('iv must be defined');
 
     this.address = attrs.address;
     this.file = attrs.file;
@@ -37,6 +37,10 @@ class Hash {
 
   saveAs(){
     return this.getFile().then(file => FileSaver.saveAs(file));
+  }
+
+  gatewayLink(){
+    return `${this.account.Swarm.config.swarmGateway}/bzz:/${this.address}/${this.file.name}`;
   }
 
 }
