@@ -92,16 +92,6 @@ class FDS {
   }
 
   /**
-   * Restores an FDS account from a string.
-   * @get
-   * @param {string} file wallet in JSON
-   * @returns {boolean} true if successful
-   */
-  ImportFromPrivateKey(file){
-    return this.Account.restoreFromFile(file);
-  }  
-
-  /**
    * Intigates download of a FDS wallet backup file.
    * @get
    * @param {string} subdomain name

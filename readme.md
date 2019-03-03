@@ -159,8 +159,7 @@ fds.RestoreAccount(backupFile);
 
 ```FDS.Account.restoreFromPrivateKey('subdomain', 'password', 'private-key-without-0x').then(console.log);```
 
-#### Tokens
-
+##### Tokens
 ```
 FDS.Tx.getBalance('0x1c324f47f50e4cb37951122a76e25cdc317bb8e5').then(console.log);
 
