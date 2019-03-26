@@ -24,18 +24,19 @@ Initialise FDS.
 
 ```
 var fds = new FDS({
-  swarmGateway: 'http://46.101.44.145:8500', 
-  ethGateway: 'http://46.101.44.145:8545',
-  faucetAddress: 'https://dfaucet-2.herokuapp.com/gimmie',
+  swarmGateway: 'https://swarm-dev-test.datafund.io',
+  ethGateway: 'https://geth-dev.datafund.io',
+  faucetAddress: 'https://dfaucet-testnet-dev.herokuapp.com/gimmie',
+  chainID: '235813',
   httpTimeout: 1000,
-  gasPrice: 50, //gwei    
+  gasPrice: 50,
   ensConfig: {
-    domain: 'resolver.eth',
-    registryAddress: '0x309cb2ad217b3d673f53d404369234c5e51e8844',
-    fifsRegistrarContractAddress: '0x6edaaffffa8678da1e2275c78d56f4d5e1f0dfb4',
-    resolverContractAddress: '0x3969509b5db6b786d0e0b12386405c0faee66414'
+    domain: 'datafund.eth',
+    registryAddress: '0x246d204ae4897e603b8cb498370dcbb2888213d1',
+    fifsRegistrarContractAddress: '0xbbcfe6ccee58d3ebc82dcd4d772b2484d23d0a0b',
+    resolverContractAddress: '0x79164c357f81627042d958533bba8a766c81f3d6'
   }
-});
+});  
 ```
 
 Create an account.
@@ -268,21 +269,19 @@ Pending security review! Not ready for production, just yet, some come ;)
 
 ```
 window.FDS = new FDS({
-      // domain: 'resolver.eth',
-      swarmGateway: 'http://localhost:8500', 
-      ethGateway: 'http://46.101.44.145:8545',
-      faucetAddress: 'https://dfaucet-2.herokuapp.com/gimmie',
-      httpTimeout: 1000,      
-      ensConfig: {
-        domain: 'resolver.eth',
-        registryAddress: '0x309cb2ad217b3d673f53d404369234c5e51e8844',
-        fifsRegistrarContractAddress: '0x6edaaffffa8678da1e2275c78d56f4d5e1f0dfb4',
-        resolverContractAddress: '0x3969509b5db6b786d0e0b12386405c0faee66414'
-      }
-    });
-
-
-
+swarmGateway: 'https://swarm-dev-test.datafund.io',
+ethGateway: 'https://geth-dev.datafund.io',
+faucetAddress: 'https://dfaucet-testnet-dev.herokuapp.com/gimmie',
+chainID: '235813',
+httpTimeout: 1000,
+gasPrice: 50,
+ensConfig: {
+domain: 'datafund.eth',
+registryAddress: '0x246d204ae4897e603b8cb498370dcbb2888213d1',
+fifsRegistrarContractAddress: '0xbbcfe6ccee58d3ebc82dcd4d772b2484d23d0a0b',
+resolverContractAddress: '0x79164c357f81627042d958533bba8a766c81f3d6'
+}
+});    
 
 let simulateCreateTwoAndSendTwo = ()=>{
 
