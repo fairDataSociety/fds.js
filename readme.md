@@ -23,7 +23,20 @@ It provides simple encrypted file storage, key value storage and file sending wi
 Initialise FDS.
 
 ```
-var fds = new FDS();  
+var fds = new FDS({
+  swarmGateway: 'https://swarm-dev-test.datafund.io',
+  ethGateway: 'https://geth-dev.datafund.io',
+  faucetAddress: 'https://dfaucet-testnet-dev.herokuapp.com/gimmie',
+  chainID: '235813',
+  httpTimeout: 1000,
+  gasPrice: 50,
+  ensConfig: {
+    domain: 'datafund.eth',
+    registryAddress: '0x246d204ae4897e603b8cb498370dcbb2888213d1',
+    fifsRegistrarContractAddress: '0xbbcfe6ccee58d3ebc82dcd4d772b2484d23d0a0b',
+    resolverContractAddress: '0x79164c357f81627042d958533bba8a766c81f3d6'
+  }
+});  
 ```
 
 Create an account.
@@ -454,4 +467,84 @@ simulateCreateTwoAndSendTwo();
 // createAndBackup();
 // createDeleteAndRestore();
 
+```
+
+### Troubleshooting Windows installation
+
+Installation steps for Windows to setup FDS library to be used for development locally
+
+Windows 10
+node: 10.15.1
+npm: 6.4.1
+
+1. Clone the FDS repo:
+```
+git clone https://github.com/fairDataSociety/fds.js.git
+```
+2. Change directory to the FDS repo
+3. Run: 
+```
+npm link
+```
+
+If you see the following errors:
+
+```
+npm WARN tarball tarball data for file-saver@1.3.8 seems to be corrupted. Trying one more time.
+npm WARN tar ENOENT: no such file or directory, open 'C:\fds.js\node_modules\.staging\type-is-55fc7b2b\package.json'
+...
+npm ERR! code EINTEGRITY
+npm ERR! Verification failed while extracting file-saver@1.3.8:
+```
+
+Install latest file-saver
+```
+npm install file-saver --save
+```
+
+If you get python errors like:
+
+```
+gyp ERR! stack Error: Command failed: C:\Users\TestUser\Anaconda3\python.exe -c import sys; print "%s.%s.%s" % sys.version_info[:3];
+gyp ERR! stack   File "<string>", line 1
+gyp ERR! stack     import sys; print "%s.%s.%s" % sys.version_info[:3];
+gyp ERR! stack SyntaxError: invalid syntax
+gyp ERR! stack     at ChildProcess.exithandler (child_process.js:294:12)
+gyp ERR! stack     at ChildProcess.emit (events.js:182:13)
+gyp ERR! stack     at maybeClose (internal/child_process.js:962:16)
+gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:251:5)
+....
+```
+
+This means you have the python 3 installed, if you already have python27 installed, set the environment variable by running:
+
+```
+npm config set python "path to python 2.7 exe"
+```
+
+If you encounter this error:
+
+Error: Can't find Python executable "python", you can set the PYTHON env variable
+
+This means python is not installed. Python 2.7 is required on the system. Download the installer from https://www.python.org/downloads/release/python-2716/
+
+After installation is complete, open new command prompt window, change directory to the FDS repo and run:
+npm link
+
+The libray should compile and build and if you come across vulnerabilities message:
+```
+Added 354 packages from 216 contributors and audited 172164 packages in 64.674s
+found 2 high severity vulnerabilities
+run `npm audit fix` to fix them, or `npm audit` for details
+```
+
+run twice:
+```
+npm audit fix
+```
+
+Now FDS repo is available to be imported in your project:
+
+```
+import FDS from 'fds';
 ```
