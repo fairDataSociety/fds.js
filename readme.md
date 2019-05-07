@@ -23,20 +23,7 @@ It provides simple encrypted file storage, key value storage and file sending wi
 Initialise FDS.
 
 ```
-var fds = new FDS({
-  swarmGateway: 'https://swarm-dev-test.datafund.io',
-  ethGateway: 'https://geth-dev.datafund.io',
-  faucetAddress: 'https://dfaucet-testnet-dev.herokuapp.com/gimmie',
-  chainID: '235813',
-  httpTimeout: 1000,
-  gasPrice: 50,
-  ensConfig: {
-    domain: 'datafund.eth',
-    registryAddress: '0x246d204ae4897e603b8cb498370dcbb2888213d1',
-    fifsRegistrarContractAddress: '0xbbcfe6ccee58d3ebc82dcd4d772b2484d23d0a0b',
-    resolverContractAddress: '0x79164c357f81627042d958533bba8a766c81f3d6'
-  }
-});  
+var fds = new FDS();  
 ```
 
 Create an account.
