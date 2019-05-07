@@ -40,11 +40,14 @@ class User {
  * send tokens
  * @param {any} recipientAddress 0xfff
  * @param {any} amount in eth
+ * @param {any} transactionCallback callback
+ * @param {any} transactionSignedCallback callback
  * @returns {any} transaction
  */
-sendTokens(recipientAddress, amount){
-   return this.Tx.sendTokens(this, recipientAddress, amount); 
-} 
+  sendTokens(recipientAddress, amount, transactionCallback = console.log, transactionSignedCallback = console.log) {
+       console.log("sending ", recipientAddress);
+       return this.Tx.sendTokens(this, recipientAddress, amount, transactionCallback, transactionSignedCallback); 
+  } 
 
 /**
 * Send amount of tokens to subdomain
