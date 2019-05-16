@@ -19,6 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="abi\Multibox.json" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="readme.md" />
@@ -52,6 +53,7 @@
     <Folder Include="models" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="lib\FDS-Multibox.js" />
     <Compile Include="lib\FDS-Tx.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
