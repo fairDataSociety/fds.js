@@ -152,7 +152,7 @@ Restores account from file object.
 
 ```
 fds.RestoreAccount(backupFile);
- // File { name: "fairdrop-wallet-test2153-backup.json", size: 486, type: "text/json", webkitRelativePath: ""}
+ // File { name: "fds-wallet-test2153-backup.json", size: 486, type: "text/json", webkitRelativePath: ""}
 ```
 
 ##### Restore Account from Private Key
@@ -404,7 +404,7 @@ let createDeleteAndRestore = ()=>{
       throw new Error(`account ${account1.subdomain} exists`)
     }
   }).then(()=>{
-    let backupFile = new File([backupJSON], `fairdrop-wallet-${account1.subdomain}-backup (1).json`, {type: 'text/plain'});
+    let backupFile = new File([backupJSON], `fds-wallet-${account1.subdomain}-backup (1).json`, {type: 'text/plain'});
     window.FDS.RestoreAccount(backupFile).then(()=>{
       let accounts = window.FDS.GetAccounts();
       let f = accounts.filter((a)=>{return a.subdomain === account1.subdomain});

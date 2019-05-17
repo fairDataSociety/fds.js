@@ -13,6 +13,9 @@ class User {
 
     this.subdomain = attrs.subdomain;
     this.wallet = attrs.wallet;
+
+    this.applicationDomainNodeName = "/shared/fds"; // should be overriden by each application
+    //  /shared/fds/subdomain/public 
     return this;
   }
 
@@ -60,6 +63,11 @@ class User {
         return this.Tx.sendTokens(this, recipientAddress, amount);
     }
 
+    /**
+     * get address in form 0x...
+     * @param {any} subdomain name of account
+     * @returns {any} address 0x0 
+     */
     async getAddressOf(subdomain) {
         let contact = await this.lookupContact(subdomain, console.log, console.log, console.log);
         let hex = "0x" + contact.publicKey.substring(2, 132);
@@ -192,13 +200,13 @@ class User {
   getBackup(){
     return {
       data: JSON.stringify(this.wallet), 
-      name: `fairdrop-wallet-${this.subdomain}-backup.json` 
+      name: `fds-wallet-${this.subdomain}-backup.json` 
     }
   }
     /** get wallet file 
      *  @returns {any} wallet file */
   getBackupFile(){
-    return new File([JSON.stringify(this.wallet)], `fairdrop-wallet-${this.subdomain}-backup.json`, {type: 'application/json'});
+    return new File([JSON.stringify(this.wallet)], `fds-wallet-${this.subdomain}-backup.json`, {type: 'application/json'});
   }
     /** Save wallet backup
      *  @returns {any} result of save operation */
