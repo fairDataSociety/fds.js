@@ -140,7 +140,7 @@ async getAddressOf(subdomain) {
      * @returns {any} retrieved value
      */
   retrieveValue(key){
-    return this.SwarmStore.retrieveValue(key, this);
+    return this.SwarmStore.retrieveValue(key, this.address);
   }  
     /**
      * store encrypted value
@@ -208,13 +208,13 @@ async getAddressOf(subdomain) {
   getBackup(){
     return {
       data: JSON.stringify(this.wallet), 
-      name: `fairdrop-wallet-${this.subdomain}-backup.json` 
+      name: `fds-wallet-${this.subdomain}-backup.json` 
     }
   }
     /** get wallet file 
      *  @returns {any} wallet file */
   getBackupFile(){
-    return new File([JSON.stringify(this.wallet)], `fairdrop-wallet-${this.subdomain}-backup.json`, {type: 'application/json'});
+    return new File([JSON.stringify(this.wallet)], `fds-wallet-${this.subdomain}-backup.json`, {type: 'application/json'});
   }
     /** Save wallet backup
      *  @returns {any} result of save operation */
