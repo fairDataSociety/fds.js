@@ -2,7 +2,7 @@ let FileSaver = require('file-saver');
 
 class User {
 
-  constructor(attrs, Account){
+    constructor(attrs, Account, domainName = "/shared/fds"){
     if(attrs.subdomain === undefined) throw new Error('subdomain must be defined');
     if(attrs.wallet === undefined) throw new Error('wallet must be defined');
 
@@ -14,7 +14,7 @@ class User {
     this.subdomain = attrs.subdomain;
     this.wallet = attrs.wallet;
 
-    this.applicationDomainNodeName = "/shared/fds"; // should be overriden by each application
+    this.applicationDomain = domainName;
     //  /shared/fds/subdomain/public 
     return this;
   }
@@ -26,17 +26,23 @@ class User {
       };
   }
 
-    /**
-     * Send file 
-     * @param {any} recipientSubdomain name 
-     * @param {any} file to send 
-     * @param {any} encryptionCallback callback
-     * @param {any} uploadCallback callback
-     * @param {any} progressMessageCallback callback
-     * @returns {any} result
-     */
-  send(recipientSubdomain, file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log){
-    return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback); 
+  setApplicationDomain(domainName)
+  {
+      this.applicationDomain = domainName;
+  }
+   
+  /**
+  * Send file 
+  * @param {any} recipientSubdomain name 
+  * @param {any} file to send 
+  * @param {any} encryptionCallback callback
+  * @param {any} uploadCallback callback
+  * @param {any} progressMessageCallback callback
+  * @returns {any} result
+  */
+  async send(recipientSubdomain, file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log) {
+     console.log(this.applicationDomain);
+     return await this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback); 
   }
 
     /**

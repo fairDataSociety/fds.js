@@ -7,15 +7,17 @@ let Tx = require('./lib/FDS-Tx.js');
 class FDS {
 
   constructor(config){
-    this.ethGateway = config.ethGateway
-    this.swarmGateway = config.swarmGateway
+      this.ethGateway = config.ethGateway;
+      this.swarmGateway = config.swarmGateway;
 
-    this.currentAccount = null;
+      this.currentAccount = null;
 
-    this.Account = new Account(config);
-    this.Tx = new Tx(config);
+      this.Account = new Account(config);
+      this.Tx = new Tx(config);
 
-    this.Crypto = Crypto;
+      this.Crypto = Crypto;
+
+      this.applicationDomain = config.applicationDomain;
   }
 
   /**
