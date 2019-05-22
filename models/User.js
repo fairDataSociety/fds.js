@@ -35,14 +35,15 @@ class User {
   * Send file 
   * @param {any} recipientSubdomain name 
   * @param {any} file to send 
+  * @param {any} applicationDomain  application domain node
   * @param {any} encryptionCallback callback
   * @param {any} uploadCallback callback
   * @param {any} progressMessageCallback callback
   * @returns {any} result
   */
-  async send(recipientSubdomain, file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log) {
-     console.log(this.applicationDomain);
-     return await this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback); 
+  async send(recipientSubdomain, file, applicationDomain=this.applicationDomain, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log) {
+     encryptionCallback("ApplicationDomain:" + this.applicationDomain);
+     return await this.Mail.send(this, recipientSubdomain, file, applicationDomain, encryptionCallback, uploadCallback, progressMessageCallback); 
   }
 
     /**
@@ -115,13 +116,14 @@ class User {
     /**
      * Get messages
      * @param {any} query to lookup to
+     * @param {any} applicationDomain where to look for messages 
      * @returns {any} available messages
      */
-  messages(query = 'received'){
+  messages(query = 'received', applicationDomain = this.applicationDomain){
     if(['received','sent', 'saved'].indexOf(query) === -1){
       throw new Error('must be of type received, sent or saved');
     }
-    return this.Mail.getMessages(query, this);
+    return this.Mail.getMessages(query, this, applicationDomain);
   }
     /**
      * store value
