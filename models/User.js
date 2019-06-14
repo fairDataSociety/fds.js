@@ -19,7 +19,7 @@ let Web3Utils = require('web3-utils');
 
 class User {
 
-  constructor(attrs, Account){
+    constructor(attrs, Account, domainName = "/shared/fds"){
     if(attrs.subdomain === undefined) throw new Error('subdomain must be defined');
     if(attrs.wallet === undefined) throw new Error('wallet must be defined');
 
@@ -30,6 +30,9 @@ class User {
 
     this.subdomain = attrs.subdomain;
     this.wallet = attrs.wallet;
+
+    this.applicationDomain = domainName;
+    //  /shared/fds/subdomain/public 
     return this;
   }
 
@@ -40,7 +43,6 @@ class User {
       };
   }
 
-
   deployContract(abi, bytecode, args = [], nonce, gas = 1500000){
     return this.Tx.deployContract(this, abi, bytecode, args, nonce, gas);
   }
@@ -49,30 +51,62 @@ class User {
     return this.Tx.getContract(this, abi, bytecode, address);
   }
 
+  setApplicationDomain(domainName)
+  {
+      this.applicationDomain = domainName;
+  }
+   
   /**
-   * Send file 
-   * @param {any} recipientSubdomain name 
-   * @param {any} file to send 
-   * @param {any} encryptionCallback callback
-   * @param {any} uploadCallback callback
-   * @param {any} progressMessageCallback callback
-   * @returns {any} result
-   */
-  send(recipientSubdomain, file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log){
-    return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback); 
+  * Send file 
+  * @param {any} recipientSubdomain name 
+  * @param {any} file to send 
+  * @param {any} applicationDomain  application domain node
+  * @param {any} encryptionCallback callback
+  * @param {any} uploadCallback callback
+  * @param {any} progressMessageCallback callback
+  * @returns {any} result
+  */
+  async send(recipientSubdomain, file, applicationDomain=this.applicationDomain, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log) {
+     encryptionCallback("ApplicationDomain:" + this.applicationDomain);
+     return await this.Mail.send(this, recipientSubdomain, file, applicationDomain, encryptionCallback, uploadCallback, progressMessageCallback); 
   }
 
-  /**
-  * send tokens
-  * @param {any} recipientAddress 0xfff
-  * @param {any} amount in eth
-  * @param {any} transactionCallback callback
-  * @param {any} transactionSignedCallback callback
-  * @returns {any} transaction
-  */
-  sendTokens(recipientAddress, amount, transactionCallback = console.log, transactionSignedCallback = console.log) {
-       return this.Tx.sendTokens(this, recipientAddress, amount, transactionCallback, transactionSignedCallback); 
-  } 
+    /**
+     * send tokens
+     * @param {any} recipientAddress 0xfff
+     * @param {any} amount in eth
+     * @param {any} transactionCallback callback
+     * @param {any} transactionSignedCallback callback
+     * @returns {any} transaction
+     */
+    sendTokens(recipientAddress, amount, transactionCallback = console.log, transactionSignedCallback = console.log) {
+        console.log("sending ", recipientAddress);
+        return this.Tx.sendTokens(this, recipientAddress, amount, transactionCallback, transactionSignedCallback);
+    }
+
+    /**
+    * Send amount of tokens to subdomain
+    * @param {any} subdomain to whom to send subdomain
+    * @param {any} amount in ethers
+    * @returns {any} result
+    */
+    async sendTokensTo(subdomain, amount) {
+        let recipientAddress = await this.getAddressOf(subdomain);
+        return this.Tx.sendTokens(this, recipientAddress, amount);
+    }
+
+    /**
+     * get address in form 0x...
+     * @param {any} subdomain name of account
+     * @returns {any} address 0x0 
+     */
+    async getAddressOf(subdomain) {
+        let contact = await this.lookupContact(subdomain, console.log, console.log, console.log);
+        let hex = "0x" + contact.publicKey.substring(2, 132);
+        let hash = this.Tx.web3.utils.keccak256(hex);
+        let recipientAddress = "0x" + hash.slice(24 + 2);
+        return recipientAddress;
+    }
 
   /**
   * Send amount of tokens to subdomain
@@ -123,16 +157,17 @@ class User {
         }
   }
 
-  /**
-   * Get messages
-   * @param {any} query to lookup to
-   * @returns {any} available messages
-   */
-  messages(query = 'received'){
+    /**
+     * Get messages
+     * @param {any} query to lookup to
+     * @param {any} applicationDomain where to look for messages 
+     * @returns {any} available messages
+     */
+  messages(query = 'received', applicationDomain = this.applicationDomain){
     if(['received','sent', 'saved'].indexOf(query) === -1){
       throw new Error('must be of type received, sent or saved');
     }
-    return this.Mail.getMessages(query, this);
+    return this.Mail.getMessages(query, this, applicationDomain);
   }
   
     /**
