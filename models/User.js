@@ -40,6 +40,15 @@ class User {
       };
   }
 
+
+  deployContract(abi, bytecode, args = [], nonce, gas = 1500000){
+    return this.Tx.deployContract(this, abi, bytecode, args, nonce, gas);
+  }
+
+  getContract(abi, bytecode, address){
+    return this.Tx.getContract(this, abi, bytecode, address);
+  }
+
   /**
    * Send file 
    * @param {any} recipientSubdomain name 

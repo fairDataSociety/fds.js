@@ -13,7 +13,7 @@ class FDS {
       faucetAddress: 'https://dfaucet-testnet-prod.herokuapp.com/gimmie',
       chainID: '235813',
       httpTimeout: 1000,
-      gasPrice: 50,
+      gasPrice: 0.2,
       ensConfig: {
         domain: 'datafund.eth',
         registryAddress: '0xc11f4427a0261e5ca508c982e747851e29c48e83',
