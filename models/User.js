@@ -1,4 +1,21 @@
+// Copyright 2019 The FairDataSociety Authors
+// This file is part of the FairDataSociety library.
+//
+// The FairDataSociety library is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// The FairDataSociety library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with the FairDataSociety library. If not, see <http://www.gnu.org/licenses/>.
+
 let FileSaver = require('file-saver');
+let Web3Utils = require('web3-utils');
 
 class User {
 
@@ -83,15 +100,43 @@ class User {
         return recipientAddress;
     }
 
-    /**
-     * Send file 
-     * @param {any} recipientSubdomain name 
-     * @param {any} file to send 
-     * @param {any} encryptionCallback callback
-     * @param {any} uploadCallback callback
-     * @param {any} progressMessageCallback callback
-     * @returns {any} result
-     */
+  deployContract(abi, bytecode, args = [], nonce, gas = 1500000){
+    return this.Tx.deployContract(this, abi, bytecode, args, nonce, gas);
+  }
+
+  getContract(abi, bytecode, address){
+    return this.Tx.getContract(this, abi, bytecode, address);
+  }
+
+
+  /**
+  * Send amount of tokens to subdomain
+  * @param {any} subdomain to whom to send subdomain
+  * @param {any} amount in ethers
+  * @returns {any} result
+  */
+  async sendTokensTo(subdomain, amount) {
+    let recipientAddress = await this.getAddressOf(subdomain);
+    return this.Tx.sendTokens(this, recipientAddress, amount);
+    }
+
+  async getAddressOf(subdomain) {
+    let contact = await this.lookupContact(subdomain, console.log, console.log, console.log);
+    let hex = "0x" + contact.publicKey.substring(2, 132);
+    let hash = Web3Utils.keccak256(hex);
+    let recipientAddress = "0x" + hash.slice(24 + 2);
+    return recipientAddress;
+  }
+
+  /**
+   * Send file 
+   * @param {any} recipientSubdomain name 
+   * @param {any} file to send 
+   * @param {any} encryptionCallback callback
+   * @param {any} uploadCallback callback
+   * @param {any} progressMessageCallback callback
+   * @returns {any} result
+   */
   getBalance(){
     return this.Tx.getBalance(this.address); 
   }    
@@ -125,6 +170,7 @@ class User {
     }
     return this.Mail.getMessages(query, this, applicationDomain);
   }
+  
     /**
      * store value
      * @param {any} key to store under
@@ -134,14 +180,16 @@ class User {
   storeValue(key, value){
     return this.SwarmStore.storeValue(key, value, this);
   }
+
     /**
      * retrieve value
      * @param {any} key to lookup
      * @returns {any} retrieved value
      */
   retrieveValue(key){
-    return this.SwarmStore.retrieveValue(key, this);
+    return this.SwarmStore.retrieveValue(key, this.address);
   }  
+
     /**
      * store encrypted value
      * @param {any} key to store under
@@ -151,6 +199,7 @@ class User {
   storeEncryptedValue(key, value){
     return this.SwarmStore.storeEncryptedValue(key, value, this, this.privateKey);
   }
+
     /**
      * retrieve decrypted value
      * @param {any} key to lookup
@@ -158,7 +207,8 @@ class User {
      */
   retrieveDecryptedValue(key){
     return this.SwarmStore.retrieveDecryptedValue(key, this.address, this.privateKey);
-  }    
+  } 
+
     /**
      * Store file
      * @param {any} file to store
@@ -170,54 +220,61 @@ class User {
   store(file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log){
     return this.SwarmStore.storeFile(this, file, encryptionCallback, uploadCallback, progressMessageCallback);
   }
-    /** @returns {Contact} array of contacts */
+  
+  /** @returns {Contact} array of contacts */
   getContacts(){
     return this.SwarmStore.getContacts(this);
   }
-    /**
-     * 
-     * @param {Contact} contact to store
-     * @returns {any} stored
-     */
+
+  /**
+   * 
+   * @param {Contact} contact to store
+   * @returns {any} stored
+   */
   storeContact(contact){
     return this.SwarmStore.storeContact(this, contact);
   }
-    /**
-     * Get contact if it exists
-     * @param {any} recipientSubdomain name
-     * @param {any} encryptProgressCallback callback
-     * @param {any} uploadProgressCallback callback
-     * @param {any} progressMessageCallback callback
-     * @returns {Contact} contact
-     */
+
+  /**
+   * Get contact if it exists
+   * @param {any} recipientSubdomain name
+   * @param {any} encryptProgressCallback callback
+   * @param {any} uploadProgressCallback callback
+   * @param {any} progressMessageCallback callback
+   * @returns {Contact} contact
+   */
   lookupContact(recipientSubdomain, encryptProgressCallback = console.log, uploadProgressCallback = console.log, progressMessageCallback = console.log)
   {
       return this.Mail.lookupContact(this, recipientSubdomain, encryptProgressCallback = console.log, uploadProgressCallback = console.log, progressMessageCallback = console.log);
   }
-    /**
-     * check stored files
-     * @param {any} query to lookup
-     * @returns {any} stored 
-     */
+
+  /**
+   * check stored files
+   * @param {any} query to lookup
+   * @returns {any} stored 
+   */
   stored(query){
     return this.SwarmStore.getStored(query, this);
   }
-    /** Get backup of wallet 
-     * @returns {any} file
-     */
+
+  /** Get backup of wallet 
+   * @returns {any} file
+   */
   getBackup(){
     return {
       data: JSON.stringify(this.wallet), 
       name: `fds-wallet-${this.subdomain}-backup.json` 
     }
   }
-    /** get wallet file 
-     *  @returns {any} wallet file */
+
+  /** get wallet file 
+   *  @returns {any} wallet file */
   getBackupFile(){
     return new File([JSON.stringify(this.wallet)], `fds-wallet-${this.subdomain}-backup.json`, {type: 'application/json'});
   }
-    /** Save wallet backup
-     *  @returns {any} result of save operation */
+
+  /** Save wallet backup
+   *  @returns {any} result of save operation */
   saveBackupAs(){
     return FileSaver.saveAs(this.getBackupFile());
   }

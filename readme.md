@@ -23,19 +23,7 @@ It provides simple encrypted file storage, key value storage and file sending wi
 Initialise FDS.
 
 ```
-var fds = new FDS({
-  swarmGateway: 'http://46.101.44.145:8500', 
-  ethGateway: 'http://46.101.44.145:8545',
-  faucetAddress: 'https://dfaucet-2.herokuapp.com/gimmie',
-  httpTimeout: 1000,
-  gasPrice: 50, //gwei    
-  ensConfig: {
-    domain: 'resolver.eth',
-    registryAddress: '0x309cb2ad217b3d673f53d404369234c5e51e8844',
-    fifsRegistrarContractAddress: '0x6edaaffffa8678da1e2275c78d56f4d5e1f0dfb4',
-    resolverContractAddress: '0x3969509b5db6b786d0e0b12386405c0faee66414'
-  }
-});
+var fds = new FDS();  
 ```
 
 Create an account.
@@ -112,6 +100,24 @@ Provided by Fair Data Society, get in touch for tokens!
 
 ### Reference
 
+#### Options
+
+```
+var fds = new FDS({
+      swarmGateway: 'https://swarm.fairdatasociety.org',
+      ethGateway: 'https://geth-noordung.fairdatasociety.org',
+      faucetAddress: 'https://dfaucet-testnet-prod.herokuapp.com/gimmie',
+      chainID: '235813',
+      httpTimeout: 1000,
+      gasPrice: 50,
+      ensConfig: {
+        domain: 'datafund.eth',
+        registryAddress: '0xc11f4427a0261e5ca508c982e747851e29c48e83',
+        fifsRegistrarContractAddress: '0x01591702cb0c1d03b15355b2fab5e6483b6db9a7',
+        resolverContractAddress: '0xf70816e998819443d5506f129ef1fa9f9c6ff5a7'
+      });
+```
+
 #### Account
 
 ##### Create Account
@@ -169,6 +175,82 @@ account.getBalance().then(console.log);
 account.sendTokens('0xf1f....', '1').then((stored)=>{
   console.log(`>>>> successfully stored ${stored}`);
 });
+```
+
+##### Contracts
+
+```
+let createAndDeployContract = (setOutput, setResults)=>{
+  let r1 = Math.floor(Math.random() * 1010101);
+  let r2 = Math.floor(Math.random() * 1010101);
+  let account1, account2 = null;
+  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
+    account1 = account;
+    setOutput(`registered account 1 ${account1.subdomain}`);  
+  }).then(()=>{
+    return window.FDS.UnlockAccount(`test${r1}`, 'test').then((acc1)=>{
+      // console.log(ConsentManager);
+      return acc1.deployContract(ConsentManager.abi, ConsentManager.bytecode);
+    }).then((contract)=>{
+      console.log('x',contract);
+    })
+  })
+}
+
+let createAndRetrieveContract = (setOutput, setResults)=>{
+  let r1 = Math.floor(Math.random() * 1010101);
+  let r2 = Math.floor(Math.random() * 1010101);
+  let account1, account2 = null;
+  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
+    account1 = account;
+    setOutput(`registered account 1 ${account1.subdomain}`);  
+  }).then(()=>{
+    return window.FDS.UnlockAccount(`test${r1}`, 'test').then((acc1)=>{
+      // console.log(ConsentManager);
+      account1 = acc1;
+      return acc1.getContract(ConsentManager.abi, ConsentManager.bytecode, '0x86104EC7d2830E54B43EA9C073f2Dc34030925c6');
+    }).then(async (contract) =>{
+      return contract.send('createConsent', ['0x'+account1.wallet.address, '0x6a208021508e3a77ae1517bb8bfa4dbf8a05517a', '0xc016ed5d54e357cb4a7460cb1b13b3f499dc4f428453fec21613e9339faaeb3f']);
+    })
+  })
+}
+
+let createAndDeployMetacoin = (setOutput, setResults)=>{
+  let r1 = Math.floor(Math.random() * 1010101);
+  let r2 = Math.floor(Math.random() * 1010101);
+  let account1, account2 = null;
+  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
+    account1 = account;
+    setOutput(`registered account 1 ${account1.subdomain}`);  
+  }).then(()=>{
+    return window.FDS.UnlockAccount(`test${r1}`, 'test').then((acc1)=>{
+      let contract = acc1.deployContract(Metacoin.abi, Metacoin.bytecode, [98], null, 25000000);
+      return contract;
+    }).then((contract)=>{
+      contract.call('vers').then(console.log)
+    })
+  })
+}
+
+
+let createAndRetrieveMetacoin = (setOutput, setResults)=>{
+  let r1 = Math.floor(Math.random() * 1010101);
+  let r2 = Math.floor(Math.random() * 1010101);
+  let account1, account2 = null;
+  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
+    account1 = account;
+    setOutput(`registered account 1 ${account1.subdomain}`);  
+  }).then(()=>{
+    return window.FDS.UnlockAccount(`test${r1}`, 'test').then((acc1)=>{
+      // console.log(ConsentManager);
+      account1 = acc1;
+      return acc1.getContract(Metacoin.abi, Metacoin.bytecode, "0x8183e6C5fE1C0c283918858f094330959bEE5B9C");
+    }).then((contract)=>{
+      contract.call('getBalance', [account1.address]).then(console.log);
+      // let tx = await cm.createConsent(accounts[0], accounts[1], swarmHash1, {from: accounts[0]});
+    })
+  })
+}
 ```
 
 #### Storage
@@ -268,21 +350,19 @@ Pending security review! Not ready for production, just yet, some come ;)
 
 ```
 window.FDS = new FDS({
-      // domain: 'resolver.eth',
-      swarmGateway: 'http://localhost:8500', 
-      ethGateway: 'http://46.101.44.145:8545',
-      faucetAddress: 'https://dfaucet-2.herokuapp.com/gimmie',
-      httpTimeout: 1000,      
-      ensConfig: {
-        domain: 'resolver.eth',
-        registryAddress: '0x309cb2ad217b3d673f53d404369234c5e51e8844',
-        fifsRegistrarContractAddress: '0x6edaaffffa8678da1e2275c78d56f4d5e1f0dfb4',
-        resolverContractAddress: '0x3969509b5db6b786d0e0b12386405c0faee66414'
-      }
-    });
-
-
-
+swarmGateway: 'https://swarm-dev-test.datafund.io',
+ethGateway: 'https://geth-dev.datafund.io',
+faucetAddress: 'https://dfaucet-testnet-dev.herokuapp.com/gimmie',
+chainID: '235813',
+httpTimeout: 1000,
+gasPrice: 50,
+ensConfig: {
+domain: 'datafund.eth',
+registryAddress: '0x246d204ae4897e603b8cb498370dcbb2888213d1',
+fifsRegistrarContractAddress: '0xbbcfe6ccee58d3ebc82dcd4d772b2484d23d0a0b',
+resolverContractAddress: '0x79164c357f81627042d958533bba8a766c81f3d6'
+}
+});    
 
 let simulateCreateTwoAndSendTwo = ()=>{
 
@@ -468,4 +548,84 @@ simulateCreateTwoAndSendTwo();
 // createAndBackup();
 // createDeleteAndRestore();
 
+```
+
+### Troubleshooting Windows installation
+
+Installation steps for Windows to setup FDS library to be used for development locally
+
+Windows 10
+node: 10.15.1
+npm: 6.4.1
+
+1. Clone the FDS repo:
+```
+git clone https://github.com/fairDataSociety/fds.js.git
+```
+2. Change directory to the FDS repo
+3. Run: 
+```
+npm link
+```
+
+If you see the following errors:
+
+```
+npm WARN tarball tarball data for file-saver@1.3.8 seems to be corrupted. Trying one more time.
+npm WARN tar ENOENT: no such file or directory, open 'C:\fds.js\node_modules\.staging\type-is-55fc7b2b\package.json'
+...
+npm ERR! code EINTEGRITY
+npm ERR! Verification failed while extracting file-saver@1.3.8:
+```
+
+Install latest file-saver
+```
+npm install file-saver --save
+```
+
+If you get python errors like:
+
+```
+gyp ERR! stack Error: Command failed: C:\Users\TestUser\Anaconda3\python.exe -c import sys; print "%s.%s.%s" % sys.version_info[:3];
+gyp ERR! stack   File "<string>", line 1
+gyp ERR! stack     import sys; print "%s.%s.%s" % sys.version_info[:3];
+gyp ERR! stack SyntaxError: invalid syntax
+gyp ERR! stack     at ChildProcess.exithandler (child_process.js:294:12)
+gyp ERR! stack     at ChildProcess.emit (events.js:182:13)
+gyp ERR! stack     at maybeClose (internal/child_process.js:962:16)
+gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:251:5)
+....
+```
+
+This means you have the python 3 installed, if you already have python27 installed, set the environment variable by running:
+
+```
+npm config set python "path to python 2.7 exe"
+```
+
+If you encounter this error:
+
+Error: Can't find Python executable "python", you can set the PYTHON env variable
+
+This means python is not installed. Python 2.7 is required on the system. Download the installer from https://www.python.org/downloads/release/python-2716/
+
+After installation is complete, open new command prompt window, change directory to the FDS repo and run:
+npm link
+
+The libray should compile and build and if you come across vulnerabilities message:
+```
+Added 354 packages from 216 contributors and audited 172164 packages in 64.674s
+found 2 high severity vulnerabilities
+run `npm audit fix` to fix them, or `npm audit` for details
+```
+
+run twice:
+```
+npm audit fix
+```
+
+Now FDS repo is available to be imported in your project:
+
+```
+import FDS from 'fds';
 ```

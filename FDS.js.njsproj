@@ -20,6 +20,9 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include="abi\Multibox.json" />
+    <Content Include="AUTHORS" />
+    <Content Include="COPYING" />
+    <Content Include="COPYING.LESSER" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="readme.md" />

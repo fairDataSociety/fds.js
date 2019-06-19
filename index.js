@@ -23,9 +23,30 @@ let Tx = require('./lib/FDS-Tx.js');
 
 class FDS {
 
-  constructor(config){
-      this.ethGateway = config.ethGateway;
-      this.swarmGateway = config.swarmGateway;
+  defaultConfig(){
+    return {
+      swarmGateway: 'https://swarm.fairdatasociety.org',
+      ethGateway: 'https://geth-noordung.fairdatasociety.org',
+      faucetAddress: 'https://dfaucet-testnet-prod.herokuapp.com/gimmie',
+      chainID: '235813',
+      httpTimeout: 1000,
+      gasPrice: 0.2,
+      ensConfig: {
+        domain: 'datafund.eth',
+        registryAddress: '0xc11f4427a0261e5ca508c982e747851e29c48e83',
+        fifsRegistrarContractAddress: '0x01591702cb0c1d03b15355b2fab5e6483b6db9a7',
+        resolverContractAddress: '0xf70816e998819443d5506f129ef1fa9f9c6ff5a7'
+      }
+    }
+  }
+
+  constructor(config = false){
+    if(config === false){
+      config = this.defaultConfig();
+    }
+
+    this.ethGateway = config.ethGateway
+    this.swarmGateway = config.swarmGateway
 
       this.currentAccount = null;
 
