@@ -151,8 +151,8 @@ class User {
      * @returns {any} retrieved value
      */
   retrieveValue(key){
-    return this.SwarmStore.retrieveValue(key, this.address);
-  }  
+    return this.SwarmStore.retrieveValue(key, this);
+  }
 
     /**
      * store encrypted value

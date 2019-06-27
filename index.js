@@ -3,6 +3,7 @@ let UserStore = require('./lib/FDS-UserStore.js');
 let Wallet = require('./lib/FDS-Wallet.js');
 let Crypto = require('./lib/FDS-Crypto.js');
 let Tx = require('./lib/FDS-Tx.js');
+let Utils = require('./lib/FDS-Utils.js');
 
 class FDS {
 
@@ -36,6 +37,8 @@ class FDS {
     this.Account = new Account(config);
     this.Tx = new Tx(config);
 
+    this.Utils = Utils;
+
     this.Crypto = Crypto;
   }
 
@@ -59,9 +62,6 @@ class FDS {
   CreateAccount(subdomain, password, feedbackMessageCallback = console.log){
     return this.Account.create(subdomain, password, feedbackMessageCallback).then((account)=>{
       return account;
-    }).then(()=>{
-      let currentAccount = this.UnlockAccount(subdomain, password);
-      return currentAccount;
     });
   }
 
