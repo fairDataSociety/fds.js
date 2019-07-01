@@ -41,9 +41,9 @@ class User {
   * @param {any} progressMessageCallback callback
   * @returns {any} result
   */
-  async send(recipientSubdomain, file, applicationDomain=this.applicationDomain, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log) {
-     encryptionCallback("ApplicationDomain:" + this.applicationDomain);
-     return await this.Mail.send(this, recipientSubdomain, file, applicationDomain, encryptionCallback, uploadCallback, progressMessageCallback); 
+  async send(recipientSubdomain, file, applicationDomain = this.applicationDomain, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log) {
+     //encryptionCallback("ApplicationDomain:" + this.applicationDomain);
+      return await this.Mail.send(this, recipientSubdomain, file, applicationDomain, encryptionCallback, uploadCallback, progressMessageCallback); 
   }
 
     /**
