@@ -82,6 +82,29 @@ class User {
         let recipientAddress = "0x" + hash.slice(24 + 2);
         return recipientAddress;
     }
+    /**
+     * deploy contract returns address
+     * @param {any} abi abi
+     * @param {any} bytecode bytecode
+     * @param {any} args arguments
+     * @param {any} nonce nonce
+     * @param {any} gas gas
+     * @returns {address} address
+     */
+    deployContract(abi, bytecode, args = [], nonce, gas = 1500000) {
+        return this.Tx.deployContract(this, abi, bytecode, args, nonce, gas);
+    }
+
+    /**
+     * Deploy contract returns 
+     * @param {any} abi abi
+     * @param {any} bytecode bytecode
+     * @param {any} address address
+     * @returns {object} contract object
+     */
+    getContract(abi, bytecode, address) {
+        return this.Tx.getContract(this, abi, bytecode, address);
+    }
 
     /**
      * Send file 
