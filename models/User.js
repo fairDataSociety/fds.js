@@ -41,7 +41,7 @@ class User {
   }
 
 
-  deployContract(abi, bytecode, args = [], nonce, gas = 1500000){
+  deployContract(abi, bytecode, args = [], nonce, gas = 15000000){
     return this.Tx.deployContract(this, abi, bytecode, args, nonce, gas);
   }
 
