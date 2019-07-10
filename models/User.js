@@ -30,7 +30,16 @@ class User {
 
     this.subdomain = attrs.subdomain;
     this.wallet = attrs.wallet;
+
+    this.nonce = false;
+
     return this;
+  }
+
+  syncNonce(){
+    return this.Tx.syncNonce(this).then((nonce)=>{
+      this.nonce = nonce;
+    })
   }
 
   toJSON(){
@@ -39,7 +48,6 @@ class User {
           wallet: this.wallet
       };
   }
-
 
   deployContract(abi, bytecode, args = [], nonce, gas = 15000000){
     return this.Tx.deployContract(this, abi, bytecode, args, nonce, gas);
