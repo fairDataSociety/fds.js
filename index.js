@@ -9,6 +9,7 @@ class FDS {
 
   defaultConfig(){
     return {
+      tokenName: 'gas',
       swarmGateway: 'https://swarm.fairdatasociety.org',
       ethGateway: 'https://geth-noordung.fairdatasociety.org',
       faucetAddress: 'https://dfaucet-testnet-prod.herokuapp.com/gimmie',
