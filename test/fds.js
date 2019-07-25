@@ -34,6 +34,23 @@ var fdsConfig = async () => {
         resolverContractAddress: res.address
       }
     }
+
+    // return {
+    //   tokenName: 'gas',
+    //   swarmGateway: 'https://swarm.fairdatasociety.org',
+    //   ethGateway: 'https://geth-noordung.fairdatasociety.org',
+    //   faucetAddress: 'https://dfaucet-testnet-prod.herokuapp.com/gimmie',
+    //   chainID: '235813',
+    //   httpTimeout: 1000,
+    //   gasPrice: 0.2,
+    //   ensConfig: {
+    //     domain: 'datafund.eth',
+    //     registryAddress: ens.address,
+    //     subdomainRegistrarAddress: sub.address,
+    //     resolverContractAddress: res.address
+    //   }
+    // }
+
   };
 
 class File{
@@ -88,8 +105,8 @@ contract('FDS', function(accounts) {
     // ens = await ENS.deployed();
     // dhr = await DummyHashRegistrar.deployed();
     // resolver = await TestResolver.deployed();
-  
-    FDS = new fds(await fdsConfig());
+    let config = await fdsConfig()
+    FDS = new fds(config);
     // FDS = new fds();
 
     subdomain = `test${rand(0)}`;   

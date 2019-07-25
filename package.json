@@ -44,5 +44,8 @@
   "bugs": {
     "url": "https://github.com/fairDataSociety/fds.js/issues"
   },
-  "homepage": "https://github.com/fairDataSociety/fds.js#readme"
+  "homepage": "https://github.com/fairDataSociety/fds.js#readme",
+  "devDependencies": {
+    "truffle-privatekey-provider": "^1.3.0"
+  }
 }
