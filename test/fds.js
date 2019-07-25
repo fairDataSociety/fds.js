@@ -159,7 +159,7 @@ contract('FDS', function(accounts) {
   it('should send a file', async function() {
     let file = new File(['hello sending world'], `test${rand(0)}.txt`, {type: 'text/plain'});
 
-    let sent = await acc1.send(acc2, file, ()=>{}, ()=>{}, ()=>{});
+    let sent = await acc1.send(acc2.subdomain, file, ()=>{}, ()=>{}, ()=>{});
 
     let outcome = await waitForAssert(async () => {
       let messages = await acc2.messages();
