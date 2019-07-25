@@ -57,9 +57,8 @@ module.exports = {
     },
 
     noordung: {
-      provider: new PrivateKeyProvider("BCE32EA63E75B5E302FF2E2519FCF3F6FE099CCB88CD0E8DCD8DC1CCC56227DB", "https://geth-noordung.fairdatasociety.org"),
-      port: 8545,
-      network_id: "*"
+      provider: () => { return new PrivateKeyProvider("BCE32EA63E75B5E302FF2E2519FCF3F6FE099CCB88CD0E8DCD8DC1CCC56227DB", "https://geth-noordung.fairdatasociety.org") },
+      network_id: 235813
     },
 
     // Another network with more advanced options...
@@ -93,7 +92,7 @@ module.exports = {
 
   // Set default mocha options here, use special reporters etc.
   mocha: {
-    // timeout: 100000
+      enableTimeouts: false
   },
 
   // Configure your compilers
