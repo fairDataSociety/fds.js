@@ -136,11 +136,11 @@ class User {
    * @param {any} query to lookup to
    * @returns {any} available messages
    */
-  messages(query = 'received'){
+  messages(query = 'received', multiboxPath){
     if(['received','sent', 'saved'].indexOf(query) === -1){
       throw new Error('must be of type received, sent or saved');
     }
-    return this.Mail.getMessages(query, this);
+    return this.Mail.getMessages(query, this, multiboxPath);
   }
   
     /**

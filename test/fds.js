@@ -18,7 +18,6 @@ var fdsConfig = async () => {
   let reg = await TestRegistrar.deployed()
   let res = await TestResolver.deployed()
   let sub = await SubdomainRegistrar.deployed()
-
   return {
       tokenName: 'gas',
       swarmGateway: 'http://localhost:8500',
@@ -105,8 +104,17 @@ contract('FDS', function(accounts) {
     // ens = await ENS.deployed();
     // dhr = await DummyHashRegistrar.deployed();
     // resolver = await TestResolver.deployed();
-    let config = await fdsConfig()
-    FDS = new fds(config);
+
+
+    
+    // console.log('test');
+    // let config = await fdsConfig();
+    // console.log(config);
+    // FDS = new fds(config);
+
+
+    FDS = new fds();
+
     // FDS = new fds();
 
     subdomain = `test${rand(0)}`;   
