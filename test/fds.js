@@ -108,12 +108,12 @@ contract('FDS', function(accounts) {
 
     
     // console.log('test');
-    // let config = await fdsConfig();
+    let config = await fdsConfig();
     // console.log(config);
-    // FDS = new fds(config);
+    FDS = new fds(config);
 
 
-    FDS = new fds();
+    // FDS = new fds();
 
     // FDS = new fds();
 
