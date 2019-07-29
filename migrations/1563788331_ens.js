@@ -1,5 +1,5 @@
 var TestRegistrar = artifacts.require("@ensdomains/ens/TestRegistrar");
-var TestResolver = artifacts.require("PublicResolver");
+var PublicResolver = artifacts.require("PublicResolver");
 var ENS = artifacts.require("@ensdomains/ens/ENSRegistry");
 var SubdomainRegistrar = artifacts.require("SubdomainRegistrar");
 
@@ -18,12 +18,12 @@ module.exports = function (deployer, network, accounts) {
             const ens = await ENS.deployed();
 
             await deployer.deploy(TestRegistrar, ens.address, namehash.hash('eth'));
-            await deployer.deploy(TestResolver, ens.address);
+            await deployer.deploy(PublicResolver, ens.address);
 
             await ens.setSubnodeOwner('0x0', '0x' + sha3('eth'), accounts[0]);
             await ens.setSubnodeOwner(namehash.hash('eth'), '0x' + sha3('datafund'), accounts[0]);
 
-            const resolver = await TestResolver.deployed();
+            const resolver = await PublicResolver.deployed();
             await ens.setResolver(namehash.hash('datafund.eth'), resolver.address);
 
             const dhr = await TestRegistrar.deployed();
@@ -33,7 +33,7 @@ module.exports = function (deployer, network, accounts) {
 
             const registrar = await SubdomainRegistrar.deployed();
             await ens.setSubnodeOwner(namehash.hash('eth'), '0x' + sha3('datafund'), registrar.address);
-
+            console.log('done')
             // @todo figure out why this doesn't work
             // return Promise.map(domainnames, async function(domain) {
             //     if(domain.registrar !== undefined) return;
