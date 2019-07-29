@@ -11,7 +11,7 @@ var Promise = require('bluebird');
 
 module.exports = function (deployer, network, accounts) {
     return deployer.then(async () => {
-        // if (network == "test") {
+        if (network == "test" || network == "develop") {
 
             await deployer.deploy(ENS);
 
@@ -33,18 +33,10 @@ module.exports = function (deployer, network, accounts) {
 
             const registrar = await SubdomainRegistrar.deployed();
             await ens.setSubnodeOwner(namehash.hash('eth'), '0x' + sha3('datafund'), registrar.address);
-            console.log('done')
-            // @todo figure out why this doesn't work
-            // return Promise.map(domainnames, async function(domain) {
-            //     if(domain.registrar !== undefined) return;
-            //     await dhr.setSubnodeOwner('0x' + sha3(domain.name), accounts[0]);
-            //     await dhr.transfer('0x' + sha3(domain.name), registrar.address);
-            //     await registrar.configureDomain(domain.name, '10000000000000000', 100000);
-            // });
-
-        // } else {
-        //     const ens = ENS.deployed();
-        //     await deployer.deploy(SubdomainRegistrar, ens.address);
-        // }
+            
+        } else {
+            // const ens = ENS.deployed();
+            // await deployer.deploy(SubdomainRegistrar, ens.address);
+        }
     });
 };

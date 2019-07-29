@@ -64,16 +64,13 @@ async function waitForAssert(func, val, ticks = 0, maxTicks = 10){
   ticks+=1;
   let resp = await func();
   if(resp === val){
-    // console.log('complete', resp);
     return true;
   }else{
     if(ticks < maxTicks){
       return new Promise((resolve, reject) => {
-        console.log('trying again', val, resp);
+        // console.log('trying again', val, resp);
         setTimeout(()=>{
-          // .then((response)=>{
             resolve(waitForAssert(func, val, ticks))
-          // });
         }, 1000);
       });
     }else{
@@ -105,17 +102,9 @@ contract('FDS', function(accounts) {
     // dhr = await DummyHashRegistrar.deployed();
     // resolver = await TestResolver.deployed();
 
-
     
-    // console.log('test');
     let config = await fdsConfig();
-    // console.log(config);
     FDS = new fds(config);
-
-
-    // FDS = new fds();
-
-    // FDS = new fds();
 
     subdomain = `test${rand(0)}`;   
     subdomain2 = `test${rand(1)}`;        

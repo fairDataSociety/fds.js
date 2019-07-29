@@ -30,8 +30,6 @@ class FDS {
       config = this.defaultConfig();
     }
 
-    console.log('x',config);
-
     this.ethGateway = config.ethGateway
     this.swarmGateway = config.swarmGateway
 
