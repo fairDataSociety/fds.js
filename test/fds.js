@@ -18,6 +18,10 @@ var fdsConfig = async () => {
   let reg = await TestRegistrar.deployed()
   let res = await TestResolver.deployed()
   let sub = await SubdomainRegistrar.deployed()
+
+  let backup;
+  let contractAddress;
+
   return {
       tokenName: 'gas',
       swarmGateway: 'http://localhost:8500',
@@ -199,5 +203,57 @@ contract('FDS', function(accounts) {
     }, 'hello value world ' + rand(0));
 
     assert.equal(outcome, true);
+  });  
+
+  it('should deploy a contract', async function() {
+    let account = await FDS.UnlockAccount(subdomain, 'test');
+
+    let contract = await account.deployContract(ENS.abi, ENS.bytecode);
+
+    let tx = await contract.send('setSubnodeOwner', ['0x0000000000000000000000000000000000000000000000000000000000000000', '0x4f5b812789fc606be1b3b16908db13fc7a9adf7ca72641f84d75b47069d3d7f0', account.address]);
+
+    contractAddress = contract.contractAddress;
+
+    let sno = await contract.call('owner', ['0x0000000000000000000000000000000000000000000000000000000000000000']);
+
+    assert.equal(sno.toLowerCase(), account.address);
+  });   
+
+  it('should retreive a contract', async function() {
+    let account = await FDS.UnlockAccount(subdomain, 'test');
+
+    let contract = await account.getContract(ENS.abi, ENS.bytecode, contractAddress);
+
+    let tx = await contract.send('setSubnodeOwner', ['0x0000000000000000000000000000000000000000000000000000000000000000', '0x4f5b812789fc606be1b3b16908db13fc7a9adf7ca72641f84d75b47069d3d7f0', account.address]);
+
+    let sno = await contract.call('owner', ['0x0000000000000000000000000000000000000000000000000000000000000000']);
+
+    assert.equal(sno.toLowerCase(), account.address);
+  });      
+
+  it('should store create a backup', async function() {
+    let account = await FDS.UnlockAccount(subdomain, 'test');
+
+    backup = account.getBackup();
+    
+    assert.equal(backup.name, `fds-wallet-${subdomain}-backup.json` );
+    assert.equal('0x'+JSON.parse(backup.data).address, account.address);
+  });
+
+  it('should delete an account', async function() {
+    let account = await FDS.DeleteAccount(subdomain);
+
+    let accounts = FDS.GetAccounts();
+    let f = accounts.filter((a)=>{return a.subdomain === subdomain});
+    
+    assert.equal(f.length, 0);
+  });  
+
+  it('should restore an account', async function() {
+    await FDS.RestoreAccountFromJSON(subdomain, backup.data);
+
+    let account = await FDS.UnlockAccount(subdomain, 'test');
+    
+    assert.equal(account.subdomain, subdomain);
   });  
 });

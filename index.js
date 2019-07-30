@@ -114,6 +114,16 @@ class FDS {
   }
 
   /**
+   * Restores an FDS account from a string.
+   * @get
+   * @param {string} file wallet in JSON
+   * @returns {boolean} true if successful
+   */
+  RestoreAccountFromJSON(subdomain, json){
+    return this.Account.restore(subdomain, json);
+  }
+
+  /**
    * Intigates download of a FDS wallet backup file.
    * @get
    * @param {string} subdomain name
@@ -122,6 +132,16 @@ class FDS {
   BackupAccount(subdomain){
     return this.Account.get(subdomain).saveBackupAs();
   }
+
+  /**
+   * Intigates download of FDS wallet backup JSON.
+   * @get
+   * @param {string} subdomain name
+   * @returns {boolean} true if successful
+   */
+  BackupAccountAsJson(subdomain){
+    return this.Account.get(subdomain).getBackup();
+  }  
 
 }
 
