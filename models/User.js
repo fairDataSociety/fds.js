@@ -1,3 +1,4 @@
+
 // Copyright 2019 The FairDataSociety Authors
 // This file is part of the FairDataSociety library.
 //
@@ -16,6 +17,7 @@
 
 let FileSaver = require('file-saver');
 let Web3Utils = require('web3-utils');
+let ENS2 = require('../lib/FDS-ENS2.js');
 
 class User {
 
@@ -78,8 +80,8 @@ class User {
   * @param {any} transactionSignedCallback callback
   * @returns {any} transaction
   */
-  sendTokens(recipientAddress, amount, transactionCallback = console.log, transactionSignedCallback = console.log) {
-       return this.Tx.sendTokens(this, recipientAddress, amount, transactionCallback, transactionSignedCallback); 
+  payAddress(recipientAddress, amount, transactionCallback = console.log, transactionSignedCallback = console.log) {
+       return this.Tx.pay(this, recipientAddress, amount, transactionCallback, transactionSignedCallback); 
   } 
 
   /**
@@ -88,17 +90,10 @@ class User {
   * @param {any} amount in ethers
   * @returns {any} result
   */
-  async sendTokensTo(subdomain, amount) {
-    let recipientAddress = await this.getAddressOf(subdomain);
-    return this.Tx.sendTokens(this, recipientAddress, amount);
-    }
-
-  async getAddressOf(subdomain) {
-    let contact = await this.lookupContact(subdomain, console.log, console.log, console.log);
-    let hex = "0x" + contact.publicKey.substring(2, 132);
-    let hash = Web3Utils.keccak256(hex);
-    let recipientAddress = "0x" + hash.slice(24 + 2);
-    return recipientAddress;
+  async pay(recipientSubdomain, amount, transactionCallback = console.log, transactionSignedCallback = console.log) {
+    let ENS = new ENS2(this, this.Account.config.ensConfig);
+    let recipientAddress = await ENS.getOwner(recipientSubdomain);
+    return this.payAddress(recipientAddress, amount, transactionCallback, transactionSignedCallback);
   }
 
   /**
@@ -181,18 +176,6 @@ class User {
     return this.SwarmStore.retrieveDecryptedValue(key, this.address, this.privateKey);
   } 
 
-    /**
-     * Store file
-     * @param {any} file to store
-     * @param {any} encryptionCallback callback 
-     * @param {any} uploadCallback callback 
-     * @param {any} progressMessageCallback callback 
-     * @returns {string} hash where stored
-     */
-  store(file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log){
-    return this.SwarmStore.storeFile(this, file, encryptionCallback, uploadCallback, progressMessageCallback);
-  }
-  
   /** @returns {Contact} array of contacts */
   getContacts(){
     return this.SwarmStore.getContacts(this);
@@ -208,16 +191,15 @@ class User {
   }
 
   /**
-   * Get contact if it exists
-   * @param {any} recipientSubdomain name
-   * @param {any} encryptProgressCallback callback
-   * @param {any} uploadProgressCallback callback
-   * @param {any} progressMessageCallback callback
-   * @returns {Contact} contact
+   * Store file
+   * @param {any} file to store
+   * @param {any} encryptionCallback callback 
+   * @param {any} uploadCallback callback 
+   * @param {any} progressMessageCallback callback 
+   * @returns {string} hash where stored
    */
-  lookupContact(recipientSubdomain, encryptProgressCallback = console.log, uploadProgressCallback = console.log, progressMessageCallback = console.log)
-  {
-      return this.Mail.lookupContact(this, recipientSubdomain, encryptProgressCallback = console.log, uploadProgressCallback = console.log, progressMessageCallback = console.log);
+  store(file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log){
+    return this.SwarmStore.storeFile(this, file, encryptionCallback, uploadCallback, progressMessageCallback);
   }
 
   /**

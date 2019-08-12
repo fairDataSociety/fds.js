@@ -107,8 +107,10 @@ contract('FDS', function(accounts) {
     // resolver = await TestResolver.deployed();
 
     
-    let config = await fdsConfig();
-    FDS = new fds(config);
+    // let config = await fdsConfig();
+    // FDS = new fds(config);
+
+    FDS = new fds();
 
     subdomain = `test${rand(0)}`;   
     subdomain2 = `test${rand(1)}`;        
@@ -127,7 +129,6 @@ contract('FDS', function(accounts) {
 
     assert.equal(acc1.subdomain, subdomain);
   });
-
 
   it('should create a second account', async function() {
     let account = await FDS.CreateAccount(subdomain2, 'test', ()=>{}, ()=>{}, ()=>{});
@@ -152,6 +153,8 @@ contract('FDS', function(accounts) {
       let stored = await acc1.stored();
       return stored.length;
     }, 1);
+
+    console.log('stored', stored);
 
     assert.equal(outcome, true);
   }); 
@@ -229,7 +232,20 @@ contract('FDS', function(accounts) {
     let sno = await contract.call('owner', ['0x0000000000000000000000000000000000000000000000000000000000000000']);
 
     assert.equal(sno.toLowerCase(), account.address);
-  });      
+  });    
+
+  it('should send tokens to a subdomain', async function() {
+    let account = await FDS.UnlockAccount(subdomain, 'test');
+
+    let account2 = await FDS.UnlockAccount(subdomain2, 'test');
+    let balanceBefore = await account2.getBalance();
+
+    let tx = await account.pay(subdomain2, "0.00001");
+
+    let balanceAfter = await account2.getBalance();
+    
+    assert.equal(parseInt(balanceAfter), parseInt(balanceBefore) + 10000000000000);
+  }); 
 
   it('should store create a backup', async function() {
     let account = await FDS.UnlockAccount(subdomain, 'test');
