@@ -8,8 +8,8 @@ var TestResolver = artifacts.require("PublicResolver");
 var ENS = artifacts.require("ENSRegistry");
 var SubdomainRegistrar = artifacts.require("SubdomainRegistrar");
 
-// var namehash = require('eth-ens-namehash');
-// var sha3 = require('js-sha3').keccak_256;
+var namehash = require('eth-ens-namehash');
+var sha3 = require('js-sha3').keccak_256;
 
 var fds = require('../index.js');
 
@@ -154,8 +154,6 @@ contract('FDS', function(accounts) {
       return stored.length;
     }, 1);
 
-    console.log('stored', stored);
-
     assert.equal(outcome, true);
   }); 
 
@@ -213,11 +211,11 @@ contract('FDS', function(accounts) {
 
     let contract = await account.deployContract(ENS.abi, ENS.bytecode);
 
-    let tx = await contract.send('setSubnodeOwner', ['0x0000000000000000000000000000000000000000000000000000000000000000', '0x4f5b812789fc606be1b3b16908db13fc7a9adf7ca72641f84d75b47069d3d7f0', account.address]);
+    let tx = await contract.send('setSubnodeOwner', ['0x0000000000000000000000000000000000000000000000000000000000000000', '0x' + sha3('abc'), account.address]);
 
     contractAddress = contract.contractAddress;
 
-    let sno = await contract.call('owner', ['0x0000000000000000000000000000000000000000000000000000000000000000']);
+    let sno = await contract.call('owner', [namehash.hash('abc')]);
 
     assert.equal(sno.toLowerCase(), account.address);
   });   
@@ -227,11 +225,20 @@ contract('FDS', function(accounts) {
 
     let contract = await account.getContract(ENS.abi, ENS.bytecode, contractAddress);
 
-    let tx = await contract.send('setSubnodeOwner', ['0x0000000000000000000000000000000000000000000000000000000000000000', '0x4f5b812789fc606be1b3b16908db13fc7a9adf7ca72641f84d75b47069d3d7f0', account.address]);
+    let tx = await contract.send('setSubnodeOwner', ['0x0000000000000000000000000000000000000000000000000000000000000000', '0x' + sha3('def'), account.address]);
 
-    let sno = await contract.call('owner', ['0x0000000000000000000000000000000000000000000000000000000000000000']);
+    let tx2 = await contract.setSubnodeOwner('0x0000000000000000000000000000000000000000000000000000000000000000',  '0x' + sha3('ghi'), account.address);
+
+    // console.log('txxxx', tx2);
+
+    let sno = await contract.call('owner', [namehash.hash('def')]);
 
     assert.equal(sno.toLowerCase(), account.address);
+
+    let sno2 = await contract.owner(namehash.hash('ghi'));
+
+    assert.equal(sno2.toLowerCase(), account.address);    
+
   });    
 
   it('should send tokens to a subdomain', async function() {
@@ -240,7 +247,7 @@ contract('FDS', function(accounts) {
     let account2 = await FDS.UnlockAccount(subdomain2, 'test');
     let balanceBefore = await account2.getBalance();
 
-    let tx = await account.pay(subdomain2, "0.00001");
+    let tx = await account.pay(subdomain2, "0.00001", () => {}, () => {});
 
     let balanceAfter = await account2.getBalance();
     
