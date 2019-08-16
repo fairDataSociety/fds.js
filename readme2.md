@@ -187,9 +187,9 @@ Defaults are shown, with notes.
   /*gasLimit: 0.1, in gwei*/
   ensConfig: {
     domain: 'fds', /*registered top level domain*/
-    registryAddress: '0xc11f4427a0261e5ca508c982e747851e29c48e83', /*main ENS registry address*/
-    registrarAddress: '0x01591702cb0c1d03b15355b2fab5e6483b6db9a7', /*registrar address*/
-    resolverContractAddress: '0xf70816e998819443d5506f129ef1fa9f9c6ff5a7' /*ENS resolver address*/
+    registryAddress: '0xa38Ca7dcaa4Fb56089Ed189d7c8B65aA7B2Fca3A', /*main ENS registry address*/
+    registrarAddress: '0xE73B50F5f73115391aeb565BDdb482D8fC442562', /*registrar address*/
+    resolverContractAddress: '0xa3190A802C99C1a6E08E9268A428fd9407E6F70E' /*ENS resolver address*/
   }
 }
 ```

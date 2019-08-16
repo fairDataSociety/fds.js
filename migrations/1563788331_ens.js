@@ -11,7 +11,7 @@ var Promise = require('bluebird');
 
 module.exports = function (deployer, network, accounts) {
     return deployer.then(async () => {
-        if (network == "test" || network == "develop") {
+        if (network == "test" || network == "develop" || network == "noordung") {
 
             await deployer.deploy(ENS);
 

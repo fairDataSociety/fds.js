@@ -19,14 +19,20 @@ var fdsConfig = async () => {
   let res = await TestResolver.deployed()
   let sub = await SubdomainRegistrar.deployed()
 
+  console.log(
+    ens.address,
+    sub.address,
+    res.address
+  )
+
   let backup;
   let contractAddress;
 
   return {
       tokenName: 'gas',
-      swarmGateway: 'http://localhost:8500',
-      ethGateway: 'http://localhost:8545',
-      faucetAddress: 'http://localhost:3001/gimmie',
+      swarmGateway: 'https://swarm.fairdatasociety.org',
+      ethGateway: 'https://geth-noordung.fairdatasociety.org',
+      faucetAddress: 'https://dfaucet-testnet-prod.herokuapp.com/gimmie',
       chainID: '235813',
       httpTimeout: 1000,
       gasPrice: 0.1,

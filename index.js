@@ -18,9 +18,9 @@ class FDS {
       gasPrice: 0.1,
       ensConfig: {
         domain: 'datafund.eth',
-        registryAddress: '0xc11f4427a0261e5ca508c982e747851e29c48e83',
-        subdomainRegistrarAddress: '0x01591702cb0c1d03b15355b2fab5e6483b6db9a7',
-        resolverContractAddress: '0xf70816e998819443d5506f129ef1fa9f9c6ff5a7'
+        registryAddress: '0xB4d09f8bfC2A1f34477f3464d44a78533aB2ED13',
+        subdomainRegistrarAddress: '0x824D75Ea5BA0e855cFb57a95916528344a50fc18',
+        resolverContractAddress: '0xEc51674d28aF8CE3A7Fc8fc69613CC848bf251EA'
       }
     }
   }
