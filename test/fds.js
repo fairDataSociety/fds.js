@@ -19,12 +19,6 @@ var fdsConfig = async () => {
   let res = await TestResolver.deployed()
   let sub = await SubdomainRegistrar.deployed()
 
-  console.log(
-    ens.address,
-    sub.address,
-    res.address
-  )
-
   let backup;
   let contractAddress;
 
@@ -234,8 +228,6 @@ contract('FDS', function(accounts) {
     let tx = await contract.send('setSubnodeOwner', ['0x0000000000000000000000000000000000000000000000000000000000000000', '0x' + sha3('def'), account.address]);
 
     let tx2 = await contract.setSubnodeOwner('0x0000000000000000000000000000000000000000000000000000000000000000',  '0x' + sha3('ghi'), account.address);
-
-    // console.log('txxxx', tx2);
 
     let sno = await contract.call('owner', [namehash.hash('def')]);
 
