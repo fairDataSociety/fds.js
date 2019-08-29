@@ -68,8 +68,8 @@ class User {
    * @param {any} progressMessageCallback callback
    * @returns {any} result
    */
-  send(recipientSubdomain, file, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log){
-    return this.Mail.send(this, recipientSubdomain, file, encryptionCallback, uploadCallback, progressMessageCallback); 
+  send(recipientSubdomain, file, multiboxPath, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log){
+    return this.Mail.send(this, recipientSubdomain, file, multiboxPath, encryptionCallback, uploadCallback, progressMessageCallback); 
   }
 
   /**
