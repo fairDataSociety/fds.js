@@ -56,7 +56,7 @@ class Hash {
   }
 
   gatewayLink(){
-    return `${this.account.Swarm.config.swarmGateway}/bzz:/${this.address}/${this.file.name}`;
+    return `${this.account.Store.config.swarmGateway}/bzz:/${this.address}/${this.file.name}`;
   }
 
 }
