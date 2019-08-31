@@ -16,6 +16,7 @@ class FDS {
       chainID: '235813',
       httpTimeout: 1000,
       gasPrice: 0.1,
+      walletVersion: 1,
       ensConfig: {
         domain: 'datafund.eth',
         registryAddress: '0xB4d09f8bfC2A1f34477f3464d44a78533aB2ED13',
@@ -48,8 +49,8 @@ class FDS {
    * @GetAccounts
    * @returns {any} all accounts
    */ 
-  GetAccounts(){
-    return this.Account.getAll();
+  GetAccounts(walletVersion = false){
+    return this.Account.getAll(walletVersion);
   }
 
   /**
