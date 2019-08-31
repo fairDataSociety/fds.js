@@ -49,7 +49,7 @@ class FDS {
    * @GetAccounts
    * @returns {any} all accounts
    */ 
-  GetAccounts(walletVersion = false){
+  GetAccounts(walletVersion){
     return this.Account.getAll(walletVersion);
   }
 

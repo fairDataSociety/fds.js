@@ -30,6 +30,7 @@ class User {
     this.Tx = this.Account.Tx;
     this.SwarmStore = this.Account.SwarmStore;
 
+    this.version = attrs.version || undefined;
     this.subdomain = attrs.subdomain;
     this.wallet = attrs.wallet;
 
@@ -47,7 +48,8 @@ class User {
   toJSON(){
       return {
           subdomain: this.subdomain,
-          wallet: this.wallet
+          wallet: this.wallet,
+          version: this.version
       };
   }
 
