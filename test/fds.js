@@ -24,9 +24,9 @@ var fdsConfig = async () => {
 
   return {
       tokenName: 'gas',
-      swarmGateway: 'https://swarm.fairdatasociety.org',
-      ethGateway: 'https://geth-noordung.fairdatasociety.org',
-      faucetAddress: 'https://dfaucet-testnet-prod.herokuapp.com/gimmie',
+      swarmGateway: 'http://localhost:8500',
+      ethGateway: 'http://localhost:8545',
+      faucetAddress: 'http://localhost:3001/gimmie',
       chainID: '235813',
       httpTimeout: 1000,
       gasPrice: 0.1,
