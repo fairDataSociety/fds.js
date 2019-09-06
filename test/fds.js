@@ -107,8 +107,8 @@ contract('FDS', function(accounts) {
     // resolver = await TestResolver.deployed();
 
     
-    // let config = await fdsConfig();
-    // FDS = new fds(config);
+    let config = await fdsConfig();
+    FDS = new fds(config);
 
     FDS = new fds();
 
