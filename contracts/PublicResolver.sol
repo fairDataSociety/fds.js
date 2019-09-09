@@ -58,6 +58,33 @@ contract PublicResolver {
         ens = ensAddr;
     }
 
+	/**
+     * Sets all required params in one attempt
+     * May only be called by the owner of that node in the ENS registry.
+     * @param node The node to update.
+     * @param addr The address to set.
+	 * @param hash The content hash to set
+	 * @param multihash The multihash to set
+     * @param x the X coordinate of the curve point for the public key.
+     * @param y the Y coordinate of the curve point for the public key.
+	 * @param name The name to set.
+    */
+    function setAll(bytes32 node, address addr, bytes32 content,  bytes memory multihash, bytes32 x, bytes32 y, string memory name) public only_owner(node) {
+		 setAddr(node, addr);
+		 setContent(node, content);
+		 setMultihash(node, multihash);
+		 setPubkey(node, x, y);
+		 setName(node, name);
+    }
+	function getAll(bytes32 node) public view returns(address addr, bytes32 content, bytes memory multihash, bytes32 x, bytes32 y, string memory name) {
+		 addr = records[node].addr;
+		 content = records[node].content;
+		 multihash = records[node].multihash;
+		 x = records[node].pubkey.x;
+		 y = records[node].pubkey.y;
+		 name = records[node].name;
+    }
+
     /**
      * Sets the address associated with an ENS node.
      * May only be called by the owner of that node in the ENS registry.
