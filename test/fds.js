@@ -84,17 +84,13 @@ contract('FDS', function(accounts) {
   let FDS;
   let acc1, acc2;
 
-  before(async function() {
-    // registrar = await SubdomainRegistrar.deployed();
-    // ens = await ENS.deployed();
-    // dhr = await DummyHashRegistrar.deployed();
-    // resolver = await TestResolver.deployed();
-
-    
+  before(async function() {  
+    //comment this out to use `truffle test --network noordung`   
     let config = await fdsConfig();
     FDS = new fds(config);
 
-    FDS = new fds();
+    // uncomment this to use `truffle test --network noordung`
+    // FDS = new fds();
 
     subdomain = `test${rand(0)}`;   
     subdomain2 = `test${rand(1)}`;        
