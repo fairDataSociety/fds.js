@@ -19,9 +19,9 @@ class FDS {
       walletVersion: 1,
       ensConfig: {
         domain: 'datafund.eth',
-        registryAddress: '0xB4d09f8bfC2A1f34477f3464d44a78533aB2ED13',
-        subdomainRegistrarAddress: '0x824D75Ea5BA0e855cFb57a95916528344a50fc18',
-        resolverContractAddress: '0xEc51674d28aF8CE3A7Fc8fc69613CC848bf251EA'
+        registryAddress: '0x3B96c0a38C94015bf2Daa4BA9a5782388F811f7f',
+        subdomainRegistrarAddress: '0x16741f66429520A0d9362ac8004a64556F6f9fdA',
+        resolverContractAddress: '0x4c1f0E67Ed8A3293eDc7bada3Bde620AeA7dEF88'
       }
     }
   }
