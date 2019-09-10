@@ -86,11 +86,11 @@ contract('FDS', function(accounts) {
 
   before(async function() {  
     //comment this out to use `truffle test --network noordung`   
-    let config = await fdsConfig();
-    FDS = new fds(config);
+    // let config = await fdsConfig();
+    // FDS = new fds(config);
 
     // uncomment this to use `truffle test --network noordung`
-    // FDS = new fds();
+    FDS = new fds();
 
     subdomain = `test${rand(0)}`;   
     subdomain2 = `test${rand(1)}`;        
