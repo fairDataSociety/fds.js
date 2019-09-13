@@ -87,11 +87,11 @@ contract('FDS', function(accounts) {
   before(async function() {  
     // config for `truffle test --network test`
     // note you also need fds-faucet (with gas), swarm and ganache-cli running locally   
-    let config = await fdsConfig();
-    FDS = new fds(config);
+    // let config = await fdsConfig();
+    // FDS = new fds(config);
 
     //config for `truffle test --network noordung` 
-    // FDS = new fds();
+    FDS = new fds();
 
     subdomain = `test${rand(0)}`;   
     subdomain2 = `test${rand(1)}`;        
