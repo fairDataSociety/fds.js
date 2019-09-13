@@ -85,12 +85,13 @@ contract('FDS', function(accounts) {
   let acc1, acc2, acc3;
 
   before(async function() {  
-    //comment this out to use `truffle test --network noordung`   
-    // let config = await fdsConfig();
-    // FDS = new fds(config);
+    // config for `truffle test --network test`
+    // note you also need fds-faucet (with gas), swarm and ganache-cli running locally   
+    let config = await fdsConfig();
+    FDS = new fds(config);
 
-    // uncomment this to use `truffle test --network noordung`
-    FDS = new fds();
+    //config for `truffle test --network noordung` 
+    // FDS = new fds();
 
     subdomain = `test${rand(0)}`;   
     subdomain2 = `test${rand(1)}`;        
@@ -178,7 +179,7 @@ contract('FDS', function(accounts) {
   it('should send a file from a third party', async function() {
     let file = new File(['hello sending world'], `test${rand(0)}.txt`, {type: 'text/plain'});
 
-    let sent = await acc3.send(acc2.subdomain, file, '/shared/mail');
+    let sent = await acc3.send(acc2.subdomain, file, '/shared/mail', ()=>{}, ()=>{}, ()=>{});
 
     let outcome = await waitForAssert(async () => {
       let messages = await acc2.messages('received', '/shared/mail');
@@ -191,7 +192,7 @@ contract('FDS', function(accounts) {
   it('should send a second file from a third party', async function() {
     let file = new File(['hello sending world2'], `test2${rand(0)}.txt`, {type: 'text/plain'});
 
-    let sent = await acc3.send(acc2.subdomain, file, '/shared/mail');
+    let sent = await acc3.send(acc2.subdomain, file, '/shared/mail', ()=>{}, ()=>{}, ()=>{});
 
     let outcome = await waitForAssert(async () => {
       let messages = await acc2.messages('received', '/shared/mail');
