@@ -82,7 +82,7 @@ contract('FDS', function(accounts) {
   var resolver = null;
   let subdomain;
   let FDS;
-  let acc1, acc2;
+  let acc1, acc2, acc3;
 
   before(async function() {  
     //comment this out to use `truffle test --network noordung`   
@@ -94,6 +94,7 @@ contract('FDS', function(accounts) {
 
     subdomain = `test${rand(0)}`;   
     subdomain2 = `test${rand(1)}`;        
+    subdomain3 = `xtest${rand(2)}`;        
   });
 
 
@@ -122,6 +123,21 @@ contract('FDS', function(accounts) {
 
     assert.equal(acc2.subdomain, subdomain2);
   });
+
+  it('should create a third account', async function() {
+    let account = await FDS.CreateAccount(subdomain3, 'test', ()=>{}, ()=>{}, ()=>{});
+
+    assert.equal(account.subdomain, subdomain3);
+  });  
+
+
+  it('should unlock the third account', async function() {
+    acc3 = await FDS.UnlockAccount(subdomain3, 'test');
+
+    assert.equal(acc3.subdomain, subdomain3);
+  });
+
+
 
 
   it('should store a file', async function() {
@@ -157,6 +173,33 @@ contract('FDS', function(accounts) {
 
     assert.equal(outcome2, true);
   });  
+
+
+  it('should send a file from a third party', async function() {
+    let file = new File(['hello sending world'], `test${rand(0)}.txt`, {type: 'text/plain'});
+
+    let sent = await acc3.send(acc2.subdomain, file, '/shared/mail');
+
+    let outcome = await waitForAssert(async () => {
+      let messages = await acc2.messages('received', '/shared/mail');
+      return messages.length;
+    }, 2);
+
+    assert.equal(outcome, true);
+  }); 
+
+  it('should send a second file from a third party', async function() {
+    let file = new File(['hello sending world2'], `test2${rand(0)}.txt`, {type: 'text/plain'});
+
+    let sent = await acc3.send(acc2.subdomain, file, '/shared/mail');
+
+    let outcome = await waitForAssert(async () => {
+      let messages = await acc2.messages('received', '/shared/mail');
+      return messages.length;
+    }, 3);
+
+    assert.equal(outcome, true);
+  });      
 
 
   it('should store an unencrypted value', async function() {
