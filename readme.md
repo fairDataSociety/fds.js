@@ -1,554 +1,830 @@
-```
-__/\\\\\\\\\\\\\\\__/\\\\\\\\\\\\________/\\\\\\\\\\\___        
- _\/\\\///////////__\/\\\////////\\\____/\\\/////////\\\_       
-  _\/\\\_____________\/\\\______\//\\\__\//\\\______\///__      
-   _\/\\\\\\\\\\\_____\/\\\_______\/\\\___\////\\\_________     
-    _\/\\\///////______\/\\\_______\/\\\______\////\\\______    
-     _\/\\\_____________\/\\\_______\/\\\_________\////\\\___   
-      _\/\\\_____________\/\\\_______/\\\___/\\\______\//\\\__  
-       _\/\\\_____________\/\\\\\\\\\\\\/___\///\\\\\\\\\\\/___ 
-        _\///______________\////////////_______\///////////_____
-         _________FAIR___________DATA______________SOCIETY_______
-```
+#todo
 
-# FDS.js Framework
-## Serverless App Toolkit for the Web3 Generation ✌️
+<!-- ![alt text](https://raw.githubusercontent.com/fairDataSociety/fds.js/beta/images/fair-data-society.png "Fair Data Society") -->
 
-FDS.js is a very simple framework to create apps using the Ethereum and Swarm networks.
+<div style="text-align:center"><img src="https://raw.githubusercontent.com/fairDataSociety/fds.js/beta/images/fair-data-society.png" alt="Fair Data Society" /></div>
 
-It provides simple encrypted file storage, key value storage and file sending with baked in authentication for javascript web applications.
+# FDS Dapp Framework
 
-### Quick Start
+Easy to use Dapp framework.
 
-Initialise FDS.
+FDS make it easy for front end developers to create Dapps running on the Ethereum and Swarm networks.
 
-```
-var fds = new FDS();  
-```
+The FDS Dapp Framework provides a high level javascript SDK for DApp developers to create and manage accounts, sign transactions using the associated Ethereum wallets, and interact with the Ethereum compatible blockchains and the Swarm network.
 
-Create an account.
+## New in 0.1.0
 
-```
-fds.CreateAccount('fds-ftw', 'a-very-secure-password').then((account) => {
-  console.log(`registered user ${account.subdomain} to address ${account.address}`);
-})
-```
+  - Now works in a Node environment. #todo .gif
+  - [Plug in your own contracts!!](#use-you-own-contracts) #todo
+    - Simply deploy your own contracts then call functions, tx's are signed in the browser by FDS.
+    - Work with existing contracts.
+  - Much improved docs in await/sync syntax for your understanding pleasure. 💖 
+  -  🎁 The mighty multibox brings data interoperability to all of your [FDIP Compliant]() Dapps!
+  - ... #todo
 
-Unlock your new account, and store a file.
+## Features
 
-```
-var file = new File([`hello world `], `test.txt`, {type: 'text/plain'});
+  - Easily create Ethereum wallets
+  - Store and share e2e encrypted values and files using Swarm network.
+  - Send Tokens and balance
+  - Simply include your contract's abi and call functions - the rest is taken care of.
+  - Totally decentralised, Zero Data, nothing leaves the your computer unencrypted, and only you have the key.
 
-fds.UnlockAccount('fds-ftw', 'a-very-secure-password').then((account) => {
-  account.store(file, console.log, console.log, console.log).then((stored)=>{
-    console.log(`>>>> successfully stored ${stored}`);
-  });
-})
-```
 
-Retrieve that file.
+
+## Install
+
+#todo is this needed? seems to work ok in 12
+
+Use Node version 10. You may use [Node Version Manager](https://github.com/nvm-sh/nvm)
 
 ```
-fds.UnlockAccount('fds-ftw', 'test').then((account)=>{
-  account.stored().then((stored)=>{
-    stored[0].getFile().then(console.log)
-  })
-})
-// File(19) { name: "test2855.txt", size: 19, type: "text/plain", webkitRelativePath: ""}
+npm i -D fds.js
 ```
 
-### Overview
+If using the node at the command prompt, read the [notes.](#notes-on-the-node-environment)
 
-FDS is an attempt to provide a very accessible high level framework to enable everyone to create apps using the Ethereum Web3 stack. At present it enables developers to:
+## Quick Start
 
- - Create Password Protected Account
- - Unlock (Sign In) Account
- - Store values using an encrypted key/value store
- - Store a file encrypted using AES-256-CTR
- - Send encrypted files to another account
+### Create 2 Accounts
 
-Coming soon:
+In FDS, most things are done in an account context, because transactions and data are authenticated and encrypted using Ethereum and Swarm compatible ECDSA algorithms before they leave your computer.
 
-  - Store Unencrypted Values
-  - Wallet top up
-  - Threads/Groups
-  - Send ETH/Tokens
-  - Upload hosted website
-  - Public Post Feed
-  - Markdown to Blog Post Publishing Platform
-
-All sensitive data is fully encrypted before it leaves the browser and all transactions are signed within the browser.
-
-Wallets are stored in a password protected format in your browser's localstorage facility.
-
-You may deploy your own networks of Swarm and Ethereum, or use the FDSociety network.
-
-Enjoy!
-
-### Endpoints
-
-You may specify various endpoints:
-
-Ethereum Mainnet / Swarm Mainnet (TBC)
-Provided by the Ethereum Foundation
-
-Ropsten Testnet / Swarm Testnet
-Provided by the Ethereum Foundation
-
-FDS Testnet
-Provided by Fair Data Society, get in touch for tokens!
-
-### Reference
-
-#### Options
-
+```javascript
+let fds = require('FDS.js');
+let FDS = new fds();
+let alice = await FDS.CreateAccount('alice', 'password');
+let bob = await FDS.CreateAccount('bob', 'password');
 ```
+
+### Send a File from Alice to Bob
+
+Now you have two accounts, you can send an encrypted file from alice's private key...
+
+```javascript
+let file = new File([`hello world `], `test.txt`, {type: 'text/plain'});
+await alice.send('bob', file, '/shared/my-application/messages'); 
+```
+
+### Bob Receives It
+
+... and bob will receive and decrypt it with his private key - without ever having to exchange a key, or trust any third parties. ✨
+
+```javascript
+let messages = await bob.messages('received', '/shared/my-application/messages'); 
+messages[0].getFile();
+```
+
+----
+## Examples
+
+#todo
+
+## Advanced Usage
+
+#todo
+
+### Upload Progress Bar
+
+#todo
+
+------------------------------------------
+
+## API Reference
+
+### FDS Object
+
+You must first create an FDS object to work with. 
+
+To instantiate this using the default options (using Noordung testnet) is as simple as:
+
+```javascript
+let fds = new FDS();
+```
+
+#### Config
+
+It is possible to specify toh values other than the defaults.
+
+```javascript
 var fds = new FDS({
+      tokenName: 'gas',
       swarmGateway: 'https://swarm.fairdatasociety.org',
       ethGateway: 'https://geth-noordung.fairdatasociety.org',
-      faucetAddress: 'https://dfaucet-testnet-prod.herokuapp.com/gimmie',
+      faucetAddress: 'https://faucet-noordung.fairdatasociety.org/gimmie',
       chainID: '235813',
       httpTimeout: 1000,
-      gasPrice: 50,
+      gasPrice: 0.1,
+      walletVersion: 1,
       ensConfig: {
         domain: 'datafund.eth',
-        registryAddress: '0xc11f4427a0261e5ca508c982e747851e29c48e83',
-        fifsRegistrarContractAddress: '0x01591702cb0c1d03b15355b2fab5e6483b6db9a7',
-        resolverContractAddress: '0xf70816e998819443d5506f129ef1fa9f9c6ff5a7'
-      });
+        registryAddress: '0xA1029cb176082eca658A67fD6807B9bDfB44A695',
+        subdomainRegistrarAddress: '0x0E6a3B5f6800145bAe95C48934B7b5a90Df50722',
+        resolverContractAddress: '0xC91AB84FFad79279D47a715eF91F5fbE86302E4D'
+      }
+    });
 ```
 
-#### Account
+-----
+### FDS Object
+-----
 
-##### Create Account
+#### Description
 
-```
-fds.CreateAccount('fds-ftw', 'a-very-secure-password').then((account) => {
-  console.log(`registered user ${account.subdomain} to address ${account.address}`);
-})
-```
+The FDS object is used to create and manage user accounts.
 
-##### Unlock Account
+#### Initialise FDS Object
 
-```
-fds.UnlockAccount('fds-ftw', 'a-very-secure-password').then((account) => {
-  console.log(`registered user ${account.subdomain} to address ${account.address}`);
-})
+Creates a new FDS object.
+
+```javascript
+let fds = new FDS();
 ```
 
-##### Lock Account
+#### CreateAccount
+
+Creates a new account with a wallet, ENS subdomain and Multibox contract, and saves it into local storage.
+
+*async* **FDS.CreateAccount(** *username, password, feedbackMessageCallback = console.log* **)**
+
+**Inputs**
+
+- username (string) [ `.` delimited string satisfying Namehash requirements ].
+- password (string)
+- feedbackMessageCallback (function) [callback for displaying progress messages]
+
+**Returns**
+
+*promise* User (User Object)
+
+
+```javascript
+let alice = await FDS.CreateAccount('alice', 'password', (message) => { ... });
 
 ```
-fds.LockAccount('fds-ftw', 'a-very-secure-password').then((account) => {
-  console.log(`registered user ${account.subdomain} to address ${account.address}`);
-})
-```
 
-##### Backup Account
+#### UnlockAccount
 
-Starts download of wallet backup file.
+Unlocks an account that already exists in local storage.
 
-```
-fds.BackupAccount('fds-ftw');
-```
+**FDS.UnlockAccount(** *username, password* **)**
 
-##### Restore Account
+**Inputs**
 
-Restores account from file object.
+- username (string) [ `.` delimited string satisfying Namehash requirements ].
+- password (string)
 
-```
-fds.RestoreAccount(backupFile);
- // File { name: "fairdrop-wallet-test2153-backup.json", size: 486, type: "text/json", webkitRelativePath: ""}
-```
+**Returns**
 
-##### Restore Account from Private Key
+User (User Object)
 
-```FDS.Account.restoreFromPrivateKey('subdomain', 'password', 'private-key-without-0x').then(console.log);```
+or 
 
-##### Tokens
-```
-FDS.Tx.getBalance('0x1c324f47f50e4cb37951122a76e25cdc317bb8e5').then(console.log);
+Failed (bool false)
 
-account.getBalance().then(console.log);
-
-//send 1 token
-account.sendTokens('0xf1f....', '1').then((stored)=>{
-  console.log(`>>>> successfully stored ${stored}`);
-});
-```
-
-##### Contracts
+```javascript
+let alice = await FDS.UnlockAccount('alice', 'password');
 
 ```
-let createAndDeployContract = (setOutput, setResults)=>{
-  let r1 = Math.floor(Math.random() * 1010101);
-  let r2 = Math.floor(Math.random() * 1010101);
-  let account1, account2 = null;
-  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
-    account1 = account;
-    setOutput(`registered account 1 ${account1.subdomain}`);  
-  }).then(()=>{
-    return window.FDS.UnlockAccount(`test${r1}`, 'test').then((acc1)=>{
-      // console.log(ConsentManager);
-      return acc1.deployContract(ConsentManager.abi, ConsentManager.bytecode);
-    }).then((contract)=>{
-      console.log('x',contract);
-    })
-  })
-}
 
-let createAndRetrieveContract = (setOutput, setResults)=>{
-  let r1 = Math.floor(Math.random() * 1010101);
-  let r2 = Math.floor(Math.random() * 1010101);
-  let account1, account2 = null;
-  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
-    account1 = account;
-    setOutput(`registered account 1 ${account1.subdomain}`);  
-  }).then(()=>{
-    return window.FDS.UnlockAccount(`test${r1}`, 'test').then((acc1)=>{
-      // console.log(ConsentManager);
-      account1 = acc1;
-      return acc1.getContract(ConsentManager.abi, ConsentManager.bytecode, '0x86104EC7d2830E54B43EA9C073f2Dc34030925c6');
-    }).then(async (contract) =>{
-      return contract.send('createConsent', ['0x'+account1.wallet.address, '0x6a208021508e3a77ae1517bb8bfa4dbf8a05517a', '0xc016ed5d54e357cb4a7460cb1b13b3f499dc4f428453fec21613e9339faaeb3f']);
-    })
-  })
-}
+#### GetAccounts
 
-let createAndDeployMetacoin = (setOutput, setResults)=>{
-  let r1 = Math.floor(Math.random() * 1010101);
-  let r2 = Math.floor(Math.random() * 1010101);
-  let account1, account2 = null;
-  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
-    account1 = account;
-    setOutput(`registered account 1 ${account1.subdomain}`);  
-  }).then(()=>{
-    return window.FDS.UnlockAccount(`test${r1}`, 'test').then((acc1)=>{
-      let contract = acc1.deployContract(Metacoin.abi, Metacoin.bytecode, [98], null, 25000000);
-      return contract;
-    }).then((contract)=>{
-      contract.call('vers').then(console.log)
-    })
-  })
-}
+Gets a list of the accounts held in local storage.
 
+*async* **FDS.GetAccounts(** *walletVersion = [most recent wallet version]* **)**
 
-let createAndRetrieveMetacoin = (setOutput, setResults)=>{
-  let r1 = Math.floor(Math.random() * 1010101);
-  let r2 = Math.floor(Math.random() * 1010101);
-  let account1, account2 = null;
-  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
-    account1 = account;
-    setOutput(`registered account 1 ${account1.subdomain}`);  
-  }).then(()=>{
-    return window.FDS.UnlockAccount(`test${r1}`, 'test').then((acc1)=>{
-      // console.log(ConsentManager);
-      account1 = acc1;
-      return acc1.getContract(Metacoin.abi, Metacoin.bytecode, "0x8183e6C5fE1C0c283918858f094330959bEE5B9C");
-    }).then((contract)=>{
-      contract.call('getBalance', [account1.address]).then(console.log);
-      // let tx = await cm.createConsent(accounts[0], accounts[1], swarmHash1, {from: accounts[0]});
-    })
-  })
-}
+**Inputs**
+
+- walletVersion (string) [ version of wallet to use, older wallets relate to legacy versions of fds.js ].
+
+**Returns**
+
+Users (Array)[User Object]
+
+```javascript
+FDS.GetAccounts();
 ```
 
-#### Storage
 
-##### Store File
+#### BackupAccount
 
-```
-let file = new File(['hello storage world'], `test.txt`, {type: 'text/plain'});
-account.store(file, console.log, console.log, console.log).then((stored)=>{
-  console.log(`>>>> successfully stored ${stored}`);
-});
-```
+Starts download of wallet backup file. 
 
-##### Get Stored Files
+Must be in the browser environment.
 
-```
-account.stored().then((stored)=>{
-  console.log(stored);
-});
-```
+*async* **FDS.BackupAccount(** *subdomain* **)**
 
-##### Retrieve Stored File
+**Inputs**
 
-```
-account.stored().then((stored)=>{
-  console.log(stored);
-  stored[0].getFile().then(console.log);
-  // File(['hello storage world'], `test.txt`, {type: 'text/plain'})
-  stored[0].saveAs();
-})
+- username (string) [ `.` delimited string satisfying Namehash requirements, account must exist in local storage ].
+
+**Returns**
+
+Success (bool)
+
+```javascript
+FDS.BackupAccount('fds-ftw');
 ```
 
-##### Store Value
+#### BackupAccountAsJSON
 
-```
-account.storeValue('key-1', 'hello value world');
+Returns a Ethereum style V3 wallet javascript object for a given username.
+
+*async* **FDS.BackupAccountAsJSON(** *username* **)**
+
+**Inputs**
+
+- subdomain (string) [ the username that is associated with the wallet]
+
+**Returns**
+
+WalletJSON (string)
+
+*note: take a note of the username here, you will need it when restoring this wallet.*
+
+```javascript
+let WalletJSON = await FDS.BackupAccountAsJSON('username');
 ```
 
-##### Retreive Value
+#### RestoreAccount
 
-```
-account.retrieveValue('key-1').then(console.log);
-// 'hello value world'
+Restores account from file object and saves it into the local storage.
+
+*async* **FDS.RestoreAccount(** *backupFile* **)**
+
+**Inputs**
+
+- backupFile (file) [ A File object containing JSON V3 wallet and with filename in the format `fds-wallet-dan1234-backup.json` ]
+
+**Returns**
+
+*promise* Success (bool)
+
+```javascript
+//retrieve backup from
+await FDS.RestoreAccount(backupFile);
 ```
 
-##### Store Encrypted Value
+#### RestoreAccountFromPrivateKey
 
-```
-account.storeEncryptedValue('key-e1', 'hello encrypted value world');
+Restores account from a private key and saves it into the browser's localstorage.
+
+*async* **FDS.RestoreAccountFromPrivateKey(** *username, password, privateKey* **)**
+
+**Inputs**
+
+- username (string) [ the username that is associated with the private key]
+- password (string) [ the password with which to encrypt the private key in localstorage]
+- privateKey (string) [ private key as hex string without 0x prefix ]
+
+**Returns**
+
+*promise* User (User Object)
+
+```javascript
+//retrieve backup from
+await FDS.RestoreAccountFromPrivateKey('username', 'password', 'private-key-without-0x');
 ```
 
-##### Retreive Encrypted Value
+#### RestoreAccountFromJSON
 
+Restores account from a json V3 wallet and saves it into the browser's localstorage.
+
+*async* **FDS.RestoreAccountFromJSON(** *username, jsonString* **)**
+
+**Inputs**
+
+- subdomain (string) [ the username that is associated with the wallet]
+- jsonString (string) [ V3 encrypted wallet ]
+
+**Returns**
+
+*promise* User (User Object)
+
+```javascript
+await FDS.RestoreAccountFromJSON('username', '{..}' );
 ```
-account.retrieveDecryptedValue('key-e1').then(console.log);
+
+#### DeleteAccount(username);
+
+Deletes an account from localstorage.
+
+*async* **FDS.DeleteAccount(** *username* **)**
+
+**Inputs**
+
+- username (string) [ the username to be deleted]
+
+**Returns**
+
+null
+
+```javascript
+FDS.DeleteAccount('username');
+```
+
+----
+### User Object
+----
+
+Everything in FDS happens within a user context - this handles permissions, authorisation, encrytion and authentication under the hood so that everything is crypto-secure 🌍.
+
+You may create or retrieve a user object using the CreateAccount, GetAccounts or UnlockAccount methods of the FDS object, then use it to interact with the FDS multiverse, Swarm and Ethereum networks.
+
+----
+#### Attributes
+
+- subdomain (string) the username of the account #todo change this to username
+- address (string) the address of the account
+- publicKey (string) the public key of the account
+- privateKey (string) the private key of the account
+- nonce (int) 
+
+----
+#### Functions
+
+#### send
+
+Sends a file object from one user to another user's [multibox](#multibox-contract) path.
+
+*async* **user.send(** *recipientSubdomain, file, multiboxPath, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log* **)**
+
+**Inputs**
+
+- recipientSubdomain (string) [ the user name of the recipient  ]
+- file (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](file-objects-in-node).  ]
+- multiboxPath (string) [ the [Multibox](#multibox-contract) path to send your file to ]
+- encryptionCallback (function) [ callback function, encryptionStatus true if encryption complete ]
+- uploadCallback (function) [ callback function, returns percentage uploaded as first argument [(see examples)](#upload-progress-bar) ]
+- progressMessageCallback (function) [ callback function, returns string progress messages
+
+**Returns**
+
+Success (Bool) #todo
+
+```javascript
+let success = await bob.send('alice', file, '/shared/mail', (encryptionStatus)=>{}, (percentageUploaded)=>{}, (progressMessageCallback)=>{});
+```
+
+#### messages
+
+Checks to see if any files have been received by a user by [multibox](#multibox-contract) path. 
+
+*async* **user.messages(** *query, multiboxPath, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log* **)**
+
+**Inputs**
+
+- type (string) [ 'received' or 'sent' ]
+- multiboxPath (string) [ the [Multibox](#multibox-contract) path to check for messages ]
+- encryptionCallback (function) [ callback function, fires when encryption complete ]
+- uploadCallback (function) [ callback function, returns percentage uploaded as first argument [(see examples)](#upload-progress-bar) ]
+- progressMessageCallback (function) [ callback function, returns string progress messages ]
+
+**Returns**
+
+Messages (Array)[Message Object]
+
+```javascript
+let messages = await bob.messages('received', '/shared/files');
+```
+
+
+#### store
+
+Stores a private file. The file is encrypted using AES-256-CTR and the user's private key before it is uploaded into Swarm. An encrypted record of the location and metadata of the file is encrypted and stored into Swarm Feeds for later retrieval.
+
+*async* **user.store(** *file, encryptionCallback, uploadCallback, progressMessageCallback* **)**
+
+**Inputs**
+
+- file (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](file-objects-in-node).  ]
+- encryptionCallback (function) [ callback function, encryptionStatus true when complete,  ] *default: console.log*
+- uploadCallback (function) [ callback function, returns percentage uploaded as first argument [(see examples)](#upload-progress-bar) ] *default: console.log*
+- progressMessageCallback (function) [ callback function, returns string progress messages *default: console.log*
+
+**Returns**
+
+Success (Bool) [] #todo
+
+```javascript
+let success = await bob.store(file, (encryptionStatus)=>{}, (percentageUploaded)=>{}, (progressMessage)=>{});
+```
+
+#### stored
+
+Gets a list of stored files. 
+
+*async* **user.stored(** ** **)**
+
+**Inputs**
+
+**Returns**
+
+StoredFiles (Array) [Hash Object]
+
+```javascript
+let stored = await bob.stored();
+```
+
+#### storeValue
+
+Stores an encrypted string `value` that can later be retrieved using the `key`. 
+
+Useful for storing application state and much more. This value can only be accesed by the `user`.
+
+*async* **user.storeValue(** *key, value* **)**
+
+**Inputs**
+- key (string) [ a string identifier for the `value`, must be less that X characters ] #todo
+- value (string) [ a string ]
+
+**Returns**
+
+StoredFiles (Array) [Hash Object]
+
+```javascript
+let success = await a.storeValue('key231', 'hello encrypted value world');
+```
+
+#### getValue
+
+Retrieves an encrypted string `value` that can has been stored by the `user` identified by a string `key`. 
+
+*async* **user.getValue(** *key* **)**
+
+**Inputs**
+- key (string) [ a string identifier for the required `value` ] 
+
+**Returns**
+
+Value (string)
+
+```javascript
+let value = await a.retrieveValue('key231');
 // 'hello encrypted value world'
 ```
 
-#### Messaging
+#todo!!!!!#
 
-##### Send a File.
 
-```
-let file = new File(['hello world'], `test.txt`, {type: 'text/plain'});
-account.send('another-account', file).then((message)=>{
-  console.log(`>>>> successfully sent ${message}`);
-});
-```
+#### sendValue
 
-##### Check for Received Files
 
-```
-account.messages().then((messages)=>{
-  console.log(messages)
-});
-```
+Sends an encrypted string `value` to a users Multibox so that it can later be retrieved using a `key`. This value can only be accesed by the `user`.
 
-##### Retrieve Received File
+*async* **user.sendValue(** *key, value* **)**
 
-```
-account.messages().then((messages)=>{
-  messages[0].getFile().then(console.log);
-  // File(['hello world'], `test.txt`, {type: 'text/plain'})
-  messages[0].saveAs();
-  // starts download
-});
+**Inputs**
+- recipientSubdomain (string) [ the user name of the recipient  ] 
+- file (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](#file-objects-in-node).  ]
+
+**Returns**
+
+Value (string)
+
+```javascript
+let success = await alice.sendValue('key231', 'hey bob', 'bob', '/shared/mail');
+// true
 ```
 
-### API
 
+#### retrieveSentValues
 
-## Important!
+Stores an encrypted string `value` that can later be retrieved using the `key`. Useful for storing application state and much more. This value can only be accesed by the `user`.
 
-Pending security review! Not ready for production, just yet, some come ;)
+*async* **user.retrieveSentValues(** *key, value* **)**
 
-# Examples
+**Inputs**
+- recipientSubdomain (string) [ the user name of the recipient  ] 
+- file (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](#file-objects-in-node).  ]
 
+**Returns**
+
+Values (Array)[string]
+
+```javascript
+let value = await a.retrieveSentValues('key231', '/shared/mail');
+// ['hey bob']
 ```
-window.FDS = new FDS({
-swarmGateway: 'https://swarm-dev-test.datafund.io',
-ethGateway: 'https://geth-dev.datafund.io',
-faucetAddress: 'https://dfaucet-testnet-dev.herokuapp.com/gimmie',
-chainID: '235813',
-httpTimeout: 1000,
-gasPrice: 50,
-ensConfig: {
-domain: 'datafund.eth',
-registryAddress: '0x246d204ae4897e603b8cb498370dcbb2888213d1',
-fifsRegistrarContractAddress: '0xbbcfe6ccee58d3ebc82dcd4d772b2484d23d0a0b',
-resolverContractAddress: '0x79164c357f81627042d958533bba8a766c81f3d6'
+
+
+#### sendValueUnencrypted
+
+
+#### retrieveUnencryptedValues
+
+
+#end todo!!!!!#
+
+
+#### deployContract
+
+Deploys a contract from the user's account context, returns a [Contract Object](#contract-object) with which you may call your Solidity contract's functions to interact with the blockchain.
+
+See example #todo
+
+*async* **user.deployContract(** *abi, bytecode, args = []* **)**
+
+**Inputs**
+- abi (object) [ the [application binary interface]() of the contract to be deployed ] #todo
+- bytecode (string) [ 0x prefixed of the contract to be deployed  ] #todo
+- args (array) [ an array of arguments to be passed to the contract constructor  ] #todo
+- contractAddress (string) [address of the contract]
+
+**Returns**
+
+Contract (Contract Object)
+
+```javascript
+let contract = await alice.deployContract([ { "inputs": [], ... } ] , '608060405234801561001057600080fd5b50...', ['my', 'arguments']);
+```
+
+#todo https://www.npmjs.com/package/truffle-flattener
+
+
+#### getContract
+
+Gets a [Contract Object]() with the user's account context, which you may call the functions of to interact with the blockchain.
+
+*async* **user.getContract(** *abi, address* **)**
+
+**Inputs**
+- abi (object) [ the [application binary interface]() of the contract to be deployed ] #todo
+- address (string) [ address of the deployed contract ]
+
+**Returns**
+
+Value (string)
+
+```javascript
+let success = await alice.getContract([ { "inputs": [], ... } ], '0xab234...' );
+// true
+```
+
+-----
+### Message Object
+-----
+
+#### Description
+
+Message objects are returned from user.messages()
+
+-----
+#### Attributes
+
+- to (string) [user the message was sent to]
+- from (string) [user the message was sent from]
+- hash (Hash Object) [the hash for the file that was sent]
+
+-----
+#### Functions
+
+#### getFile
+
+Retrieves and decrypts a file from Swarm. 
+
+*async* **message.getFile(** *decryptProgressCallback = console.log, downloadProgressCallback = console.log* **)**
+
+**Inputs**
+
+- decryptProgressCallback (string) [ the user name of the recipient  ] 
+- downloadProgressCallback (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](file-objects-in-node).  ]
+
+**Returns**
+
+File (File)
+
+```javascript
+let file = await message.getFile();
+```
+
+#### saveAs
+
+Uses [filesaver](https://github.com/eligrey/FileSaver.js/) to prompt a file download from the browser environment. 
+
+*async* **message.saveAs(** *decryptProgressCallback = console.log, downloadProgressCallback = console.log* **)**
+
+**Inputs**
+
+- decryptProgressCallback (function) [ decryption progress callback ] 
+- downloadProgressCallback (function) [ download progress callback ]
+
+**Returns**
+
+File (File)
+
+```javascript
+let file = await message.saveAs();
+```
+
+-----
+### Hash Object
+-----
+
+#### Description
+
+Hash objects are used to represent files encrypted and stored into swarm.
+
+-----
+#### Attributes
+
+  address: 'ece513967ad1d7610f280ff1a6c619ae7458780bbd0e0ba687e60ba6e3ae47e2',
+  file: { name: 'test.txt', type: 'text/plain' },
+  time: 1569241451971,
+
+- address (string) [location in Swarm]
+- file (object) [file meta info]
+- time (string) [unix epoch file created date]
+
+Hash objects contain references to encrypted files stored in Swarm.
+
+-----
+#### Functions
+
+#### getFile
+
+Retrieves and decrypts a file from Swarm. 
+
+*async* **hash.getFile(** *decryptProgressCallback = console.log, downloadProgressCallback = console.log* **)**
+
+**Inputs**
+
+- recipientSubdomain (string) [ the user name of the recipient  ] 
+- file (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](file-objects-in-node).  ]
+
+**Returns**
+
+File (File)
+
+```javascript
+let file = await hash.getFile();
+```
+
+#### saveAs
+
+Uses [filesaver](https://github.com/eligrey/FileSaver.js/) to prompt a file download from the browser environment. 
+
+*async* **hash.saveAs(** *decryptProgressCallback = console.log, downloadProgressCallback = console.log* **)**
+
+**Inputs**
+
+- decryptProgressCallback (function) [ decryption progress callback ] 
+- downloadProgressCallback (function) [ download progress callback ]
+
+**Returns**
+
+
+```javascript
+let file = await hash.saveAs();
+```
+
+#### gatewayLink
+
+Uses [filesaver](https://github.com/eligrey/FileSaver.js/) to prompt a file download from the browser environment. 
+
+*async* **hash.gatewayLink(** ** **)**
+
+**Inputs**
+
+- decryptProgressCallback (function) [ decryption progress callback ] 
+- downloadProgressCallback (function) [ download progress callback ]
+
+**Returns**
+
+GatewayLink (string)
+
+```javascript
+let file = await hash.gatewayLink();
+```
+
+# Contracts
+
+FDS takes away the pain of dealing with contracts, simply load in the ABI the deploy or specify the contract address, then call your functions to interact directly with the blockchain.
+
+#todo - check this is working......
+
+
+-----
+### Contract Object
+-----
+
+The contract object exposes any Solidity methods, which can be called just like normal functions. 
+
+It is returned from GetContract or DeployContract.
+
+
+- contractAddress (string) [ address of the deployed contract ]
+- web3Instance (object) [ web3 instance of the deployed contract ]
+
+*async* **contract.myMethod(** *arg1, arg2, ...* **)**
+
+myMethod can be any function, getter or setter of your contract
+
+**Inputs**
+- arg1 (any) [ the argument to the solidty function ] #todo
+
+-----
+#### Native Tokens
+-----
+
+-----
+#### Get a User's Balance
+-----
+
+Gets a user's balance.
+
+*async* **user.getBalance(** ** **)**
+
+**Inputs**
+
+
+**Returns**
+
+Value (string)
+
+```javascript
+let balance = await alice.getBalance([ { "inputs": [], ... } ], '0xsa3bsdfs' );
+191832026900000000
+// true
+```
+
+-----
+#### Pay a User
+-----
+
+Pays a user native balance.
+
+*async* **user.pay(** *recipientSubdomain, amount, transactionCallback = console.log, transactionSignedCallback = console.log* **)**
+
+
+**Inputs**
+- abi (object) [ the [application binary interface]() of the contract to be deployed ] #todo
+- address (string) [ address of the deployed contract ]
+- transactionCallback (function)
+- transactionSignedCallback (function)
+
+**Returns**
+
+TransactionHash (string)
+
+```javascript
+let balance = await alice.pay([ 'bob', '0.1' );
+//0x3cf52d1..
+```
+
+-----
+#### Pay an Address
+-----
+
+Pays a address native balance.
+
+*async* **user.pay(** *recipientAddress, amount, transactionCallback = console.log, transactionSignedCallback = console.log* **)**
+
+
+**Inputs**
+- abi (object) [ the [application binary interface]() of the contract to be deployed ] #todo
+- address (string) [ address of the deployed contract ]
+- transactionCallback (function)
+- transactionSignedCallback (function)
+
+**Returns**
+
+TransactionHash (string)
+
+```javascript
+let balance = await alice.pay([ '0x234...', '0.1' );
+//0x3cff2d1..
+```
+
+## Notes
+
+### Notes on the Node Environment
+
+#### File Objects in Node
+
+Because the node environment does not include the file object, you must include a stub file object so that FDS has knowledge of what meta information is associated with the file.
+
+```javascript
+class File{
+  constructor(content, name,options){
+    this.content = content;
+    this.name = name;
+    this.type = options.type;
+  }
 }
-});    
-
-let simulateCreateTwoAndSendTwo = ()=>{
-
-  let r1 = Math.floor(Math.random() * 1010101);
-  let r2 = Math.floor(Math.random() * 1010101);
-  let account1, account2 = null;
-  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
-    account1 = account;
-    console.log(`registered account 1 ${account1.subdomain}`);  
-  }).then(() => {
-    return window.FDS.CreateAccount(`test${r2}`, 'test', console.log).then((account) => {
-      account2 = account;
-      console.log(`registered account 2 ${account2.subdomain}`);  
-    }).catch(console.error)
-  }).then(()=>{
-    return window.FDS.UnlockAccount(account1.subdomain, 'test').then((acc1)=>{
-      let r = Math.floor(Math.random() * 10101);
-      let file = new File([`hello world ${r}`], `test${r}.txt`, {type: 'text/plain'});
-      return acc1.send(account2.subdomain, file, console.log, console.log, console.log).then((message)=>{
-        console.log(`>>>> successfully sent ${message} to ${account2.subdomain}`);
-      });
-    })
-  }).then(()=>{
-    console.log(`window.FDS.UnlockAccount('${account2.subdomain}', 'test').then((acc2)=>{
-      acc2.messages().then((messages)=>{
-        console.log('m', messages.length)
-        messages[0].getFile().then(console.log)
-        messages[0].saveAs();
-      })
-    })`)
-    console.log(`window.FDS.UnlockAccount('${account1.subdomain}', 'test').then((acc2)=>{
-      acc2.messages('sent').then((messages)=>{
-        console.log('m', messages.length)
-        messages[0].getFile().then(console.log)
-        messages[0].saveAs();
-      })
-    })`)
-    //todo check from sent mailbox too
-  }).then(()=>{
-    return window.FDS.UnlockAccount(account1.subdomain, 'test').then((acc1)=>{
-      let r = Math.floor(Math.random() * 10101);
-      let file = new File([`hello world 2${r}`], `test${r}-snd.txt`, {type: 'text/plain'});
-      acc1.send(account2.subdomain, file, console.log, console.log, console.log).then((message)=>{
-        console.log(`>>>> successfully sent ${message} to ${account2.subdomain}`);
-      });
-    })
-  });
-
-}
-
-let createAndStore = ()=>{
-
-  let r1 = Math.floor(Math.random() * 10101);
-  let r2 = Math.floor(Math.random() * 10101);
-  let account1, account2 = null;
-  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
-    account1 = account;
-    console.log(`registered account 1 ${account1.subdomain}`);  
-  }).then(()=>{
-    return window.FDS.UnlockAccount(account1.subdomain, 'test').then((acc1)=>{
-      let r = Math.floor(Math.random() * 10101);
-      let file = new File(['hello storage world'], `test${r}.txt`, {type: 'text/plain'});
-      acc1.store(file, console.log, console.log, console.log).then((stored)=>{
-        console.log(`>>>> successfully stored ${stored} for ${acc1.subdomain}`);
-      });
-    })
-  }).then(()=>{
-    console.log(`window.FDS.UnlockAccount('${account1.subdomain}', 'test').then((acc2)=>{
-      acc2.stored().then((stored)=>{
-        console.log('m', stored.length)
-        stored[0].getFile().then(console.log)
-        stored[0].saveAs();
-      })
-    })`)
-  });
-
-}
-
-let createAndBackup = ()=>{
-
-  let r1 = Math.floor(Math.random() * 10101);
-  let r2 = Math.floor(Math.random() * 10101);
-  let account1, account2 = null;
-  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
-    account1 = account;
-    console.log(`registered account 1 ${account1.subdomain}`);  
-  }).then(()=>{
-    return window.FDS.BackupAccount(account1.subdomain, 'test');
-  });
-
-}
-
-let backupJSON = null;
-
-let createDeleteAndRestore = ()=>{
-
-  let r1 = Math.floor(Math.random() * 10101);
-  let r2 = Math.floor(Math.random() * 10101);
-  let account1, account2 = null;
-  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
-    account1 = account;
-    console.log(`registered account 1 ${account1.subdomain}`);  
-  }).then(()=>{
-    let accounts = window.FDS.GetAccounts();
-    let f = accounts.filter((a)=>{return a.subdomain === account1.subdomain});
-    if(f.length === 1){
-      console.log(`success: account ${account1.subdomain} exists`);
-      backupJSON = JSON.stringify(accounts[0].wallet);
-    }else{
-      throw new Error(`account ${account1.subdomain} does not exist`)
-    }
-    return window.FDS.DeleteAccount(account1.subdomain);
-  }).then(()=>{
-    let accounts = window.FDS.GetAccounts();
-    let f = accounts.filter((a)=>{return a.subdomain === account1.subdomain});
-    if(f.length === 0){
-      console.log(`success: account ${account1.subdomain} does not exist`)
-    }else{
-      throw new Error(`account ${account1.subdomain} exists`)
-    }
-  }).then(()=>{
-    let backupFile = new File([backupJSON], `fairdrop-wallet-${account1.subdomain}-backup (1).json`, {type: 'text/plain'});
-    window.FDS.RestoreAccount(backupFile).then(()=>{
-      let accounts = window.FDS.GetAccounts();
-      let f = accounts.filter((a)=>{return a.subdomain === account1.subdomain});
-      if(f.length === 1){
-        console.log(`success: account ${account1.subdomain} exists`)
-      }else{
-        throw new Error(`account ${account1.subdomain} does not exist`)
-      }    
-    });
-    //todo check you can send to/from and store
-  }).catch(console.error);
-
-}
-
-
-
-let createAndStoreValue = ()=>{
-  let r1 = Math.floor(Math.random() * 10101);
-  let r2 = Math.floor(Math.random() * 10101);
-  let account1, account2 = null;
-  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
-    account1 = account;
-    console.log(`registered account 1 ${account1.subdomain}`);  
-  }).then(()=>{
-    return window.FDS.UnlockAccount(account1.subdomain, 'test').then((acc1)=>{
-      acc1.storeValue('k1', 'hello value world').then((stored)=>{
-        console.log(`>>>> successfully stored ${stored} for ${acc1.subdomain}`);
-      });
-    })
-  }).then(()=>{
-    console.log(`window.FDS.UnlockAccount('${account1.subdomain}', 'test').then((acc2)=>{
-      acc2.retrieveValue('k1').then(console.log)
-    })`)
-  });
-}
-
-let createAndStoreEncryptedValue = ()=>{
-  let r1 = Math.floor(Math.random() * 10101);
-  let r2 = Math.floor(Math.random() * 10101);
-  let account1, account2 = null;
-  window.FDS.CreateAccount(`test${r1}`, 'test', console.log).then((account) => {
-    account1 = account;
-    console.log(`registered account 1 ${account1.subdomain}`);  
-  }).then(()=>{
-    return window.FDS.UnlockAccount(account1.subdomain, 'test').then((acc1)=>{
-      acc1.storeEncryptedValue('k1', 'hello encrypted value world').then((stored)=>{
-        console.log(`>>>> successfully stored ${stored} for ${acc1.subdomain}`);
-      });
-    })
-  }).then(()=>{
-    console.log(`window.FDS.UnlockAccount('${account1.subdomain}', 'test').then((acc2)=>{
-      acc2.retrieveDecryptedValue('k1').then(console.log)
-    })`)
-  });
-}
-
-simulateCreateTwoAndSendTwo();
-// createAndStore();
-// createAndStoreValue();
-// createAndStoreEncryptedValue();
-// createAndBackup();
-// createDeleteAndRestore();
-
 ```
+
+#### Node REPL
+
+When using the Node at the command line, you may find it useful to enable top tier await functionality.
+
+```bash
+node --experimental-repl-await
+```
+
+### Multibox Contract
+
+![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pigeon-hole_messagebox_3.jpg/640px-Pigeon-hole_messagebox_3.jpg "Fair Data Society")
 
 ### Troubleshooting Windows installation
 
@@ -629,3 +905,45 @@ Now FDS repo is available to be imported in your project:
 ```
 import FDS from 'fds';
 ```
+
+
+### Overview
+
+FDS is an attempt to provide a very accessible high level framework to enable everyone to create apps using the Ethereum Web3 stack. At present it enables developers to:
+
+ - Create Password Protected Account
+ - Unlock (Sign In) Account
+ - Store values using an encrypted key/value store
+ - Store a file encrypted using AES-256-CTR
+ - Send encrypted files to another account
+
+Coming soon:
+
+  - Store Unencrypted Values
+  - Wallet top up
+  - Threads/Groups
+  - Send ETH/Tokens
+  - Upload hosted website
+  - Public Post Feed
+  - Markdown to Blog Post Publishing Platform
+
+All sensitive data is fully encrypted before it leaves the browser and all transactions are signed within the browser.
+
+Wallets are stored in a password protected format in your browser's localstorage facility.
+
+You may deploy your own networks of Swarm and Ethereum, or use the FDSociety network.
+
+Enjoy!
+
+### Endpoints
+
+You may specify various endpoints:
+
+Ethereum Mainnet / Swarm Mainnet (TBC)
+Provided by the Ethereum Foundation
+
+Ropsten Testnet / Swarm Testnet
+Provided by the Ethereum Foundation
+
+FDS Testnet
+Provided by Fair Data Society, get in touch for tokens!
