@@ -247,7 +247,7 @@ contract('FDS', function(accounts) {
   it('should retreive a contract', async function() {
     let account = await FDS.UnlockAccount(subdomain, 'test');
 
-    let contract = await account.getContract(ENS.abi, ENS.bytecode, contractAddress);
+    let contract = await account.getContract(ENS.abi, contractAddress);
 
     let tx = await contract.send('setSubnodeOwner', ['0x0000000000000000000000000000000000000000000000000000000000000000', '0x' + sha3('def'), account.address]);
 

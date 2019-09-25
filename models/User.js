@@ -57,8 +57,8 @@ class User {
     return this.Tx.deployContract(this, abi, bytecode, args, nonce, gas);
   }
 
-  getContract(abi, bytecode, address){
-    return this.Tx.getContract(this, abi, bytecode, address);
+  getContract(abi, address){
+    return this.Tx.getContract(this, abi, address);
   }
 
   /**
