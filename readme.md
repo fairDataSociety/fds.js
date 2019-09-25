@@ -649,12 +649,12 @@ Retrieves and decrypts a file from Swarm.
 
 **Inputs**
 
-- recipientSubdomain (string) [ the user name of the recipient  ] 
-- file (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](file-objects-in-node).  ]
+- decryptProgressCallback (function) [ decryption progress callback ] 
+- downloadProgressCallback (function) [ download progress callback ]
 
 **Returns**
 
-File (File)
+*promise* File (File)
 
 ```javascript
 let file = await hash.getFile();
@@ -673,6 +673,7 @@ Uses [filesaver](https://github.com/eligrey/FileSaver.js/) to prompt a file down
 
 **Returns**
 
+null
 
 ```javascript
 let file = await hash.saveAs();
