@@ -57,8 +57,8 @@ class Message {
     }
   }
 
-  saveAs(){
-    return this.getFile().then(file => FileSaver.saveAs(file));  
+  saveAs(decryptProgressCallback = console.log, downloadProgressCallback = console.log){
+    return this.getFile(decryptProgressCallback = console.log, downloadProgressCallback = console.log).then(file => FileSaver.saveAs(file));  
   }
 }
 

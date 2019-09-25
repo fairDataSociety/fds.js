@@ -12,7 +12,7 @@ class FDS {
       tokenName: 'gas',
       swarmGateway: 'https://swarm.fairdatasociety.org',
       ethGateway: 'https://geth-noordung.fairdatasociety.org',
-      faucetAddress: 'https://dfaucet-testnet-prod.herokuapp.com/gimmie',
+      faucetAddress: 'https://faucet-noordung.fairdatasociety.org/gimmie',
       chainID: '235813',
       httpTimeout: 1000,
       gasPrice: 0.1,
@@ -125,6 +125,16 @@ class FDS {
   }
 
   /**
+   * Restores an FDS account from a private key.
+   * @get
+   * @param {string} private key as a hex string
+   * @returns {boolean} true if successful
+   */
+  RestoreAccountFromPrivateKey(subdomain, password, privateKey){
+    return this.Account.restoreFromPrivateKey(subdomain, password, privateKey);
+  }  
+
+  /**
    * Intigates download of a FDS wallet backup file.
    * @get
    * @param {string} subdomain name
@@ -140,8 +150,8 @@ class FDS {
    * @param {string} subdomain name
    * @returns {boolean} true if successful
    */
-  BackupAccountAsJson(subdomain){
-    return this.Account.get(subdomain).getBackup();
+  BackupAccountAsJSON(subdomain){
+    return this.Account.get(subdomain).getBackupAsJSON();
   }  
 
 }

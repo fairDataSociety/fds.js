@@ -134,8 +134,8 @@ class User {
    * @returns {any} available messages
    */
   messages(query = 'received', multiboxPath){
-    if(['received','sent', 'saved'].indexOf(query) === -1){
-      throw new Error('must be of type received, sent or saved');
+    if(['received','sent'].indexOf(query) === -1){
+      throw new Error('must be of type received or sent');
     }
     return this.Mail.getMessages(query, this, multiboxPath);
   }
@@ -222,6 +222,14 @@ class User {
       name: `fds-wallet-${this.subdomain}-backup.json` 
     }
   }
+
+  /** Get backup of wallet 
+   * @returns {any} file
+   */
+  getBackupAsJSON(){
+    return JSON.stringify(this.wallet);
+  }
+
 
   /** get wallet file 
    *  @returns {any} wallet file */

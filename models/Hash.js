@@ -29,7 +29,6 @@ class Hash {
     this.iv = attrs.iv;
     
     this.account = account;
-    this.SwarmStore = this.account.SwarmStore;
 
     return this;
   }
@@ -51,8 +50,8 @@ class Hash {
     return this.SwarmStore.retrieveFile(this.account, this, decryptProgressCallback, downloadProgressCallback);
   }
 
-  saveAs(){
-    return this.getFile().then(file => FileSaver.saveAs(file));
+  saveAs(decryptProgressCallback = console.log, downloadProgressCallback = console.log){
+    return this.getFile(decryptProgressCallback = console.log, downloadProgressCallback = console.log).then(file => FileSaver.saveAs(file));
   }
 
   gatewayLink(){
