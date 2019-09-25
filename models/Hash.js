@@ -30,6 +30,8 @@ class Hash {
     
     this.account = account;
 
+    this.SwarmStore = this.account.SwarmStore;
+
     return this;
   }
 
