@@ -53,6 +53,10 @@ class User {
       };
   }
 
+  unlock(password){
+    //todo, move from fds-account
+  }
+
   deployContract(abi, bytecode, args = [], nonce, gas = 15000000){
     return this.Tx.deployContract(this, abi, bytecode, args, nonce, gas);
   }
@@ -139,6 +143,26 @@ class User {
     }
     return this.Mail.getMessages(query, this, multiboxPath);
   }
+
+    /**
+     * store value
+     * @param {any} key to store under
+     * @param {any} value to store
+     * @returns {any} stored result
+     */
+  sendValue(subdomain, multiboxPath, key, value){
+    return this.SwarmStore.storeValue(key, value, this);
+  }
+
+    /**
+     * retrieve value
+     * @param {any} key to lookup
+     * @returns {any} retrieved value
+     */
+  sendValue(subdomain, multiboxPath, key){
+    return this.SwarmStore.retrieveValue(key, this);
+  }
+
   
     /**
      * store value

@@ -561,6 +561,88 @@ let success = await alice.getContract([ { "inputs": [], ... } ], '0xab234...' );
 // true
 ```
 
+#### deployMultibox
+
+Deploys a contract from the user's account context, returns a [Contract Object](#contract-object) with which you may call your Solidity contract's functions to interact with the blockchain.
+
+See example #todo
+
+*async* **user.deployContract(** *abi, bytecode, args = []* **)**
+
+**Inputs**
+- abi (object) [ the [application binary interface]() of the contract to be deployed ] #todo
+- bytecode (string) [ 0x prefixed of the contract to be deployed  ] #todo
+- args (array) [ an array of arguments to be passed to the contract constructor  ] #todo
+- contractAddress (string) [address of the contract]
+
+**Returns**
+
+Contract (Contract Object)
+
+```javascript
+let contract = await alice.deployContract([ { "inputs": [], ... } ] , '608060405234801561001057600080fd5b50...', ['my', 'arguments']);
+```
+
+#todo https://www.npmjs.com/package/truffle-flattener
+
+
+#todo
+
+#### getMultibox
+
+Gets a [Contract Object]() with the user's account context, which you may call the functions of to interact with the blockchain.
+
+*async* **user.getMultbox(** *subdomain = ownSubdomain* **)**
+
+**Inputs**
+- subdomain (object) [ the subdomain relating to the Multibox to be retrieved] #todo
+
+**Returns**
+
+Multibox (Multibox Object)
+
+```javascript
+let success = await alice.getContract([ { "inputs": [], ... } ], '0xab234...' );
+// true
+```
+
+#### getMultiboxByAddress
+
+Gets a [Contract Object]() with the user's account context, with which you may get and set values.
+
+*async* **user.getMultbox(** *subdomain = ownSubdomain* **)**
+
+**Inputs**
+- subdomain (object) [ the subdomain relating to the Multibox to be retrieved] #todo
+
+**Returns**
+
+Multibox (Multibox Object)
+
+```javascript
+let success = await alice.getContract([ { "inputs": [], ... } ], '0xab234...' );
+// true
+```
+
+#### deployMultibox
+
+Deploys a new Multibox, with which you may get and set values.
+
+*async* **user.deployMultbox(** ** **)**
+
+**Inputs**
+*none*
+
+**Returns**
+
+Multibox (Multibox Object)
+
+```javascript
+let success = await alice.getContract([ { "inputs": [], ... } ], '0xab234...' );
+// true
+```
+
+
 -----
 ### Message Object
 -----
@@ -704,6 +786,14 @@ FDS takes away the pain of dealing with contracts, simply load in the ABI the de
 
 #todo - check this is working......
 
+
+-----
+### Multibox Object
+-----
+
+get()
+
+set()
 
 -----
 ### Contract Object
