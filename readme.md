@@ -1,10 +1,16 @@
-#todo
-
-<!-- ![alt text](https://raw.githubusercontent.com/fairDataSociety/fds.js/beta/images/fair-data-society.png "Fair Data Society") -->
-
 <div style="text-align:center"><img src="https://raw.githubusercontent.com/fairDataSociety/fds.js/beta/images/fair-data-society.png" alt="Fair Data Society" /></div>
 
 # FDS Dapp Framework
+
+### Overview
+
+FDS is an attempt to provide a very accessible high level framework to enable everyone to create apps using the Ethereum Web3 stack. At present it enables developers to:
+
+ - Create Password Protected Account
+ - Unlock (Sign In) Account
+ - Store values using an encrypted key/value store
+ - Store a file encrypted using AES-256-CTR
+ - Send encrypted files to another account
 
 Easy to use Dapp framework.
 
@@ -14,27 +20,24 @@ The FDS Dapp Framework provides a high level javascript SDK for DApp developers 
 
 ## New in 0.1.0
 
-  - Now works in a Node environment. #todo .gif
-  - [Plug in your own contracts!!](#use-you-own-contracts) #todo
+  - Now works in a Node environment.
+  - [Plug in your own contracts!!](#use-your-own-contracts)
     - Simply deploy your own contracts then call functions, tx's are signed in the browser by FDS.
     - Work with existing contracts.
   - Much improved docs in await/sync syntax for your understanding pleasure. 💖 
   -  🎁 The mighty multibox brings data interoperability to all of your [FDIP Compliant]() Dapps!
-  - ... #todo
+  - ...and much more!
 
 ## Features
 
   - Easily create Ethereum wallets
-  - Store and share e2e encrypted values and files using Swarm network.
+  - Store and share e2e encrypted values and files in the Swarm network.
   - Send Tokens and balance
   - Simply include your contract's abi and call functions - the rest is taken care of.
   - Totally decentralised, Zero Data, nothing leaves the your computer unencrypted, and only you have the key.
-
-
+ 
 
 ## Install
-
-#todo is this needed? seems to work ok in 12
 
 Use Node version 10. You may use [Node Version Manager](https://github.com/nvm-sh/nvm)
 
@@ -78,15 +81,20 @@ messages[0].getFile();
 ----
 ## Examples
 
-#todo
+### Use Your Own Contracts
 
-## Advanced Usage
+```javascript
+let erc20 = b.getContract(erc20Abi,'0x35e46c...')
+```
 
-#todo
+```javascript
+let totalSupply = await erc20.totalSupply();
+```
 
-### Upload Progress Bar
-
-#todo
+```javascript
+let tx = await transfer.transfer('0xabcd...', 100);
+```
+*create an issue on this repo if you'd like us to include an example of something you're working on!*
 
 ------------------------------------------
 
@@ -96,7 +104,7 @@ messages[0].getFile();
 
 You must first create an FDS object to work with. 
 
-To instantiate this using the default options (using Noordung testnet) is as simple as:
+To instantiate this using the default options:
 
 ```javascript
 let fds = new FDS();
@@ -104,7 +112,7 @@ let fds = new FDS();
 
 #### Config
 
-It is possible to specify toh values other than the defaults.
+It is also possible to specify values other than the defaults.
 
 ```javascript
 var fds = new FDS({
@@ -334,7 +342,7 @@ You may create or retrieve a user object using the CreateAccount, GetAccounts or
 ----
 #### Attributes
 
-- subdomain (string) the username of the account #todo change this to username
+- subdomain (string) the username of the account
 - address (string) the address of the account
 - publicKey (string) the public key of the account
 - privateKey (string) the private key of the account
@@ -360,7 +368,7 @@ Sends a file object from one user to another user's [multibox](#multibox-contrac
 
 **Returns**
 
-Success (Bool) #todo
+Success (Bool)
 
 ```javascript
 let success = await bob.send('alice', file, '/shared/mail', (encryptionStatus)=>{}, (percentageUploaded)=>{}, (progressMessageCallback)=>{});
@@ -404,7 +412,7 @@ Stores a private file. The file is encrypted using AES-256-CTR and the user's pr
 
 **Returns**
 
-Success (Bool) [] #todo
+Success (Bool)
 
 ```javascript
 let success = await bob.store(file, (encryptionStatus)=>{}, (percentageUploaded)=>{}, (progressMessage)=>{});
@@ -435,7 +443,7 @@ Useful for storing application state and much more. This value can only be acces
 *async* **user.storeValue(** *key, value* **)**
 
 **Inputs**
-- key (string) [ a string identifier for the `value`, must be less that X characters ] #todo
+- key (string) [ a string identifier for the `value`]
 - value (string) [ a string ]
 
 **Returns**
@@ -464,71 +472,18 @@ let value = await a.retrieveValue('key231');
 // 'hello encrypted value world'
 ```
 
-#todo!!!!!#
-
-
-#### sendValue
-
-
-Sends an encrypted string `value` to a users Multibox so that it can later be retrieved using a `key`. This value can only be accesed by the `user`.
-
-*async* **user.sendValue(** *key, value* **)**
-
-**Inputs**
-- recipientSubdomain (string) [ the user name of the recipient  ] 
-- file (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](#file-objects-in-node).  ]
-
-**Returns**
-
-Value (string)
-
-```javascript
-let success = await alice.sendValue('key231', 'hey bob', 'bob', '/shared/mail');
-// true
-```
-
-
-#### retrieveSentValues
-
-Stores an encrypted string `value` that can later be retrieved using the `key`. Useful for storing application state and much more. This value can only be accesed by the `user`.
-
-*async* **user.retrieveSentValues(** *key, value* **)**
-
-**Inputs**
-- recipientSubdomain (string) [ the user name of the recipient  ] 
-- file (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](#file-objects-in-node).  ]
-
-**Returns**
-
-Values (Array)[string]
-
-```javascript
-let value = await a.retrieveSentValues('key231', '/shared/mail');
-// ['hey bob']
-```
-
-
-#### sendValueUnencrypted
-
-
-#### retrieveUnencryptedValues
-
-
-#end todo!!!!!#
-
-
 #### deployContract
 
 Deploys a contract from the user's account context, returns a [Contract Object](#contract-object) with which you may call your Solidity contract's functions to interact with the blockchain.
 
-See example #todo
+[See example](#use-your-own-contracts)
 
 *async* **user.deployContract(** *abi, bytecode, args = []* **)**
 
 **Inputs**
-- abi (object) [ the [application binary interface]() of the contract to be deployed ] #todo
-- bytecode (string) [ 0x prefixed of the contract to be deployed  ] #todo
-- args (array) [ an array of arguments to be passed to the contract constructor  ] #todo
+- abi (object) [ the [application binary interface]() of the contract to be deployed ]
+- bytecode (string) [ 0x prefixed of the contract to be deployed  ]
+- args (array) [ an array of arguments to be passed to the contract constructor  ]
 - contractAddress (string) [address of the contract]
 
 **Returns**
@@ -539,9 +494,6 @@ Contract (Contract Object)
 let contract = await alice.deployContract([ { "inputs": [], ... } ] , '608060405234801561001057600080fd5b50...', ['my', 'arguments']);
 ```
 
-#todo https://www.npmjs.com/package/truffle-flattener
-
-
 #### getContract
 
 Gets a [Contract Object]() with the user's account context, which you may call the functions of to interact with the blockchain.
@@ -549,7 +501,7 @@ Gets a [Contract Object]() with the user's account context, which you may call t
 *async* **user.getContract(** *abi, address* **)**
 
 **Inputs**
-- abi (object) [ the [application binary interface]() of the contract to be deployed ] #todo
+- abi (object) [ the [application binary interface]() of the contract to be deployed ]
 - address (string) [ address of the deployed contract ]
 
 **Returns**
@@ -560,6 +512,70 @@ Value (string)
 let success = await alice.getContract([ { "inputs": [], ... } ], '0xab234...' );
 // true
 ```
+
+#### Get a User's Balance
+
+Gets a user's balance.
+
+*async* **user.getBalance(** ** **)**
+
+**Inputs**
+
+
+**Returns**
+
+Value (string)
+
+```javascript
+let balance = await alice.getBalance([ { "inputs": [], ... } ], '0xsa3bsdfs' );
+191832026900000000
+// true
+```
+
+#### Pay a User
+
+Pays a user native balance.
+
+*async* **user.pay(** *recipientSubdomain, amount, transactionCallback = console.log, transactionSignedCallback = console.log* **)**
+
+
+**Inputs**
+- abi (object) [ the [application binary interface]() of the contract to be deployed ]
+- address (string) [ address of the deployed contract ]
+- transactionCallback (function)
+- transactionSignedCallback (function)
+
+**Returns**
+
+TransactionHash (string)
+
+```javascript
+let balance = await alice.pay([ 'bob', '0.1' );
+//0x3cf52d1..
+```
+
+#### Pay an Address
+
+Pays a address native balance.
+
+*async* **user.pay(** *recipientAddress, amount, transactionCallback = console.log, transactionSignedCallback = console.log* **)**
+
+
+**Inputs**
+- abi (object) [ the [application binary interface]() of the contract to be deployed ]
+- address (string) [ address of the deployed contract ]
+- transactionCallback (function)
+- transactionSignedCallback (function)
+
+**Returns**
+
+TransactionHash (string)
+
+```javascript
+let balance = await alice.pay([ '0x234...', '0.1' );
+//0x3cff2d1..
+```
+
 
 -----
 ### Message Object
@@ -698,12 +714,6 @@ GatewayLink (string)
 let file = await hash.gatewayLink();
 ```
 
-# Contracts
-
-FDS takes away the pain of dealing with contracts, simply load in the ABI the deploy or specify the contract address, then call your functions to interact directly with the blockchain.
-
-#todo - check this is working......
-
 
 -----
 ### Contract Object
@@ -724,80 +734,9 @@ myMethod can be any function, getter or setter of your contract
 **Inputs**
 - arg1 (any) [ the argument to the solidty function ] #todo
 
------
-#### Native Tokens
------
-
------
-#### Get a User's Balance
------
-
-Gets a user's balance.
-
-*async* **user.getBalance(** ** **)**
-
-**Inputs**
-
-
-**Returns**
-
-Value (string)
-
-```javascript
-let balance = await alice.getBalance([ { "inputs": [], ... } ], '0xsa3bsdfs' );
-191832026900000000
-// true
-```
-
------
-#### Pay a User
------
-
-Pays a user native balance.
-
-*async* **user.pay(** *recipientSubdomain, amount, transactionCallback = console.log, transactionSignedCallback = console.log* **)**
-
-
-**Inputs**
-- abi (object) [ the [application binary interface]() of the contract to be deployed ] #todo
-- address (string) [ address of the deployed contract ]
-- transactionCallback (function)
-- transactionSignedCallback (function)
-
-**Returns**
-
-TransactionHash (string)
-
-```javascript
-let balance = await alice.pay([ 'bob', '0.1' );
-//0x3cf52d1..
-```
-
------
-#### Pay an Address
------
-
-Pays a address native balance.
-
-*async* **user.pay(** *recipientAddress, amount, transactionCallback = console.log, transactionSignedCallback = console.log* **)**
-
-
-**Inputs**
-- abi (object) [ the [application binary interface]() of the contract to be deployed ] #todo
-- address (string) [ address of the deployed contract ]
-- transactionCallback (function)
-- transactionSignedCallback (function)
-
-**Returns**
-
-TransactionHash (string)
-
-```javascript
-let balance = await alice.pay([ '0x234...', '0.1' );
-//0x3cff2d1..
-```
-
+---
 ## Notes
+---
 
 ### Notes on the Node Environment
 
@@ -908,43 +847,3 @@ import FDS from 'fds';
 ```
 
 
-### Overview
-
-FDS is an attempt to provide a very accessible high level framework to enable everyone to create apps using the Ethereum Web3 stack. At present it enables developers to:
-
- - Create Password Protected Account
- - Unlock (Sign In) Account
- - Store values using an encrypted key/value store
- - Store a file encrypted using AES-256-CTR
- - Send encrypted files to another account
-
-Coming soon:
-
-  - Store Unencrypted Values
-  - Wallet top up
-  - Threads/Groups
-  - Send ETH/Tokens
-  - Upload hosted website
-  - Public Post Feed
-  - Markdown to Blog Post Publishing Platform
-
-All sensitive data is fully encrypted before it leaves the browser and all transactions are signed within the browser.
-
-Wallets are stored in a password protected format in your browser's localstorage facility.
-
-You may deploy your own networks of Swarm and Ethereum, or use the FDSociety network.
-
-Enjoy!
-
-### Endpoints
-
-You may specify various endpoints:
-
-Ethereum Mainnet / Swarm Mainnet (TBC)
-Provided by the Ethereum Foundation
-
-Ropsten Testnet / Swarm Testnet
-Provided by the Ethereum Foundation
-
-FDS Testnet
-Provided by Fair Data Society, get in touch for tokens!
