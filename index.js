@@ -10,7 +10,7 @@ class FDS {
   defaultConfig(){
     return {
       tokenName: 'gas',
-      swarmGateway: 'https://swarm.fairdatasociety.org',
+      swarmGateway: 'https://swarm2.fairdatasociety.org',
       ethGateway: 'https://geth-noordung.fairdatasociety.org',
       faucetAddress: 'https://faucet-noordung.fairdatasociety.org/gimmie',
       chainID: '235813',
