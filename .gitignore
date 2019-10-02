@@ -3,3 +3,4 @@ bin
 .vs
 obj
 /.package-lock.json
+build
