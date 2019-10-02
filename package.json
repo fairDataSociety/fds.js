@@ -1,6 +1,6 @@
 {
   "name": "fds.js",
-  "version": "0.1.4",
+  "version": "0.1.7",
   "description": "App Toolkit for the Web3 Generation",
   "main": "index.js",
   "scripts": {
