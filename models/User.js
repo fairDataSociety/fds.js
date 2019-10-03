@@ -18,6 +18,7 @@
 let FileSaver = require('file-saver');
 let Web3Utils = require('web3-utils');
 let ENS2 = require('../lib/FDS-ENS2.js');
+let Multibox = require('../lib/FDS-Multibox.js'); 
 
 class User {
 
@@ -34,10 +35,19 @@ class User {
     this.subdomain = attrs.subdomain;
     this.wallet = attrs.wallet;
 
+    this.Multibox = null;
     this.nonce = false;
 
     return this;
+    }
+
+  async getMultibox() {
+     let ENS = new ENS2(this, this.Account.config.ensConfig);
+     var multiboxAddress = await ENS.getMultihash(this.subdomain);
+     this.Multibox = await new Multibox(this, this.Account.config).at(multiboxAddress);
+     console.log("get multibox", this.Multibox); 
   }
+
 
   syncNonce(){
     return this.Tx.syncNonce(this).then((nonce)=>{
@@ -93,9 +103,19 @@ class User {
   * @returns {any} result
   */
   async pay(recipientSubdomain, amount, transactionCallback = console.log, transactionSignedCallback = console.log) {
-    let ENS = new ENS2(this, this.Account.config.ensConfig);
-    let recipientAddress = await ENS.getOwner(recipientSubdomain);
+    let recipientAddress = await this.getAddressOf(recipientSubdomain);
     return this.payAddress(recipientAddress, amount, transactionCallback, transactionSignedCallback);
+    }
+
+  /**
+  * get address in form 0x...
+  * @param {any} subdomain name of account
+  * @returns {any} address 0x0 
+  */
+  async getAddressOf(subdomain) {
+    let ENS = new ENS2(this, this.Account.config.ensConfig);
+    let recipientAddress = await ENS.getOwner(subdomain);
+    return recipientAddress;
   }
 
   /**
@@ -243,6 +263,35 @@ class User {
     return FileSaver.saveAs(this.getBackupFile());
   }
 
+   /**
+   * Get contact if it exists
+   * @param {any} recipientSubdomain name
+   * @param {any} encryptProgressCallback callback
+   * @param {any} uploadProgressCallback callback
+   * @param {any} progressMessageCallback callback
+   * @returns {Contact} contact
+   */
+  lookupContact(recipientSubdomain, encryptProgressCallback = console.log, uploadProgressCallback = console.log, progressMessageCallback = console.log) {
+        return this.Mail.lookupContact(this, recipientSubdomain, encryptProgressCallback = console.log, uploadProgressCallback = console.log, progressMessageCallback = console.log);
+  } 
+
+
+    async traverseMultibox(multiboxAddress = null) {
+        if (this.Multibox === null)
+            await this.getMultibox();
+
+        if (this.Multibox !== null)
+            return this.Multibox.traverseMultibox();
+
+        let data = {
+            name: 'fairdrive-fail',
+            toggled: false,
+            id: multiboxAddress,
+            children: []
+        };
+
+        return data;
+    }
 }
 
 module.exports = User;

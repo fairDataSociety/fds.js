@@ -19,7 +19,7 @@ class Contact {
   constructor(attrs){
     if(attrs.subdomain === undefined) throw new Error('subdomain must be defined');
     if(attrs.publicKey === undefined) throw new Error('publicKey must be defined');
-    if(attrs.multiboxAddress === undefined) throw new Error('mailboxAddress must be defined');
+    if (attrs.multiboxAddress === undefined) throw new Error('multiboxAddress must be defined');
     if(attrs.feedLocationHash === undefined) throw new Error('feedLocationHash must be defined');
 
     this.subdomain = attrs.subdomain;
