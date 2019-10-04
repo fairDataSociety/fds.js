@@ -45,7 +45,7 @@ class User {
      let ENS = new ENS2(this, this.Account.config.ensConfig);
      var multiboxAddress = await ENS.getMultihash(this.subdomain);
      this.Multibox = await new Multibox(this, this.Account.config).at(multiboxAddress);
-     console.log("get multibox", this.Multibox); 
+     //console.log("get multibox", this.Multibox); 
   }
 
 
