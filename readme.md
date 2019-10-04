@@ -1,5 +1,3 @@
-#todo
-
 <!-- ![alt text](https://raw.githubusercontent.com/fairDataSociety/fds.js/beta/images/fair-data-society.png "Fair Data Society") -->
 
 <div style="text-align:center"><img src="https://raw.githubusercontent.com/fairDataSociety/fds.js/beta/images/fair-data-society.png" alt="Fair Data Society" /></div>
