@@ -48,7 +48,7 @@ class File{
   }
 }
 
-async function waitForAssert(func, val, ticks = 0, maxTicks = 10){
+async function waitForAssert(func, val, ticks = 0, maxTicks = 2){
   ticks+=1;
   let resp = await func();
   if(resp === val){
@@ -87,11 +87,11 @@ contract('FDS', function(accounts) {
   before(async function() {  
     // config for `truffle test --network test`
     // note you also need fds-faucet (with gas), swarm and ganache-cli running locally   
-    // let config = await fdsConfig();
-    // FDS = new fds(config);
+    let config = await fdsConfig();
+    FDS = new fds(config);
 
     //config for `truffle test --network noordung` 
-    FDS = new fds();
+    // FDS = new fds();
 
     subdomain = `test${rand(0)}`;   
     subdomain2 = `test${rand(1)}`;        
@@ -139,8 +139,6 @@ contract('FDS', function(accounts) {
   });
 
 
-
-
   it('should store a file', async function() {
     let file = new File(['hello storage world'], `test${rand(0)}.txt`, {type: 'text/plain'});
 
@@ -156,12 +154,15 @@ contract('FDS', function(accounts) {
 
 
   it('should send a file', async function() {
+    let msg = 'hello sending world';    
     let file = new File(['hello sending world'], `test${rand(0)}.txt`, {type: 'text/plain'});
 
     let sent = await acc1.send(acc2.subdomain, file, '/shared/mail', ()=>{}, ()=>{}, ()=>{});
 
     let outcome = await waitForAssert(async () => {
       let messages = await acc2.messages('received', '/shared/mail');
+      let file = await messages[0].getFile();
+      gotRecMsg = file.content.toString();      
       return messages.length;
     }, 1);
 
@@ -169,39 +170,144 @@ contract('FDS', function(accounts) {
 
     let outcome2 = await waitForAssert(async () => {
       let messages = await acc1.messages('sent');
+      let file = await messages[0].getFile();
+      gotSentMsg = file.content.toString();
       return messages.length;
     }, 1);
 
     assert.equal(outcome2, true);
   });  
 
+  it('should send a 2nd file', async function() {
+    let msg = 'hello sending world 2';
+    let file = new File([msg], `test${rand(0)}.txt`, {type: 'text/plain'});
+
+    let sent = await acc1.send(acc2.subdomain, file, '/shared/mail', ()=>{}, ()=>{}, ()=>{});
+
+    let gotRecMsg;
+    let outcome = await waitForAssert(async () => {
+      let messages = await acc2.messages('received', '/shared/mail');
+      let file = await messages[1].getFile();
+      gotRecMsg = file.content.toString();
+      return messages.length;
+    }, 2);
+
+
+    assert.equal(msg, gotRecMsg);
+
+    assert.equal(outcome, true);
+
+    let gotSentMsg;
+    let outcome2 = await waitForAssert(async () => {
+      let messages = await acc1.messages('sent');
+      let file = await messages[1].getFile();
+      gotSentMsg = file.content.toString();
+      return messages.length;
+    }, 2);
+
+    assert.equal(msg, gotSentMsg);
+
+    assert.equal(outcome2, true);
+  });  
+
+  it('should send a 3rd file', async function() {
+    let msg = 'hello sending world 3';
+    let file = new File([msg], `test${rand(0)}.txt`, {type: 'text/plain'});
+
+    let sent = await acc1.send(acc2.subdomain, file, '/shared/mail', ()=>{}, ()=>{}, ()=>{});
+
+    let gotRecMsg;
+    let outcome = await waitForAssert(async () => {
+      let messages = await acc2.messages('received', '/shared/mail');
+      let file = await messages[2].getFile();
+      gotRecMsg = file.content.toString();
+      return messages.length;
+    }, 3);
+
+
+    assert.equal(msg, gotRecMsg);
+
+    assert.equal(outcome, true);
+
+    let gotSentMsg;
+    let outcome2 = await waitForAssert(async () => {
+      let messages = await acc1.messages('sent');
+      let file = await messages[2].getFile();
+      gotSentMsg = file.content.toString();
+      return messages.length;
+    }, 3);
+
+    assert.equal(msg, gotSentMsg);
+
+    assert.equal(outcome2, true);
+  });  
+
+  it('should send a 4th file', async function() {
+    let msg = 'hello sending world 4';
+    let file = new File([msg], `test${rand(0)}.txt`, {type: 'text/plain'});
+
+    let sent = await acc1.send(acc2.subdomain, file, '/shared/mail', ()=>{}, ()=>{}, ()=>{});
+
+    let gotRecMsg;
+    let outcome = await waitForAssert(async () => {
+      let messages = await acc2.messages('received', '/shared/mail');
+      let file = await messages[3].getFile();
+      gotRecMsg = file.content.toString();
+      return messages.length;
+    }, 4);
+
+
+    assert.equal(msg, gotRecMsg);
+
+    assert.equal(outcome, true);
+
+    let gotSentMsg;
+    let outcome2 = await waitForAssert(async () => {
+      let messages = await acc1.messages('sent');
+      let file = await messages[3].getFile();
+      gotSentMsg = file.content.toString();
+      return messages.length;
+    }, 4);
+
+    assert.equal(msg, gotSentMsg);
+
+    assert.equal(outcome2, true);
+  });  
 
   it('should send a file from a third party', async function() {
-    let file = new File(['hello sending world'], `test${rand(0)}.txt`, {type: 'text/plain'});
+    let msg = 'hello sending world 5';
+    let file = new File([msg], `test${rand(0)}.txt`, {type: 'text/plain'});
 
     let sent = await acc3.send(acc2.subdomain, file, '/shared/mail', ()=>{}, ()=>{}, ()=>{});
 
     let outcome = await waitForAssert(async () => {
       let messages = await acc2.messages('received', '/shared/mail');
+      let file = await messages[4].getFile();      
+      gotRecMsg = file.content.toString();   
       return messages.length;
-    }, 2);
+    }, 5);
+
+    assert.equal(msg, gotRecMsg);    
 
     assert.equal(outcome, true);
   }); 
 
   it('should send a second file from a third party', async function() {
-    let file = new File(['hello sending world2'], `test2${rand(0)}.txt`, {type: 'text/plain'});
+    let msg = 'hello sending world 6';
+    let file = new File([msg], `test${rand(0)}.txt`, {type: 'text/plain'});
 
     let sent = await acc3.send(acc2.subdomain, file, '/shared/mail', ()=>{}, ()=>{}, ()=>{});
 
     let outcome = await waitForAssert(async () => {
       let messages = await acc2.messages('received', '/shared/mail');
+      let file = await messages[5].getFile();      
+      gotRecMsg = file.content.toString();   
       return messages.length;
-    }, 3);
+    }, 6);
+
 
     assert.equal(outcome, true);
   });      
-
 
   it('should store an unencrypted value', async function() {
     let account = await FDS.UnlockAccount(subdomain, 'test');
