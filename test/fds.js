@@ -369,18 +369,29 @@ contract('FDS', function(accounts) {
 
   });    
 
-  // it('should send tokens to a subdomain', async function() {
-  //   let account = await FDS.UnlockAccount(subdomain, 'test');
+  it('should send tokens to an address', async function() {
+    let account = await FDS.UnlockAccount(subdomain, 'test');
 
-  //   let account2 = await FDS.UnlockAccount(subdomain2, 'test');
-  //   let balanceBefore = await account2.getBalance();
+    let account2 = await FDS.UnlockAccount(subdomain2, 'test');
+    let balanceBefore = await account2.getBalance();
 
-  //   let tx = await account.pay(subdomain2, "0.00001", () => {}, () => {});
+    let tx = await account.payAddress(account2.address, "0.00001", 1500000, () => {}, () => {});
 
-  //   let balanceAfter = await account2.getBalance();
-    
-  //   assert.equal(parseInt(balanceAfter), parseInt(balanceBefore) + 10000000000000);
-  // }); 
+    let balanceAfter = await account2.getBalance();
+    assert.equal(parseInt(balanceAfter), parseInt(balanceBefore) + 10000000000000);
+  }); 
+
+  it('should send tokens to an address', async function() {
+    let account = await FDS.UnlockAccount(subdomain, 'test');
+
+    let account2 = await FDS.UnlockAccount(subdomain2, 'test');
+    let balanceBefore = await account2.getBalance();
+
+    let tx = await account.pay(subdomain2, "0.00001", 1500000, () => {}, () => {});
+
+    let balanceAfter = await account2.getBalance();
+    assert.equal(parseInt(balanceAfter), parseInt(balanceBefore) + 10000000000000);
+  });   
 
   it('should store create a backup', async function() {
     let account = await FDS.UnlockAccount(subdomain, 'test');

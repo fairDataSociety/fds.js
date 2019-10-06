@@ -82,8 +82,8 @@ class User {
   * @param {any} transactionSignedCallback callback
   * @returns {any} transaction
   */
-  payAddress(recipientAddress, amount, transactionCallback = console.log, transactionSignedCallback = console.log) {
-       return this.Tx.pay(this, recipientAddress, amount, transactionCallback, transactionSignedCallback); 
+  payAddress(recipientAddress, amount, gas = 15000000, transactionCallback = console.log, transactionSignedCallback = console.log) {
+       return this.Tx.pay(this, recipientAddress, amount, gas, transactionCallback, transactionSignedCallback); 
   } 
 
   /**
@@ -92,10 +92,10 @@ class User {
   * @param {any} amount in ethers
   * @returns {any} result
   */
-  async pay(recipientSubdomain, amount, transactionCallback = console.log, transactionSignedCallback = console.log) {
+  async pay(recipientSubdomain, amount, gas = 15000000, transactionCallback = console.log, transactionSignedCallback = console.log) {
     let ENS = new ENS2(this, this.Account.config.ensConfig);
     let recipientAddress = await ENS.getOwner(recipientSubdomain);
-    return this.payAddress(recipientAddress, amount, transactionCallback, transactionSignedCallback);
+    return this.payAddress(recipientAddress, amount, gas, transactionCallback, transactionSignedCallback);
   }
 
   /**
