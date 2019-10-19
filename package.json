@@ -4,8 +4,10 @@
   "description": "App Toolkit for the Web3 Generation",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js"
+    "test": "npm run compile && truffle test",
+    "compile": "babel --copy-files lib --out-dir dist/ES5",
+    "build": "npm run compile && webpack --config webpack.config.js",
+    "prepublish": "npm run build"
   },
   "author": "significance",
   "license": "ISC",
@@ -41,8 +43,16 @@
   },
   "homepage": "https://github.com/fairDataSociety/fds.js#readme",
   "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.6.3",
     "@ensdomains/ens": "^0.3.11",
     "@ensdomains/ethregistrar": "^1.2.8",
+    "babel-polyfill": "^6.26.0",
+    "babel-register": "^6.26.0",
+    "ifdef-loader": "^2.1.4",
     "truffle-contract": "^4.0.25",
     "truffle-privatekey-provider": "^1.3.0",
     "webpack": "^4.41.2",

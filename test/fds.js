@@ -11,7 +11,7 @@ var SubdomainRegistrar = artifacts.require("SubdomainRegistrar");
 var namehash = require('eth-ens-namehash');
 var sha3 = require('js-sha3').keccak_256;
 
-var fds = require('../lib/index.js');
+var fds = require('../dist/ES5/index.js');
 
 var fdsConfig = async () => {
   let ens = await ENS.deployed()
