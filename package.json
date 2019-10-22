@@ -1,8 +1,8 @@
 {
   "name": "fds.js",
-  "version": "0.1.13",
+  "version": "0.1.15",
   "description": "App Toolkit for the Web3 Generation",
-  "main": "./dist/index.js",
+  "main": "./dist/ES5/index.js",
   "scripts": {
     "test": "npm run compile && TESTENV=noordung truffle test --network noordung",
     "test-dev": "npm run compile && TESTENV=test truffle test --network test",
