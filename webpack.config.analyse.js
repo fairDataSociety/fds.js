@@ -19,6 +19,7 @@ module.exports = {
     library: 'FDS'
   },
   plugins: [
+    new webpack.IgnorePlugin(/fs/),
     new BundleAnalyzerPlugin({generateStatsFile: true})
   ]
 };

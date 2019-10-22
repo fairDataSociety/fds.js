@@ -8,6 +8,7 @@
     "test-dev": "npm run compile && TESTENV=test truffle test --network test",
     "compile": "babel --copy-files lib --out-dir dist/ES5",
     "build": "npm run compile && webpack --mode production --config webpack.config.js",
+    "build-dev": "npm run compile && webpack --mode development --config webpack.config.js",
     "analyse": "npm run compile && webpack --mode production --config webpack.config.analyse.js",
     "prepare": "npm run build"
   },

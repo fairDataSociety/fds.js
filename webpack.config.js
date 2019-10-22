@@ -1,3 +1,4 @@
+var webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
@@ -15,5 +16,8 @@ module.exports = {
     path: path.resolve(__dirname, 'dist/web'),
     filename: 'bundle.js',
     library: 'FDS'
-  }
+  },
+  plugins: [
+    new webpack.IgnorePlugin(/fs/)
+  ] 
 };
