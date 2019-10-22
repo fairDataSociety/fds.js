@@ -1,6 +1,6 @@
 {
   "name": "fds.js",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "App Toolkit for the Web3 Generation",
   "main": "./lib/index.js",
   "scripts": {
@@ -52,6 +52,7 @@
     "@babel/preset-env": "^7.6.3",
     "@ensdomains/ens": "^0.3.11",
     "@ensdomains/ethregistrar": "^1.2.8",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
     "ifdef-loader": "^2.1.4",
