@@ -1,5 +1,5 @@
-var Wallet = require('../lib/FDS-Wallet.js');
-var crypto = require('../lib/FDS-Crypto.js');
+var Wallet = require('../dist/ES5/FDS-Wallet.js');
+var crypto = require('../dist/ES5/FDS-Crypto.js');
 var Web3Utils = require('web3-utils');
 
 var wallet = new Wallet();
