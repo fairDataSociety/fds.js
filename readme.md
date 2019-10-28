@@ -25,7 +25,7 @@ The FDS Dapp Framework provides a high level javascript SDK for DApp developers 
     - Simply deploy your own contracts then call functions, tx's are signed in the browser by FDS.
     - Work with existing contracts.
   - Much improved docs in await/sync syntax for your understanding pleasure. 💖 
-  -  🎁 The mighty multibox brings data interoperability to all of your [FDIP Compliant]() Dapps!
+  -  🎁 The mighty multibox brings data interoperability to all of your FDIP Compliant Dapps!
   - ...and much more!
 
 ## Features

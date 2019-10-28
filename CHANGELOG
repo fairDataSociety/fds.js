@@ -1,0 +1,10 @@
+# CHANGELOG
+
+0.1.17
+
+- Moves to ES6 structure and improve buildchain.
+- Drastically reduces size of library as a dependency.
+- Adds webpack build for static js include.
+- Adds upload multiple files to gateway functionality.
+- Adds Pinning
+- Adds contribution guide
