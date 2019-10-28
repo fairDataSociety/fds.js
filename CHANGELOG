@@ -1,6 +1,6 @@
 # CHANGELOG
 
-0.1.17
+0.1.18
 
 - Moves to ES6 structure and improve buildchain.
 - Drastically reduces size of library as a dependency.
