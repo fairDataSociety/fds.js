@@ -141,5 +141,18 @@ contract('FDS', function(accounts) {
     assert.equal(Object.keys(dummy.values).length, 0);
 
   });
+
+  it('should have correct parent id', async function() {
+
+    let multibox = await acc2.getMultibox(subdomain2);
+
+    let rt = await multibox.get('/', true);
+
+    assert.equal(rt.parentId, false);
+
+    assert.equal(rt.children[0].parentId, rt.id);
+
+    assert.equal(rt.children[0].children[0].parentId, rt.children[0].id);
+  });
  
 });
