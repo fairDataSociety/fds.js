@@ -418,5 +418,12 @@ contract('FDS', function(accounts) {
     let account = await FDS.UnlockAccount(subdomain, 'test');
     
     assert.equal(account.subdomain, subdomain);
-  });  
+  }); 
+
+  it('should lookup contact', async function() {
+    let contact = await acc2.lookupContact(subdomain);
+
+    assert.equal(contact.subdomain, acc1.subdomain);
+    assert.equal(contact.publicKey, acc1.publicKey);
+  });    
 });
