@@ -154,5 +154,18 @@ contract('FDS', function(accounts) {
 
     assert.equal(rt.children[0].children[0].parentId, rt.children[0].id);
   });
+
+  it('should retrieve node names', async function() {
+
+    let multibox = await acc2.getMultibox(subdomain2);
+
+    let rt = await multibox.get('/', true);
+
+    assert.equal(rt.nodeName, '/');
+
+    assert.equal(rt.children[0].nodeName, '/shared');
+
+    assert.equal(rt.children[0].children[0].nodeName, '/shared/mail');
+  });   
  
 });
