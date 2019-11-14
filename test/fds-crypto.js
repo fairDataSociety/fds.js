@@ -4,7 +4,7 @@ var Web3Utils = require('web3-utils');
 
 var wallet = new Wallet();
 
-contract('FDS', function(accounts) {
+contract('FDS-Crypto', function(accounts) {
 
   it('should derive publicKey from privateKey', async function() {
     //   let privateKey = '0abf74dcc2b634a7e56905139ae6fa5aa57afd81cc56c4b08940275184ef744d';

@@ -75,7 +75,7 @@ function rand(i){
   return rands[i];
 }
 
-contract('FDS', function(accounts) {
+contract('FDS-Multibox', function(accounts) {
   let FDS;
   let acc1, acc2, acc3;
 
@@ -89,9 +89,9 @@ contract('FDS', function(accounts) {
     }
 
 
-    subdomain = `test${rand(0)}`;   
-    subdomain2 = `test${rand(1)}`;        
-    subdomain3 = `xtest${rand(2)}`;        
+    subdomain = `test${rand(3)}`;   
+    subdomain2 = `test${rand(4)}`;        
+    subdomain3 = `xtest${rand(5)}`;        
   });
 
 
