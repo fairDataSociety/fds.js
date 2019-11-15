@@ -310,6 +310,32 @@ contract('FDS', function(accounts) {
     assert.equal(outcome, true);
   });      
 
+  it('should not retrieve messages from different multibox path', async function() {
+    let outcome = await waitForAssert(async () => {
+      let messages = await acc2.messages('received', '/shared/notmail');
+      return messages.length;
+    }, 0);
+    assert.equal(outcome, true);
+  }); 
+
+  it('should send a second file from a third party to a different multibox path', async function() {
+    let msg = 'hello sending world 6';
+    let file = new File([msg], `test${rand(0)}.txt`, {type: 'text/plain'});
+
+    let sent = await acc3.send(acc2.subdomain, file, '/shared/notmail', ()=>{}, ()=>{}, ()=>{});
+
+    let outcome = await waitForAssert(async () => {
+      let messages = await acc2.messages('received', '/shared/notmail');
+      let file = await messages[0].getFile();      
+      gotRecMsg = file.content.toString();
+      return messages.length;
+    }, 1);
+
+
+    assert.equal(outcome, true);
+  });      
+
+
   it('should store an unencrypted value', async function() {
     let account = await FDS.UnlockAccount(subdomain, 'test');
 
