@@ -161,11 +161,11 @@ contract('FDS-Multibox', function(accounts) {
 
     let rt = await multibox.get('/', true);
 
-    assert.equal(rt.nodeName, '/');
+    assert.equal(rt.name, '/');
 
-    assert.equal(rt.children[0].nodeName, '/shared');
+    assert.equal(rt.children[0].name, '/shared');
 
-    assert.equal(rt.children[0].children[0].nodeName, '/shared/mail');
+    assert.equal(rt.children[0].children[0].name, '/shared/mail');
   });   
  
 });
