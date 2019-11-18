@@ -158,25 +158,32 @@ contract('FDS', function(accounts) {
     let msg = 'hello sending world';    
     let file = new File(['hello sending world'], `test${rand(0)}.txt`, {type: 'text/plain'});
 
-    let sent = await acc1.send(acc2.subdomain, file, '/shared/mail', ()=>{}, ()=>{}, ()=>{});
-
+    let sent;
     let outcome = await waitForAssert(async () => {
+      sent = await acc1.send(acc2.subdomain, file, '/shared/mail', ()=>{}, ()=>{}, ()=>{});
+      console.log(sent.hash.address.length)
+      return sent.hash.address.length === 64;
+    }, true);
+
+    assert.equal(outcome, true);
+
+    let outcome2 = await waitForAssert(async () => {
       let messages = await acc2.messages('received', '/shared/mail');
       let file = await messages[0].getFile();
       gotRecMsg = file.content.toString();      
       return messages.length;
     }, 1);
 
-    assert.equal(outcome, true);
+    assert.equal(outcome2, true);
 
-    let outcome2 = await waitForAssert(async () => {
+    let outcome3 = await waitForAssert(async () => {
       let messages = await acc1.messages('sent');
       let file = await messages[0].getFile();
       gotSentMsg = file.content.toString();
       return messages.length;
     }, 1);
 
-    assert.equal(outcome2, true);
+    assert.equal(outcome3, true);
   });  
 
   it('should send a 2nd file', async function() {
