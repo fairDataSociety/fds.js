@@ -154,6 +154,31 @@ contract('FDS', function(accounts) {
   }); 
 
 
+  it('should store a file with metadata', async function() {
+    let file = new File(['hello storage world'], `test${rand(0)}.txt`, {type: 'text/plain'});
+
+    let metadata = {meta: "data", me7a: 0474}
+
+    let stored = await acc1.store(file, ()=>{}, ()=>{}, ()=>{}, metadata);
+
+    let outcome = await waitForAssert(async () => {
+      let stored = await acc1.stored();
+      return stored.length;
+    }, 2);
+
+    assert.equal(outcome, true);
+
+    let outcome2 = await waitForAssert(async () => {
+      let stored = await acc1.stored();
+      return stored[1].meta.meta == "data";
+    }, true);
+
+    assert.equal(outcome2, true);
+
+  }); 
+
+
+
   it('should send a file', async function() {
     let msg = 'hello sending world';    
     let file = new File(['hello sending world'], `test${rand(0)}.txt`, {type: 'text/plain'});
@@ -161,7 +186,6 @@ contract('FDS', function(accounts) {
     let sent;
     let outcome = await waitForAssert(async () => {
       sent = await acc1.send(acc2.subdomain, file, '/shared/mail', ()=>{}, ()=>{}, ()=>{});
-      console.log(sent.hash.address.length)
       return sent.hash.address.length === 64;
     }, true);
 
