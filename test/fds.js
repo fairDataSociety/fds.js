@@ -175,6 +175,13 @@ contract('FDS', function(accounts) {
 
     assert.equal(outcome2, true);
 
+    let outcome3 = await waitForAssert(async () => {
+      let storedManifest = await acc1.storedManifest();
+      return storedManifest.storedFiles.length === 2;
+    }, true);
+
+    assert.equal(outcome3, true);    
+
   }); 
 
 
