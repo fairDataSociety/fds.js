@@ -156,7 +156,6 @@ contract('FDS', function(accounts) {
 
   it('should store a file with metadata', async function() {
     let file = new File(['hello storage world'], `test${rand(0)}.txt`, {type: 'text/plain'});
-
     let metadata = {meta: "data", me7a: 0474}
 
     let stored = await acc1.store(file, ()=>{}, ()=>{}, ()=>{}, metadata);
@@ -180,7 +179,28 @@ contract('FDS', function(accounts) {
       return storedManifest.storedFiles.length === 2;
     }, true);
 
-    assert.equal(outcome3, true);    
+    assert.equal(outcome3, true);   
+
+    let hashToUpdate;
+    let outcome4 = await waitForAssert(async () => {
+      let storedManifest = await acc1.storedManifest();
+      hashToUpdate = storedManifest.storedFiles[0];
+
+      storedManifest.test = "test";
+      await acc1.updateStoredManifest(storedManifest);
+      let updatedManifest = await acc1.storedManifest();
+      return updatedManifest.test === "test";
+    }, true);
+
+    assert.equal(outcome4, true);    
+
+    let outcome5 = await waitForAssert(async () => {
+      await acc1.updateStoredMeta(hashToUpdate, {something: 'test'});
+      let updatedManifest = await acc1.storedManifest();
+      return updatedManifest.storedFiles[0].meta.something === "test";
+    }, true);
+
+    assert.equal(outcome5, true);    
 
   }); 
 
