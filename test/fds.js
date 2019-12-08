@@ -143,7 +143,11 @@ contract('FDS', function(accounts) {
   it('should store a file', async function() {
     let file = new File(['hello storage world'], `test${rand(0)}.txt`, {type: 'text/plain'});
 
-    let stored = await acc1.store(file, ()=>{}, ()=>{}, ()=>{});
+    let stored = await acc1.store(file, ()=>{}, ()=>{}, ()=>{}, {}, true);
+
+    assert.equal(stored.storedFile.address.length, 64);
+    assert.equal(stored.storedManifestAddress.length, 64);
+    assert.equal(stored.oldStoredManifestAddress.length, 64);
 
     let outcome = await waitForAssert(async () => {
       let stored = await acc1.stored();
@@ -158,7 +162,9 @@ contract('FDS', function(accounts) {
     let file = new File(['hello storage world'], `test${rand(0)}.txt`, {type: 'text/plain'});
     let metadata = {meta: "data", me7a: 0474}
 
-    let stored = await acc1.store(file, ()=>{}, ()=>{}, ()=>{}, metadata);
+    let stored = await acc1.store(file, ()=>{}, ()=>{}, ()=>{}, metadata, false);
+
+    assert.equal(stored.address.length, 64);
 
     let outcome = await waitForAssert(async () => {
       let stored = await acc1.stored();
@@ -169,7 +175,7 @@ contract('FDS', function(accounts) {
 
     let outcome2 = await waitForAssert(async () => {
       let stored = await acc1.stored();
-      return stored[1].meta.meta == "data";
+      return stored[1].meta.meta === "data";
     }, true);
 
     assert.equal(outcome2, true);
@@ -195,7 +201,7 @@ contract('FDS', function(accounts) {
     assert.equal(outcome4, true);    
 
     let outcome5 = await waitForAssert(async () => {
-      await acc1.updateStoredMeta(hashToUpdate, {something: 'test'});
+      await acc1.updateStoredMeta(hashToUpdate.address, {something: 'test'});
       let updatedManifest = await acc1.storedManifest();
       return updatedManifest.storedFiles[0].meta.something === "test";
     }, true);
