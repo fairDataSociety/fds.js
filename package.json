@@ -52,7 +52,7 @@
     "@babel/node": "^7.6.3",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.6.3",
-    "@ensdomains/ens": "^0.3.11",
+    "@ensdomains/ens": "^0.4.0",
     "@ensdomains/ethregistrar": "^1.2.8",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-polyfill": "^6.26.0",
