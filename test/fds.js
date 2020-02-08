@@ -91,7 +91,27 @@ contract('FDS', function(accounts) {
     if(process.env.TESTENV === 'test'){
       let config = await fdsConfig();
       FDS = new fds(config);      
-    }
+    }else
+    if(process.env.TESTENV === 'fivesecs'){
+      let config = {
+        tokenName: 'gas',
+        swarmGateway: 'https://swarm.fairdatasociety.org',
+        ethGateway: 'http://188.166.156.168:8545',
+        faucetAddress: 'http://sigsigsig.duckdns.org:12412/gimmie',
+        chainID: '80348034',
+        httpTimeout: 1000,
+        gasPrice: 2,
+        walletVersion: 1,
+        ensConfig: {
+          domain: 'datafund.eth',
+          registryAddress: '0x51Cdac0fc850A85BdC30b4bb431ADab4b4BfcF4e',
+          subdomainRegistrarAddress: '0xf72D7d66c0780080DE8d1219F57C2f8055D169Cd',
+          resolverContractAddress: '0x2D9Cdd0aA10C743Aac81B69291D7cF21a1Fd3dbD'
+        }
+      };
+      FDS = new fds(config);
+     }
+
 
 
     subdomain = `test${rand(0)}`;   

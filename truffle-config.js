@@ -1,4 +1,5 @@
 var PrivateKeyProvider = require("truffle-privatekey-provider");
+require('dotenv').config();
 
 /**
  * Use this file to configure your truffle project. It's seeded with some
@@ -57,9 +58,15 @@ module.exports = {
     },
 
     noordung: {
-      provider: () => { return new PrivateKeyProvider("BCE32EA63E75B5E302FF2E2519FCF3F6FE099CCB88CD0E8DCD8DC1CCC56227DB", "https://geth-noordung.fairdatasociety.org") },
+      provider: () => { return new PrivateKeyProvider(process.env.NOORDUNG_PRIVATE_KEY, "https://geth-noordung.fairdatasociety.org") },
       network_id: 235813
     },
+
+    fivesecs: {
+      provider: () => { return new PrivateKeyProvider(process.env.FIVESECS_PRIVATE_KEY, "http://188.166.156.168:8545") },
+      network_id: 80348034
+    },    
+
 
     // Another network with more advanced options...
     // advanced: {
