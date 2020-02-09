@@ -535,5 +535,13 @@ contract('FDS', function(accounts) {
 
     assert.equal(contact.subdomain, acc1.subdomain);
     assert.equal(contact.publicKey, acc1.publicKey);
-  });    
+  }); 
+
+  it('should sign data', async function() {
+    let signed = await acc2.sign('it`s a message');
+    let recovered = await acc2.recover('it`s a message', signed.signature);
+
+    assert.equal(recovered.toLowerCase(), acc2.address.toLowerCase());
+  }); 
+
 });

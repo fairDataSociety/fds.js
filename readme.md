@@ -576,6 +576,45 @@ let balance = await alice.pay([ '0x234...', '0.1' );
 //0x3cff2d1..
 ```
 
+#### Sign Data
+
+Signs a arbitary data.
+
+*async* **user.sign(** *message* **)**
+
+
+**Inputs**
+- message (string) [ the message to be signed ]
+
+**Returns**
+
+Success (bool)
+
+```javascript
+let balance = await alice.sign('message');
+//0x3cff2d1..
+```
+
+#### Recover Address from Signature
+
+Checks a message and signature and returns the address.
+
+*async* **user.recover(** *message, sig* **)**
+
+
+**Inputs**
+- message (string) [ the message which has been signed ]
+- sig (string) [ the signature ]
+
+**Returns**
+
+Address (address)
+
+```javascript
+let balance = await alice.recover('message', '0xabc...');
+//0x3cff2d1..
+```
+
 
 -----
 ### Message Object
