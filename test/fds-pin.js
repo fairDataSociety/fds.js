@@ -123,7 +123,7 @@ contract('FDS', function(accounts) {
 
     // contract address
 
-    let pinningManager = '0xBE63883605dFeaeeFad58A2c499A9d2a6E42F33E'
+    let pinningManager = '0x8713A20ec5104EDC774650C598Cf41DfB93369E4'
 
     acc1 = await FDS.CreateAccount(subdomain, 'test', ()=>{}, ()=>{}, ()=>{});
     PM = await acc1.getContract(PinningManager.abi, pinningManager);
