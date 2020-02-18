@@ -2,6 +2,7 @@
 // const FIFSRegistrar = artifacts.require("@ensdomains/ens/FIFSRegistrar");
 // const ReverseRegistrar = artifacts.require("@ensdomains/ens/ReverseRegistrar");
 // const PublicResolver = artifacts.require("@ensdomains/resolver/PublicResolver");
+require('dotenv').config();
 
 var TestRegistrar = artifacts.require("TestRegistrar");
 var TestResolver = artifacts.require("PublicResolver");
@@ -15,6 +16,8 @@ var namehash = require('eth-ens-namehash');
 var sha3 = require('js-sha3').keccak_256;
 
 var fds = require('../dist/ES5/index.js');
+
+let pinningManager = process.ENV.TEST_PINNING_MANAGER_ADDRESS;
 
 var fdsConfig = async () => {
   let ens = await ENS.deployed()
@@ -86,7 +89,8 @@ contract('FDS', function(accounts) {
   let subdomain;
   let FDS;
   let acc1, acc2, acc3;
-  let PM;
+  let PM, PMA;
+  let warrantAddress;
 
   before(async function() {
     if(process.env.TESTENV === 'noordung'){
@@ -123,66 +127,56 @@ contract('FDS', function(accounts) {
 
     // contract address
 
-    let pinningManager = '0x8713A20ec5104EDC774650C598Cf41DfB93369E4'
-
     acc1 = await FDS.CreateAccount(subdomain, 'test', ()=>{}, ()=>{}, ()=>{});
     PM = await acc1.getContract(PinningManager.abi, pinningManager);
-    acc2 = await FDS.RestoreAccountFromPrivateKey('username', 'password', 'b9a8c4693db942c49a999c3a0eebfc8f9c9d2057628cfa1d62749df43c026143');
+    await FDS.RestoreAccountFromPrivateKey('subdomain', 'password', process.env.TEST_PRIVATE_KEY);
+    acc2 = await FDS.UnlockAccount('subdomain', 'password', ()=>{}, ()=>{}, ()=>{});
     PMA = await acc2.getContract(PinningManager.abi, pinningManager);
 
   });
 
   it('should retreive price per kb', async function() {
     let ppkb = await PM.pricePerKb();
-
     assert.equal(ppkb, 0);
-
   });   
 
   it('should create a warrant with balance', async function() {
-    await PM.send('createWarrant', [], true, 15000000, 9000);
-    let warrantAddress = await PM.getMyWarrant();
+    await PM.send('createWarrant', [], true, 1500000, 1500000);
+    let bn = await acc2.getBlockNumber();
+    console.log(bn);
+    warrantAddress = await PM.getMyWarrant();
     let balance = await PM.getMyBalance();
-    let warrant = await acc1.getContract(PinWarrant.abi, warrantAddress);
+    let warrant = await acc2.getContract(PinWarrant.abi, warrantAddress);
     let size = await warrant.getSize();
-    assert.equal(balance, 9000);
+    assert.equal(balance, 1500000);
     assert.equal(size, 0);
   });     
     
 
   it('should increase storage size', async function() {
-    let warrantAddress = await PM.getMyWarrant();
-    await PM.updateWarrant(warrantAddress, 5);
+    let bn = await acc2.getBlockNumber();
+    let tx = await PMA.updateWarrant(warrantAddress, 1);
     let balance = await PM.getMyBalance();
-
-    let warrant = await acc1.getContract(PinWarrant.abi, warrantAddress);
+    let warrant = await acc2.getContract(PinWarrant.abi, warrantAddress);
     let size = await warrant.getSize();
-    assert.equal(size, 5);
-  });
-
-  it('should increase storage size again', async function() {
-    let warrantAddress = await PM.getMyWarrant();
-    let balance = await PM.getMyBalance();
-
-    await PM.updateWarrant(warrantAddress, 5);
-    let warrant = await acc1.getContract(PinWarrant.abi, warrantAddress);
-    let size = await warrant.getSize();
-    assert.equal(size, 10);
+    assert.equal(size, 1);
   });
 
   it('should decrease storage size', async function() {
-    let warrantAddress = await PM.getMyWarrant();
-    await PM.updateWarrant(warrantAddress, -5);
-    let warrant = await acc1.getContract(PinWarrant.abi, warrantAddress);
-    let size = await warrant.getSize();
-    assert.equal(size, 5);
-  });
-
-  it('admin should check warrant size and balance', async function() {
-    let warrantAddress = await PMA.getWarrant(acc1.address);
+    let bn = await acc2.getBlockNumber();
+    let balance = await PM.getMyBalance();
+    let tx = await PMA.updateWarrant(warrantAddress, -1);
     let warrant = await acc2.getContract(PinWarrant.abi, warrantAddress);
     let size = await warrant.getSize();
-    assert.equal(size, 5);
+    assert.equal(size, 0);
+  });
+
+  it('should increase storage size again', async function() {
+    let tx = await PMA.updateWarrant(warrantAddress, 1);
+
+    let warrant = await acc2.getContract(PinWarrant.abi, warrantAddress);
+    let size = await warrant.getSize();
+    assert.equal(size, 1);
   });
 
 });
