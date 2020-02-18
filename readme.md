@@ -532,6 +532,25 @@ let balance = await alice.getBalance([ { "inputs": [], ... } ], '0xsa3bsdfs' );
 // true
 ```
 
+#### Get Current BlockNumber
+
+Gets a user's balance.
+
+*async* **user.getBlockNumber(** ** **)**
+
+**Inputs**
+
+
+**Returns**
+
+Value (integer)
+
+```javascript
+let bn = await alice.getBlockNumber();
+123456789
+// true
+```
+
 #### Pay a User
 
 Pays a user native balance.
