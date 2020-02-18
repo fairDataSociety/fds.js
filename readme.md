@@ -291,7 +291,7 @@ Restores account from a private key and saves it into the browser's localstorage
 
 ```javascript
 //retrieve backup from
-await FDS.RestoreAccountFromPrivateKey('username', 'password', 'private-key-without-0x');
+await FDS.RestoreAccountFromPrivateKey('username', 'password', 'private-key-with-0x');
 ```
 
 #### RestoreAccountFromJSON
