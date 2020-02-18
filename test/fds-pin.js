@@ -17,7 +17,8 @@ var sha3 = require('js-sha3').keccak_256;
 
 var fds = require('../dist/ES5/index.js');
 
-let pinningManager = process.ENV.TEST_PINNING_MANAGER_ADDRESS;
+let pinningManager = process.env.TEST_PINNING_MANAGER_ADDRESS;
+console.log('pm',pinningManager)
 
 var fdsConfig = async () => {
   let ens = await ENS.deployed()
@@ -141,14 +142,12 @@ contract('FDS', function(accounts) {
   });   
 
   it('should create a warrant with balance', async function() {
-    await PM.send('createWarrant', [], true, 1500000, 1500000);
-    let bn = await acc2.getBlockNumber();
-    console.log(bn);
+    await PM.send('createWarrant', [], true, 15000000, 15000);
     warrantAddress = await PM.getMyWarrant();
     let balance = await PM.getMyBalance();
     let warrant = await acc2.getContract(PinWarrant.abi, warrantAddress);
     let size = await warrant.getSize();
-    assert.equal(balance, 1500000);
+    assert.equal(balance, 15000);
     assert.equal(size, 0);
   });     
     

@@ -2,117 +2,13 @@
   "contractName": "PinningManager",
   "abi": [
     {
-      "inputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "WarrantCanceled",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "contract PinWarrant",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "WarrantCreated",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "contract PinWarrant",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "WarrantFilled",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "WarrantRemoved",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "contract PinWarrant",
-          "name": "",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "prevSize",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "newSize",
-          "type": "uint256"
-        }
-      ],
-      "name": "WarrantUpdated",
-      "type": "event"
-    },
-    {
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "fallback"
-    },
-    {
       "constant": true,
       "inputs": [],
       "name": "pricePerKb",
       "outputs": [
         {
-          "internalType": "uint256",
           "name": "",
           "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "storer",
-      "outputs": [
-        {
-          "internalType": "address payable",
-          "name": "",
-          "type": "address"
         }
       ],
       "payable": false,
@@ -125,7 +21,6 @@
       "name": "swarmLocationWithManagerData",
       "outputs": [
         {
-          "internalType": "bytes32",
           "name": "",
           "type": "bytes32"
         }
@@ -135,25 +30,116 @@
       "type": "function"
     },
     {
+      "constant": true,
+      "inputs": [],
+      "name": "storer",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "fallback"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "WarrantCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "WarrantFilled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "WarrantCanceled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "WarrantRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "prevSize",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "newSize",
+          "type": "uint256"
+        }
+      ],
+      "name": "WarrantUpdated",
+      "type": "event"
+    },
+    {
       "constant": false,
       "inputs": [
         {
-          "internalType": "bytes32",
           "name": "h",
           "type": "bytes32"
         },
         {
-          "internalType": "uint8",
           "name": "v",
           "type": "uint8"
         },
         {
-          "internalType": "bytes32",
           "name": "r",
           "type": "bytes32"
         },
         {
-          "internalType": "bytes32",
           "name": "s",
           "type": "bytes32"
         }
@@ -161,7 +147,6 @@
       "name": "associate",
       "outputs": [
         {
-          "internalType": "contract PinWarrant",
           "name": "",
           "type": "address"
         }
@@ -176,7 +161,6 @@
       "name": "createWarrant",
       "outputs": [
         {
-          "internalType": "contract PinWarrant",
           "name": "",
           "type": "address"
         }
@@ -191,7 +175,6 @@
       "name": "getMyMainNetAccount",
       "outputs": [
         {
-          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -204,7 +187,6 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "uint256",
           "name": "newPrice",
           "type": "uint256"
         }
@@ -219,7 +201,6 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "bytes32",
           "name": "swarmLocation",
           "type": "bytes32"
         }
@@ -234,7 +215,6 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract PinWarrant",
           "name": "warrant",
           "type": "address"
         }
@@ -260,7 +240,6 @@
       "name": "getBalance",
       "outputs": [
         {
-          "internalType": "uint256",
           "name": "",
           "type": "uint256"
         }
@@ -284,7 +263,6 @@
       "name": "getMyWarrant",
       "outputs": [
         {
-          "internalType": "contract PinWarrant",
           "name": "",
           "type": "address"
         }
@@ -299,7 +277,6 @@
       "name": "getMyBalance",
       "outputs": [
         {
-          "internalType": "uint256",
           "name": "",
           "type": "uint256"
         }
@@ -314,7 +291,6 @@
       "name": "getOwners",
       "outputs": [
         {
-          "internalType": "address[]",
           "name": "",
           "type": "address[]"
         }
@@ -327,7 +303,6 @@
       "constant": true,
       "inputs": [
         {
-          "internalType": "uint256",
           "name": "index",
           "type": "uint256"
         }
@@ -335,7 +310,6 @@
       "name": "getOwner",
       "outputs": [
         {
-          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -348,7 +322,6 @@
       "constant": true,
       "inputs": [
         {
-          "internalType": "address",
           "name": "userAddress",
           "type": "address"
         }
@@ -356,7 +329,6 @@
       "name": "getOwnerAssociation",
       "outputs": [
         {
-          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -369,7 +341,6 @@
       "constant": true,
       "inputs": [
         {
-          "internalType": "address",
           "name": "dataSender",
           "type": "address"
         }
@@ -377,7 +348,6 @@
       "name": "getWarrant",
       "outputs": [
         {
-          "internalType": "contract PinWarrant",
           "name": "",
           "type": "address"
         }
@@ -390,12 +360,10 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract PinWarrant",
           "name": "warrant",
           "type": "address"
         },
         {
-          "internalType": "int256",
           "name": "sizeChangeInKb",
           "type": "int256"
         }
@@ -410,7 +378,6 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "address",
           "name": "dataSender",
           "type": "address"
         }
@@ -434,7 +401,6 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract PinWarrant",
           "name": "warrant",
           "type": "address"
         }
@@ -449,7 +415,6 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "address",
           "name": "dataSender",
           "type": "address"
         }
