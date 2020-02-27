@@ -134,8 +134,8 @@ contract('FDS', function(accounts) {
 
     acc1 = await FDS.CreateAccount(subdomain, 'test', ()=>{}, ()=>{}, ()=>{});
     PM = await acc1.getContract(PinningManager.abi, pinningManager);
-    await FDS.RestoreAccountFromPrivateKey('subdomain', 'password', adminPrivateKey);
-    acc2 = await FDS.UnlockAccount('subdomain', 'password', ()=>{}, ()=>{}, ()=>{});
+    await FDS.RestoreAccountFromPrivateKey('admin', 'password', adminPrivateKey);
+    acc2 = await FDS.UnlockAccount('admin', 'password', ()=>{}, ()=>{}, ()=>{});
     PMA = await acc2.getContract(PinningManager.abi, pinningManager);
 
   });
@@ -143,7 +143,7 @@ contract('FDS', function(accounts) {
   it('should retreive price per kb', async function() {
     let ppkb = await PM.pricePerKb();
     assert.equal(ppkb, 10);
-  });   
+  });
 
   it('should create a warrant with balance', async function() {
     await PM.send('createWarrant', [], true, 15000000, 15000);
@@ -153,13 +153,14 @@ contract('FDS', function(accounts) {
     let size = await warrant.getSize();
     assert.equal(balance, 15000);
     assert.equal(size, 0);
-  });     
+  });
 
   it('should increase storage size', async function() {
     let bn = await acc2.getBlockNumber();
-    let tx = await PMA.updateWarrant(warrantAddress, 1);
+    let warrantAddress2 = await PMA.getWarrant(acc1.address);
+    let tx = await PMA.updateWarrant(warrantAddress2, 1);
     let balance = await PM.getMyBalance();
-    let warrant = await acc2.getContract(PinWarrant.abi, warrantAddress);
+    let warrant = await acc2.getContract(PinWarrant.abi, warrantAddress2);
     let size = await warrant.getSize();
     assert.equal(size, 1);
   });
