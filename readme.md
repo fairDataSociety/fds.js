@@ -124,6 +124,7 @@ var fds = new FDS({
       httpTimeout: 1000,
       gasPrice: 0.1,
       walletVersion: 1,
+      scratchDir: '/tmp/something',
       ensConfig: {
         domain: 'datafund.eth',
         registryAddress: '0xA1029cb176082eca658A67fD6807B9bDfB44A695',
