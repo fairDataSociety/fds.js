@@ -17,9 +17,6 @@ var sha3 = require('js-sha3').keccak_256;
 
 var fds = require('../dist/ES5/index.js');
 
-let pinningManager = process.env.TEST_PINNING_MANAGER_ADDRESS;
-console.log('pm',pinningManager)
-
 var fdsConfig = async () => {
   let ens = await ENS.deployed()
   let reg = await TestRegistrar.deployed()
@@ -92,16 +89,23 @@ contract('FDS', function(accounts) {
   let acc1, acc2, acc3;
   let PM, PMA;
   let warrantAddress;
+  let adminPrivateKey;
+  let pinningManager;
+
 
   before(async function() {
     if(process.env.TESTENV === 'noordung'){
       FDS = new fds();
+      adminPrivateKey = process.env.NOORDUNG_PRIVATE_KEY;
+      pinningManager = process.env.NOORDUNG_PINNING_MANAGER_ADDRESS;
     }else
     if(process.env.TESTENV === 'test'){
       let config = await fdsConfig();
+      adminPrivateKey = process.env.TEST_PRIVATE_KEY;
+      pinningManager = process.env.TEST_PINNING_MANAGER_ADDRESS;
       FDS = new fds(config);      
     }else
-    if(process.env.TESTENV === 'boma'){
+    if(process.env.TESTENV === 'fivesecs'){
       let config = {
         tokenName: 'gas',
         swarmGateway: 'https://swarm.fairdatasociety.org',
@@ -130,7 +134,7 @@ contract('FDS', function(accounts) {
 
     acc1 = await FDS.CreateAccount(subdomain, 'test', ()=>{}, ()=>{}, ()=>{});
     PM = await acc1.getContract(PinningManager.abi, pinningManager);
-    await FDS.RestoreAccountFromPrivateKey('subdomain', 'password', process.env.TEST_PRIVATE_KEY);
+    await FDS.RestoreAccountFromPrivateKey('subdomain', 'password', adminPrivateKey);
     acc2 = await FDS.UnlockAccount('subdomain', 'password', ()=>{}, ()=>{}, ()=>{});
     PMA = await acc2.getContract(PinningManager.abi, pinningManager);
 
@@ -138,7 +142,7 @@ contract('FDS', function(accounts) {
 
   it('should retreive price per kb', async function() {
     let ppkb = await PM.pricePerKb();
-    assert.equal(ppkb, 0);
+    assert.equal(ppkb, 10);
   });   
 
   it('should create a warrant with balance', async function() {
