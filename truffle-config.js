@@ -1,4 +1,4 @@
-var PrivateKeyProvider = require("truffle-privatekey-provider");
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 require('dotenv').config();
 
 /**
@@ -58,12 +58,12 @@ module.exports = {
     },
 
     noordung: {
-      provider: () => { return new PrivateKeyProvider(process.env.NOORDUNG_PRIVATE_KEY, "https://geth-noordung.fairdatasociety.org") },
+      provider: () => { return new HDWalletProvider(process.env.NOORDUNG_PRIVATE_KEY, "https://geth-noordung.fairdatasociety.org") },
       network_id: 235813
     },
 
     fivesecs: {
-      provider: () => { return new PrivateKeyProvider(process.env.FIVESECS_PRIVATE_KEY, "http://188.166.156.168:8545") },
+      provider: () => { return new HDWalletProvider(process.env.FIVESECS_PRIVATE_KEY, "http://188.166.156.168:8545") },
       network_id: 80348034
     },    
 
