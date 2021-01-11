@@ -29,7 +29,7 @@ var fdsConfig = async () => {
       ethGateway: 'http://localhost:8545',
       faucetAddress: 'http://localhost:3001/gimmie',
       chainID: '235813',
-      httpTimeout: 1000,
+      httpTimeout: 500,
       gasPrice: 0.1,
       ensConfig: {
         domain: 'datafund.eth',
