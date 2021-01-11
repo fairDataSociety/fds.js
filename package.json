@@ -28,7 +28,7 @@
     "node-localstorage": "^1.3.1",
     "web3": "^1.2.4",
     "web3-utils": "^2.0.0-alpha.1",
-    "bee-client": "git+https://github.com/significance/bee-client-lib#243a6d7868caf28a696938f0f5650e2027dec0dc"
+    "bee-client": "git+https://github.com/significance/bee-client-lib#dd94c164397c015868c42c40bf12931c5326a28e"
   },
   "repository": {
     "type": "git",
