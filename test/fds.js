@@ -427,7 +427,38 @@ contract('FDS', function(accounts) {
 
 
     assert.equal(outcome, true);
-  });      
+  });  
+
+  it('should send a second file from a third party to a random multibox path', async function() {
+
+
+    let outcome1 = await waitForAssert(async () => {
+      let messages = await acc2.messages('received', '/shared/notmail/'+rand(0));
+      // let file = await messages[0].getFile();      
+      // gotRecMsg = file.content.toString();
+      return messages.length;
+    }, 0);
+
+    assert.equal(outcome1, true);
+
+
+    let msg = 'hello sending world 6';
+    let file = new File([msg], `test${rand(0)}.txt`, {type: 'text/plain'});
+
+    let sent = await acc3.send(acc2.subdomain, file, '/shared/notmail/'+rand(0), ()=>{}, ()=>{}, ()=>{});
+
+    let outcome = await waitForAssert(async () => {
+      let messages = await acc2.messages('received', '/shared/notmail/'+rand(0));
+      let file = await messages[0].getFile();      
+      gotRecMsg = file.content.toString();
+      return messages.length;
+    }, 1);
+
+
+    assert.equal(outcome, true);
+  });  
+
+        
 
 
   it('should store an unencrypted value', async function() {
