@@ -20,7 +20,7 @@
     "lib": "lib"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": ">=0.21.1",
     "bee-client": "git+https://github.com/significance/bee-client-lib#dd94c164397c015868c42c40bf12931c5326a28e",
     "buffer": "^5.4.3",
     "dotenv": "^8.2.0",
@@ -55,7 +55,7 @@
     "@babel/node": "^7.6.3",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.6.3",
-    "@ensdomains/ens": "^0.3.11",
+    "@ensdomains/ens": ">=0.4.0",
     "@ensdomains/ethregistrar": "^1.2.9",
     "@truffle/hdwallet-provider": "^1.0.39",
     "babel-plugin-add-module-exports": "^1.0.2",
