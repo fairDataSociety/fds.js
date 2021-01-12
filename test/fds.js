@@ -24,7 +24,6 @@ var fdsConfig = async () => {
 
   return {
       tokenName: 'gas',
-      swarmGateway: 'http://localhost:8500',
       beeGateway: 'http://localhost:1633',
       ethGateway: 'http://localhost:8545',
       faucetAddress: 'http://localhost:3001/gimmie',
@@ -180,7 +179,6 @@ contract('FDS', function(accounts) {
     let outcome2 = await waitForAssert(async () => {
       let stored = await acc1.stored();
       let f = await stored[0].getFile()
-      console.log('fff',f)
       return stored.length;
     }, 1);
 
