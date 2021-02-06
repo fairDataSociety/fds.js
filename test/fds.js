@@ -120,15 +120,10 @@ contract('FDS', function(accounts) {
   });
 
 
-  it('should create an account', function(done) {
-    FDS.CreateAccount(subdomain, 'test', ()=>{}, ()=>{}, ()=>{}).then(
-      (account)=>{
-        assert.equal(account.subdomain, subdomain)
-        setTimeout(()=>{
-          done()
-        },3000) 
-      }
-    );
+  it('should create an account', async function() {
+    let account = await FDS.CreateAccount(subdomain, 'test', ()=>{}, ()=>{}, ()=>{});
+
+    assert.equal(account.subdomain, subdomain);
   });
 
 
@@ -138,24 +133,11 @@ contract('FDS', function(accounts) {
     assert.equal(acc1.subdomain, subdomain);
   });
 
-  // it('should create a second account', async function() {
-  //   let account = await FDS.CreateAccount(subdomain2, 'test', ()=>{}, ()=>{}, ()=>{});
+  it('should create a second account', async function() {
+    let account = await FDS.CreateAccount(subdomain2, 'test', ()=>{}, ()=>{}, ()=>{});
 
-  //   assert.equal(account.subdomain, subdomain2);
-  // });  
-
-  it('should create a second account', function(done) {
-    FDS.CreateAccount(subdomain2, 'test', ()=>{}, ()=>{}, ()=>{}).then(
-      (account)=>{
-        assert.equal(account.subdomain, subdomain2)
-        setTimeout(()=>{
-          done()
-        },3000) 
-      }
-    );
-  });
-
-
+    assert.equal(account.subdomain, subdomain2);
+  });  
 
   it('should unlock the second account', async function() {
     acc2 = await FDS.UnlockAccount(subdomain2, 'test');
@@ -163,23 +145,11 @@ contract('FDS', function(accounts) {
     assert.equal(acc2.subdomain, subdomain2);
   });
 
-  // it('should create a third account', async function() {
-  //   let account = await FDS.CreateAccount(subdomain3, 'test', ()=>{}, ()=>{}, ()=>{});
+  it('should create a third account', async function() {
+    let account = await FDS.CreateAccount(subdomain3, 'test', ()=>{}, ()=>{}, ()=>{});
 
-  //   assert.equal(account.subdomain, subdomain3);
-  // });  
-
-
-  it('should create a third account', function(done) {
-    FDS.CreateAccount(subdomain3, 'test', ()=>{}, ()=>{}, ()=>{}).then(
-      (account)=>{
-        assert.equal(account.subdomain, subdomain3)
-        setTimeout(()=>{
-          done()
-        },3000) 
-      }
-    );
-  });
+    assert.equal(account.subdomain, subdomain3);
+  });  
 
 
   it('should unlock the third account', async function() {
