@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "axios": ">=0.21.1",
-    "bee-client": "git+https://github.com/significance/bee-client-lib#22d8a12109e8d64691d166acc66014770d93dbdf",
+    "bee-client": "git+https://github.com/significance/bee-client-lib#4b6fb63defeab14c766465c8dfd70521ce63e90b",
     "buffer": "^5.4.3",
     "dotenv": "^8.2.0",
     "eth-ens-namehash": "^2.0.8",
