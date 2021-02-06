@@ -24,7 +24,7 @@ var fdsConfig = async () => {
 
   return {
       tokenName: 'gas',
-      beeGateway: 'https://gateway.ethswarm.org',
+      beeGateway: 'https://bee-gateway.duckdns.org',
       ethGateway: 'http://localhost:8545',
       faucetAddress: 'http://localhost:3001/gimmie',
       chainID: '235813',
@@ -120,10 +120,15 @@ contract('FDS', function(accounts) {
   });
 
 
-  it('should create an account', async function() {
-    let account = await FDS.CreateAccount(subdomain, 'test', ()=>{}, ()=>{}, ()=>{});
-
-    assert.equal(account.subdomain, subdomain);
+  it('should create an account', function(done) {
+    FDS.CreateAccount(subdomain, 'test', ()=>{}, ()=>{}, ()=>{}).then(
+      (account)=>{
+        assert.equal(account.subdomain, subdomain)
+        setTimeout(()=>{
+          done()
+        },3000) 
+      }
+    );
   });
 
 
@@ -160,30 +165,30 @@ contract('FDS', function(accounts) {
   // });
 
 
-  // it('should store a file', async function() {
-  //   let file = new File(['hello storage world'], `test${rand(0)}.txt`, {type: 'text/plain'});
+  it('should store a file', async function() {
+    let file = new File(['hello storage world'], `test${rand(0)}.txt`, {type: 'text/plain'});
 
-  //   let stored = await acc1.store(file, ()=>{}, ()=>{}, ()=>{}, {}, true);
+    let stored = await acc1.store(file, ()=>{}, ()=>{}, ()=>{}, {}, true);
 
-  //   assert.equal(stored.storedFile.address.length, 64);
-  //   assert.equal(stored.storedManifestAddress.length, 64);
-  //   assert.equal(stored.oldStoredManifestAddress.length, 64);
+    assert.equal(stored.storedFile.address.length, 64);
+    assert.equal(stored.storedManifestAddress.length, 64);
+    assert.equal(stored.oldStoredManifestAddress.length, 64);
 
-  //   let outcome = await waitForAssert(async () => {
-  //     let stored = await acc1.stored();
-  //     return stored.length;
-  //   }, 1);
+    let outcome = await waitForAssert(async () => {
+      let stored = await acc1.stored();
+      return stored.length;
+    }, 1);
 
-  //   assert.equal(outcome, true);
+    assert.equal(outcome, true);
 
-  //   let outcome2 = await waitForAssert(async () => {
-  //     let stored = await acc1.stored();
-  //     let f = await stored[0].getFile()
-  //     return stored.length;
-  //   }, 1);
+    let outcome2 = await waitForAssert(async () => {
+      let stored = await acc1.stored();
+      let f = await stored[0].getFile()
+      return stored.length;
+    }, 1);
 
-  //   assert.equal(outcome2, true);
-  // }); 
+    assert.equal(outcome2, true);
+  }); 
 
 
   // it('should store a file with metadata', async function() {
@@ -459,47 +464,47 @@ contract('FDS', function(accounts) {
         
 
 
-  it('should store an unencrypted value', async function() {
-    let account = await FDS.UnlockAccount(subdomain, 'test');
+  // it('should store an unencrypted value', async function() {
+  //   let account = await FDS.UnlockAccount(subdomain, 'test');
 
-    let stored = await acc1.storeValue('k1', 'hello value world ' + rand(0));
+  //   let stored = await acc1.storeValue('k1', 'hello value world ' + rand(0));
     
-    let outcome = await waitForAssert(async () => {
-      let stored = await acc1.retrieveValue('k1');
-      return stored;
-    }, 'hello value world ' + rand(0));
+  //   let outcome = await waitForAssert(async () => {
+  //     let stored = await acc1.retrieveValue('k1');
+  //     return stored;
+  //   }, 'hello value world ' + rand(0));
 
-    assert.equal(outcome, true);
-  });
+  //   assert.equal(outcome, true);
+  // });
 
 
-  it('should store a value', async function() {
-    let account = await FDS.UnlockAccount(subdomain, 'test');
+  // it('should store a value', async function() {
+  //   let account = await FDS.UnlockAccount(subdomain, 'test');
 
-    let stored = await acc1.storeEncryptedValue('k1', 'hello value world ' + rand(0));
-    console.log("xxxx",stored)
+  //   let stored = await acc1.storeEncryptedValue('k1', 'hello value world ' + rand(0));
+  //   console.log("xxxx",stored)
 
-    let outcome = await waitForAssert(async () => {
-      let stored = await acc1.retrieveDecryptedValue('k1');
-      return stored;
-    }, 'hello value world ' + rand(0));
+  //   let outcome = await waitForAssert(async () => {
+  //     let stored = await acc1.retrieveDecryptedValue('k1');
+  //     return stored;
+  //   }, 'hello value world ' + rand(0));
 
-    assert.equal(outcome, true);
-  });  
+  //   assert.equal(outcome, true);
+  // });  
 
-  it('should store another value with same key', async function() {
-    let account = await FDS.UnlockAccount(subdomain, 'test');
+  // it('should store another value with same key', async function() {
+  //   let account = await FDS.UnlockAccount(subdomain, 'test');
 
-    let stored = await acc1.storeEncryptedValue('k1', 'hello value world ' + rand(1));
-    console.log("xxxx",stored)
+  //   let stored = await acc1.storeEncryptedValue('k1', 'hello value world ' + rand(1));
+  //   console.log("xxxx",stored)
     
-    let outcome = await waitForAssert(async () => {
-      let stored = await acc1.retrieveDecryptedValue('k1');
-      return stored;
-    }, 'hello value world ' + rand(1));
+  //   let outcome = await waitForAssert(async () => {
+  //     let stored = await acc1.retrieveDecryptedValue('k1');
+  //     return stored;
+  //   }, 'hello value world ' + rand(1));
 
-    assert.equal(outcome, true);
-  });  
+  //   assert.equal(outcome, true);
+  // });  
 
   // it('should deploy a contract', async function() {
   //   let account = await FDS.UnlockAccount(subdomain, 'test');
