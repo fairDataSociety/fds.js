@@ -24,7 +24,7 @@ var fdsConfig = async () => {
 
   return {
       tokenName: 'gas',
-      beeGateway: 'https://bee-gateway.duckdns.org',
+      beeGateway: 'http://localhost:1633',
       ethGateway: 'http://localhost:8545',
       faucetAddress: 'http://localhost:3001/gimmie',
       chainID: '235813',
@@ -476,7 +476,6 @@ contract('FDS', function(accounts) {
     let account = await FDS.UnlockAccount(subdomain, 'test');
 
     let stored = await acc1.storeEncryptedValue('k1', 'hello value world ' + rand(0));
-    console.log("xxxx",stored)
 
     let outcome = await waitForAssert(async () => {
       let stored = await acc1.retrieveDecryptedValue('k1');
@@ -490,7 +489,6 @@ contract('FDS', function(accounts) {
     let account = await FDS.UnlockAccount(subdomain, 'test');
 
     let stored = await acc1.storeEncryptedValue('k1', 'hello value world ' + rand(1));
-    console.log("xxxx",stored)
     
     let outcome = await waitForAssert(async () => {
       let stored = await acc1.retrieveDecryptedValue('k1');
