@@ -64,7 +64,6 @@
     "babel-register": "^6.26.0",
     "form-data": "^3.0.0",
     "ifdef-loader": "^2.1.4",
-    "swarm-lowlevel": "^0.8.9",
     "truffle-contract": "^4.0.25",
     "webpack": "^4.41.2",
     "webpack-bundle-analyzer": "^3.6.0",
