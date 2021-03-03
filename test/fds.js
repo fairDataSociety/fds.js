@@ -109,7 +109,7 @@ contract('FDS', function(accounts) {
           resolverContractAddress: '0x2D9Cdd0aA10C743Aac81B69291D7cF21a1Fd3dbD'
         }
       };
-      FDS = new fds(config);
+      FDS = new fds();
      }
 
 

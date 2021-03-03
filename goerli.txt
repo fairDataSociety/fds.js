@@ -1,0 +1,301 @@
+sig :: Code/swarm2/fds.js.bee-js-feeds2 » htop
+sig :: Code/swarm2/fds.js.bee-js-feeds2 » `npm
+sig :: Code/swarm2/fds.js.bee-js-feeds2 130 » truffle migrate --reset
+
+Compiling your contracts...
+===========================
+> Compiling ./contracts/ENS.sol
+> Compiling ./contracts/ENSRegistry.sol
+> Compiling ./contracts/Migrations.sol
+> Compiling ./contracts/PublicResolver.sol
+> Compiling ./contracts/RegistrarInterface.sol
+> Compiling ./contracts/SubdomainRegistrar.sol
+> Compiling ./contracts/TestRegistrar.sol
+> Artifacts written to /Users/sig/Code/swarm2/fds.js.bee-js-feeds2/build/contracts
+> Compiled successfully using:
+   - solc: 0.5.16+commit.9c3226ce.Emscripten.clang
+
+
+
+Starting migrations...
+======================
+> Network name:    'development'
+> Network id:      235813
+> Block gas limit: 80000000 (0x4c4b400)
+
+
+1_initial_migration.js
+======================
+
+   Replacing 'Migrations'
+   ----------------------
+   > transaction hash:    0xe797554b5d2a8baa9f85cfeac1a5661031d20745b178f0110a5c0a9493e7a22a
+   > Blocks: 0            Seconds: 0
+   > contract address:    0xE263caa1E40331a089CFa878a82a239c79beC7bF
+   > block number:        148
+   > block timestamp:     1614792386
+   > account:             0xe2541dCb88317248Ce7239bf7b2A9E9D1667f090
+   > balance:             99.70800534
+   > gas used:            225237 (0x36fd5)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00450474 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.00450474 ETH
+
+
+1563788331_ens.js
+=================
+
+   Replacing 'ENSRegistry'
+   -----------------------
+   > transaction hash:    0xd252ddaf75f2b9f9eadb19399998c09e45d1147a3ec7caad02856d44fdf7f76c
+   > Blocks: 0            Seconds: 0
+   > contract address:    0x5C392E1Bd5AF57168a68E1ea59f75cBF1e2268C2
+   > block number:        150
+   > block timestamp:     1614792387
+   > account:             0xe2541dCb88317248Ce7239bf7b2A9E9D1667f090
+   > balance:             99.69446688
+   > gas used:            634560 (0x9aec0)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0126912 ETH
+
+
+   Replacing 'TestRegistrar'
+   -------------------------
+   > transaction hash:    0x39dba566768670380a92a780828c130480e09fbc7aa8656c09edf268e86e4006
+   > Blocks: 0            Seconds: 0
+   > contract address:    0x2352BfeCCeb29029633277c2AbA4b8aFD1064a17
+   > block number:        151
+   > block timestamp:     1614792387
+   > account:             0xe2541dCb88317248Ce7239bf7b2A9E9D1667f090
+   > balance:             99.6894292
+   > gas used:            251884 (0x3d7ec)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00503768 ETH
+
+
+   Replacing 'PublicResolver'
+   --------------------------
+   > transaction hash:    0x5792718d00ea9e07a46b89afa9ef107c7c669a28b7cbe5e0daee883f3fdabf01
+   > Blocks: 0            Seconds: 0
+   > contract address:    0xD7BeC6B9A2ECE3f7548C698BE5c9E3239078f5db
+   > block number:        152
+   > block timestamp:     1614792387
+   > account:             0xe2541dCb88317248Ce7239bf7b2A9E9D1667f090
+   > balance:             99.65017294
+   > gas used:            1962813 (0x1df33d)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.03925626 ETH
+
+
+   Replacing 'SubdomainRegistrar'
+   ------------------------------
+   > transaction hash:    0x31a6136fe2fe81f2c77f65e875e9c439f154d79de4a0172826c1a6ad5335c4fc
+   > Blocks: 0            Seconds: 0
+   > contract address:    0xC109C285f693A2c44C39fFA2cddC271DD9acc990
+   > block number:        157
+   > block timestamp:     1614792388
+   > account:             0xe2541dCb88317248Ce7239bf7b2A9E9D1667f090
+   > balance:             99.64181966
+   > gas used:            251884 (0x3d7ec)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00503768 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.06202282 ETH
+
+
+Summary
+=======
+> Total deployments:   5
+> Final cost:          0.06652756 ETH
+
+
+sig :: Code/swarm2/fds.js.bee-js-feeds2 » truffle migrate --reset
+`~^C
+sig :: Code/swarm2/fds.js.bee-js-feeds2 130 »
+sig :: Code/swarm2/fds.js.bee-js-feeds2 130 » npm run test-dev -- test/fds.js
+sig :: Code/swarm2/fds.js.bee-js-feeds2 130 » truffle migrate --reset --network goerli
+
+Compiling your contracts...
+===========================
+> Everything is up to date, there is nothing to compile.
+
+ReferenceError: PrivateKeyProvider is not defined
+    at Object.provider (/Users/sig/Code/swarm2/fds.js.bee-js-feeds2/truffle-config.js:71:25)
+    at Object.getProvider (/Users/sig/.nvm/versions/node/v12.21.0/lib/node_modules/truffle/build/webpack:/packages/provider/index.js:20:1)
+    at Object.create (/Users/sig/.nvm/versions/node/v12.21.0/lib/node_modules/truffle/build/webpack:/packages/provider/index.js:13:1)
+    at TruffleConfig.get [as provider] (/Users/sig/.nvm/versions/node/v12.21.0/lib/node_modules/truffle/build/webpack:/packages/config/dist/configDefaults.js:204:1)
+    at Object.detect (/Users/sig/.nvm/versions/node/v12.21.0/lib/node_modules/truffle/build/webpack:/packages/environment/environment.js:19:1)
+    at Object.run (/Users/sig/.nvm/versions/node/v12.21.0/lib/node_modules/truffle/build/webpack:/packages/core/lib/commands/migrate.js:206:1)
+    at Command.run (/Users/sig/.nvm/versions/node/v12.21.0/lib/node_modules/truffle/build/webpack:/packages/core/lib/command.js:136:1)
+Truffle v5.2.2 (core: 5.2.2)
+Node v12.21.0
+sig :: Code/swarm2/fds.js.bee-js-feeds2 1 » truffle migrate --reset --network goerli
+
+Compiling your contracts...
+===========================
+> Everything is up to date, there is nothing to compile.
+
+
+
+Migrations dry-run (simulation)
+===============================
+> Network name:    'goerli-fork'
+> Network id:      5
+> Block gas limit: 8000000 (0x7a1200)
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > block number:        4381115
+   > block timestamp:     1614795818
+   > account:             0xE73518dcB656aE657E2E5d7ab47C53f343C5F9dA
+   > balance:             5.029298206
+   > gas used:            210237 (0x3353d)
+   > gas price:           2 gwei
+   > value sent:          0 ETH
+   > total cost:          0.000420474 ETH
+
+   -------------------------------------
+   > Total cost:         0.000420474 ETH
+
+
+1563788331_ens.js
+=================
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+
+Summary
+=======
+> Total deployments:   1
+> Final cost:          0.000420474 ETH
+
+
+
+
+
+Starting migrations...
+======================
+> Network name:    'goerli'
+> Network id:      5
+> Block gas limit: 8000000 (0x7a1200)
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > transaction hash:    0x960860added2f5c2af36d271703ef356f939893cdad073f507e2ca52ab1099d1
+   > Blocks: 1            Seconds: 4
+   > contract address:    0x50C10c6d61ce4e19Ef91168ED4b52e7DcC37929c
+   > block number:        4381114
+   > block timestamp:     1614795825
+   > account:             0xE73518dcB656aE657E2E5d7ab47C53f343C5F9dA
+   > balance:             5.02521394
+   > gas used:            225237 (0x36fd5)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00450474 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.00450474 ETH
+
+
+1563788331_ens.js
+=================
+
+   Deploying 'ENSRegistry'
+   -----------------------
+   > transaction hash:    0x0a2a778bbf6e71fec7afffe47640183d72443ebd23e6ed961116026688edc104
+   > Blocks: 1            Seconds: 24
+   > contract address:    0x315f42970073A615DFEFF8b7e8DdaCDc4eA918C5
+   > block number:        4381117
+   > block timestamp:     1614795870
+   > account:             0xE73518dcB656aE657E2E5d7ab47C53f343C5F9dA
+   > balance:             5.01167548
+   > gas used:            634560 (0x9aec0)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0126912 ETH
+
+
+   Deploying 'TestRegistrar'
+   -------------------------
+   > transaction hash:    0x83eb1c11a55002bee24f2b8ab74864a9426a86ff392c21443bafe81d6b41029c
+   > Blocks: 0            Seconds: 12
+   > contract address:    0x199CCAde43aC202f793Db5E11bcF9197B9737C85
+   > block number:        4381118
+   > block timestamp:     1614795885
+   > account:             0xE73518dcB656aE657E2E5d7ab47C53f343C5F9dA
+   > balance:             5.00663804
+   > gas used:            251872 (0x3d7e0)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00503744 ETH
+
+
+   Deploying 'PublicResolver'
+   --------------------------
+   > transaction hash:    0x2853165842af902d104558d2cadc2f3a8c42c01207a832f185d731d2c11971fe
+   > Blocks: 0            Seconds: 12
+   > contract address:    0x9cC867020F2C3Be1C8cb671B2F455A3f44F82188
+   > block number:        4381119
+   > block timestamp:     1614795900
+   > account:             0xE73518dcB656aE657E2E5d7ab47C53f343C5F9dA
+   > balance:             4.96738202
+   > gas used:            1962801 (0x1df331)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.03925602 ETH
+
+
+   Deploying 'SubdomainRegistrar'
+   ------------------------------
+   > transaction hash:    0xf2038b1330c1292e2b07ed932b4038def38efe9256d1ddfc1a4e6d0f99baa7f0
+   > Blocks: 0            Seconds: 12
+   > contract address:    0xB7e594714F29674330E9582A1c487cA2A3d12BAf
+   > block number:        4381126
+   > block timestamp:     1614796005
+   > account:             0xE73518dcB656aE657E2E5d7ab47C53f343C5F9dA
+   > balance:             4.95902898
+   > gas used:            251872 (0x3d7e0)
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00503744 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:           0.0620221 ETH
+
+
+Summary
+=======
+> Total deployments:   5
+> Final cost:          0.06652684 ETH
+
+
+
+sig :: Code/swarm2/fds.js.bee-js-feeds2 »

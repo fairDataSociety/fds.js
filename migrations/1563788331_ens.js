@@ -11,7 +11,7 @@ var Promise = require('bluebird');
 
 module.exports = function (deployer, network, accounts) {
     return deployer.then(async () => {
-        if (network == "test" || network == "development" || network == "noordung" || network == "fivesecs") {
+        if (network == "test" || network == "development" || network == "noordung" || network == "fivesecs" || network == "goerli") {
 
             await deployer.deploy(ENS);
 
@@ -33,7 +33,7 @@ module.exports = function (deployer, network, accounts) {
 
             const registrar = await SubdomainRegistrar.deployed();
             await ens.setSubnodeOwner(namehash.hash('eth'), '0x' + sha3('datafund'), registrar.address);
-            
+
         } else {
             // const ens = ENS.deployed();
             // await deployer.deploy(SubdomainRegistrar, ens.address);
