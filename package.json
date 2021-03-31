@@ -21,7 +21,7 @@
     "lib": "lib"
   },
   "dependencies": {
-    "@ethersphere/bee-js": "^0.5.1",
+    "@ethersphere/bee-js": "^0.7",
     "axios": ">=0.21.1",
     "buffer": "^5.4.3",
     "dotenv": "^8.2.0",
