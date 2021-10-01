@@ -68,7 +68,7 @@ module.exports = {
     },
 
     goerli: {
-      provider: () => { return new PrivateKeyProvider(process.env.GOERLI_PRIVATE_KEY, "http://localhost:8545") },
+      provider: () => { return new HDWalletProvider(process.env.GOERLI_PRIVATE_KEY, "http://localhost:8545") },
       network_id: 5
     },
 
