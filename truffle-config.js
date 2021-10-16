@@ -72,6 +72,10 @@ module.exports = {
       network_id: 5
     },
 
+    xdai: {
+      provider: () => { return new HDWalletProvider(process.env.XDAI_PRIVATE_KEY, "http://193.70.45.135:8545") },
+      network_id: 100
+    },
 
     // Another network with more advanced options...
     // advanced: {
