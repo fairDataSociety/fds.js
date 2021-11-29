@@ -46,35 +46,55 @@ module.exports = {
     // options below to some value.
     //
     development: {
-      host: "127.0.0.1",     // Localhost (default: none)
-      port: 8545,            // Standard Ethereum port (default: none)
-      network_id: "*",       // Any network (default: none)
+      host: '127.0.0.1', // Localhost (default: none)
+      port: 8545, // Standard Ethereum port (default: none)
+      network_id: '*', // Any network (default: none)
     },
 
     test: {
-      host: "127.0.0.1",     // Localhost (default: none)
-      port: 8545,            // Standard Ethereum port (default: none)
-      network_id: "*",       // Any network (default: none)
+      host: '127.0.0.1', // Localhost (default: none)
+      port: 8545, // Standard Ethereum port (default: none)
+      network_id: '*', // Any network (default: none)
     },
 
     noordung: {
-      provider: () => { return new HDWalletProvider(process.env.NOORDUNG_PRIVATE_KEY, "https://geth-noordung.fairdatasociety.org") },
-      network_id: 235813
+      provider: () => {
+        return new HDWalletProvider(
+          process.env.NOORDUNG_PRIVATE_KEY,
+          'https://geth-noordung.fairdatasociety.org'
+        );
+      },
+      network_id: 235813,
     },
 
     fivesecs: {
-      provider: () => { return new HDWalletProvider(process.env.FIVESECS_PRIVATE_KEY, "http://188.166.156.168:8545") },
-      network_id: 80348034
+      provider: () => {
+        return new HDWalletProvider(
+          process.env.FIVESECS_PRIVATE_KEY,
+          'http://188.166.156.168:8545'
+        );
+      },
+      network_id: 80348034,
     },
 
     goerli: {
-      provider: () => { return new PrivateKeyProvider(process.env.GOERLI_PRIVATE_KEY, "http://localhost:8545") },
-      network_id: 5
+      provider: () => {
+        return new PrivateKeyProvider(
+          process.env.GOERLI_PRIVATE_KEY,
+          'http://localhost:8545'
+        );
+      },
+      network_id: 5,
     },
 
     xdai: {
-      provider: () => { return new HDWalletProvider(process.env.XDAI_PRIVATE_KEY, "http://193.70.45.135:8545") },
-      network_id: 100
+      provider: () => {
+        return new HDWalletProvider(
+          process.env.XDAI_PRIVATE_KEY,
+          'http://193.70.45.135:8545'
+        );
+      },
+      network_id: 100,
     },
 
     // Another network with more advanced options...
@@ -108,7 +128,7 @@ module.exports = {
 
   // Set default mocha options here, use special reporters etc.
   mocha: {
-    enableTimeouts: false
+    enableTimeouts: false,
   },
 
   // Configure your compilers
@@ -123,6 +143,6 @@ module.exports = {
       //  },
       //  evmVersion: "byzantium"
       // }
-    }
-  }
-}
+    },
+  },
+};
