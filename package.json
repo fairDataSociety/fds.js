@@ -15,7 +15,7 @@
     "analyse": "npm run compile && webpack --mode production --config webpack.config.analyse.js",
     "prepare": "npm run build",
     "dev-chain": "ganache-cli --networkId 235813 -l 80000000 -m 'enough pipe can mule vibrant rice autumn genuine public brisk news erupt'",
-    "pretty": "prettier -write ."
+    "pretty": "prettier --write ."
   },
   "author": "significance",
   "license": "ISC",

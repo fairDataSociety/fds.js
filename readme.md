@@ -6,11 +6,11 @@
 
 FDS is an attempt to provide a very accessible high level framework to enable everyone to create apps using the Ethereum Web3 stack. At present it enables developers to:
 
- - Create Password Protected Account
- - Unlock (Sign In) Account
- - Store values using an encrypted key/value store
- - Store a file encrypted using AES-256-CTR
- - Send encrypted files to another account
+- Create Password Protected Account
+- Unlock (Sign In) Account
+- Store values using an encrypted key/value store
+- Store a file encrypted using AES-256-CTR
+- Send encrypted files to another account
 
 Easy to use Dapp framework.
 
@@ -20,22 +20,21 @@ The FDS Dapp Framework provides a high level javascript SDK for DApp developers 
 
 ## New in 0.1.0
 
-  - Now works in a Node environment.
-  - [Plug in your own contracts!!](#use-your-own-contracts)
-    - Simply deploy your own contracts then call functions, tx's are signed in the browser by FDS.
-    - Work with existing contracts.
-  - Much improved docs in await/sync syntax for your understanding pleasure. 💖 
-  -  🎁 The mighty multibox brings data interoperability to all of your FDIP Compliant Dapps!
-  - ...and much more!
+- Now works in a Node environment.
+- [Plug in your own contracts!!](#use-your-own-contracts)
+  - Simply deploy your own contracts then call functions, tx's are signed in the browser by FDS.
+  - Work with existing contracts.
+- Much improved docs in await/sync syntax for your understanding pleasure. 💖
+- 🎁 The mighty multibox brings data interoperability to all of your FDIP Compliant Dapps!
+- ...and much more!
 
 ## Features
 
-  - Easily create Ethereum wallets
-  - Store and share e2e encrypted values and files in the Swarm network.
-  - Send Tokens and balance
-  - Simply include your contract's abi and call functions - the rest is taken care of.
-  - Totally decentralised, Zero Data, nothing leaves the your computer unencrypted, and only you have the key.
- 
+- Easily create Ethereum wallets
+- Store and share e2e encrypted values and files in the Swarm network.
+- Send Tokens and balance
+- Simply include your contract's abi and call functions - the rest is taken care of.
+- Totally decentralised, Zero Data, nothing leaves the your computer unencrypted, and only you have the key.
 
 ## Install
 
@@ -54,10 +53,10 @@ If using the node at the command prompt, read the [notes.](#notes-on-the-node-en
 In FDS, most things are done in an account context, because transactions and data are authenticated and encrypted using Ethereum and Swarm compatible ECDSA algorithms before they leave your computer.
 
 ```javascript
-let fds = require('FDS.js');
-let FDS = new fds();
-let alice = await FDS.CreateAccount('alice', 'password');
-let bob = await FDS.CreateAccount('bob', 'password');
+let fds = require('FDS.js')
+let FDS = new fds()
+let alice = await FDS.CreateAccount('alice', 'password')
+let bob = await FDS.CreateAccount('bob', 'password')
 ```
 
 ### Send a File from Alice to Bob
@@ -65,8 +64,8 @@ let bob = await FDS.CreateAccount('bob', 'password');
 Now you have two accounts, you can send an encrypted file from alice's private key...
 
 ```javascript
-let file = new File([`hello world `], `test.txt`, {type: 'text/plain'});
-await alice.send('bob', file, '/shared/my-application/messages'); 
+let file = new File([`hello world `], `test.txt`, { type: 'text/plain' })
+await alice.send('bob', file, '/shared/my-application/messages')
 ```
 
 ### Bob Receives It
@@ -74,40 +73,42 @@ await alice.send('bob', file, '/shared/my-application/messages');
 ... and bob will receive and decrypt it with his private key - without ever having to exchange a key, or trust any third parties. ✨
 
 ```javascript
-let messages = await bob.messages('received', '/shared/my-application/messages'); 
-messages[0].getFile();
+let messages = await bob.messages('received', '/shared/my-application/messages')
+messages[0].getFile()
 ```
 
-----
+---
+
 ## Examples
 
 ### Use Your Own Contracts
 
 ```javascript
-let erc20 = b.getContract(erc20Abi,'0x35e46c...')
+let erc20 = b.getContract(erc20Abi, '0x35e46c...')
 ```
 
 ```javascript
-let totalSupply = await erc20.totalSupply();
+let totalSupply = await erc20.totalSupply()
 ```
 
 ```javascript
-let tx = await transfer.transfer('0xabcd...', 100);
+let tx = await transfer.transfer('0xabcd...', 100)
 ```
-*create an issue on this repo if you'd like us to include an example of something you're working on!*
 
-------------------------------------------
+_create an issue on this repo if you'd like us to include an example of something you're working on!_
+
+---
 
 ## API Reference
 
 ### FDS Object
 
-You must first create an FDS object to work with. 
+You must first create an FDS object to work with.
 
 To instantiate this using the default options:
 
 ```javascript
-let fds = new FDS();
+let fds = new FDS()
 ```
 
 #### Config
@@ -116,27 +117,29 @@ It is also possible to specify values other than the defaults.
 
 ```javascript
 var fds = new FDS({
-      tokenName: 'gas',
-      swarmGateway: 'https://swarm.fairdatasociety.org',
-      ethGateway: 'https://geth-noordung.fairdatasociety.org',
-      faucetAddress: 'https://faucet-noordung.fairdatasociety.org/gimmie',
-      chainID: '235813',
-      httpTimeout: 1000,
-      gasPrice: 0.1,
-      walletVersion: 1,
-      scratchDir: '/tmp/something',
-      ensConfig: {
-        domain: 'datafund.eth',
-        registryAddress: '0xA1029cb176082eca658A67fD6807B9bDfB44A695',
-        subdomainRegistrarAddress: '0x0E6a3B5f6800145bAe95C48934B7b5a90Df50722',
-        resolverContractAddress: '0xC91AB84FFad79279D47a715eF91F5fbE86302E4D'
-      }
-    });
+  tokenName: 'gas',
+  swarmGateway: 'https://swarm.fairdatasociety.org',
+  ethGateway: 'https://geth-noordung.fairdatasociety.org',
+  faucetAddress: 'https://faucet-noordung.fairdatasociety.org/gimmie',
+  chainID: '235813',
+  httpTimeout: 1000,
+  gasPrice: 0.1,
+  walletVersion: 1,
+  scratchDir: '/tmp/something',
+  ensConfig: {
+    domain: 'datafund.eth',
+    registryAddress: '0xA1029cb176082eca658A67fD6807B9bDfB44A695',
+    subdomainRegistrarAddress: '0x0E6a3B5f6800145bAe95C48934B7b5a90Df50722',
+    resolverContractAddress: '0xC91AB84FFad79279D47a715eF91F5fbE86302E4D',
+  },
+})
 ```
 
------
+---
+
 ### FDS Object
------
+
+---
 
 #### Description
 
@@ -147,14 +150,14 @@ The FDS object is used to create and manage user accounts.
 Creates a new FDS object.
 
 ```javascript
-let fds = new FDS();
+let fds = new FDS()
 ```
 
 #### CreateAccount
 
 Creates a new account with a wallet, ENS subdomain and Multibox contract, and saves it into local storage.
 
-*async* **FDS.CreateAccount(** *username, password, feedbackMessageCallback = console.log* **)**
+_async_ **FDS.CreateAccount(** _username, password, feedbackMessageCallback = console.log_ **)**
 
 **Inputs**
 
@@ -164,8 +167,7 @@ Creates a new account with a wallet, ENS subdomain and Multibox contract, and sa
 
 **Returns**
 
-*promise* User (User Object)
-
+_promise_ User (User Object)
 
 ```javascript
 let alice = await FDS.CreateAccount('alice', 'password', (message) => { ... });
@@ -176,7 +178,7 @@ let alice = await FDS.CreateAccount('alice', 'password', (message) => { ... });
 
 Unlocks an account that already exists in local storage.
 
-**FDS.UnlockAccount(** *username, password* **)**
+**FDS.UnlockAccount(** _username, password_ **)**
 
 **Inputs**
 
@@ -187,20 +189,19 @@ Unlocks an account that already exists in local storage.
 
 User (User Object)
 
-or 
+or
 
 Failed (bool false)
 
 ```javascript
-let alice = await FDS.UnlockAccount('alice', 'password');
-
+let alice = await FDS.UnlockAccount('alice', 'password')
 ```
 
 #### GetAccounts
 
 Gets a list of the accounts held in local storage.
 
-*async* **FDS.GetAccounts(** *walletVersion = [most recent wallet version]* **)**
+_async_ **FDS.GetAccounts(** _walletVersion = [most recent wallet version]_ **)**
 
 **Inputs**
 
@@ -211,17 +212,16 @@ Gets a list of the accounts held in local storage.
 Users (Array)[User Object]
 
 ```javascript
-FDS.GetAccounts();
+FDS.GetAccounts()
 ```
-
 
 #### BackupAccount
 
-Starts download of wallet backup file. 
+Starts download of wallet backup file.
 
 Must be in the browser environment.
 
-*async* **FDS.BackupAccount(** *subdomain* **)**
+_async_ **FDS.BackupAccount(** _subdomain_ **)**
 
 **Inputs**
 
@@ -232,14 +232,14 @@ Must be in the browser environment.
 Success (bool)
 
 ```javascript
-FDS.BackupAccount('fds-ftw');
+FDS.BackupAccount('fds-ftw')
 ```
 
 #### BackupAccountAsJSON
 
 Returns a Ethereum style V3 wallet javascript object for a given username.
 
-*async* **FDS.BackupAccountAsJSON(** *username* **)**
+_async_ **FDS.BackupAccountAsJSON(** _username_ **)**
 
 **Inputs**
 
@@ -249,17 +249,17 @@ Returns a Ethereum style V3 wallet javascript object for a given username.
 
 WalletJSON (string)
 
-*note: take a note of the username here, you will need it when restoring this wallet.*
+_note: take a note of the username here, you will need it when restoring this wallet._
 
 ```javascript
-let WalletJSON = await FDS.BackupAccountAsJSON('username');
+let WalletJSON = await FDS.BackupAccountAsJSON('username')
 ```
 
 #### RestoreAccount
 
 Restores account from file object and saves it into the local storage.
 
-*async* **FDS.RestoreAccount(** *backupFile* **)**
+_async_ **FDS.RestoreAccount(** _backupFile_ **)**
 
 **Inputs**
 
@@ -267,18 +267,18 @@ Restores account from file object and saves it into the local storage.
 
 **Returns**
 
-*promise* Success (bool)
+_promise_ Success (bool)
 
 ```javascript
 //retrieve backup from
-await FDS.RestoreAccount(backupFile);
+await FDS.RestoreAccount(backupFile)
 ```
 
 #### RestoreAccountFromPrivateKey
 
 Restores account from a private key and saves it into the browser's localstorage.
 
-*async* **FDS.RestoreAccountFromPrivateKey(** *username, password, privateKey* **)**
+_async_ **FDS.RestoreAccountFromPrivateKey(** _username, password, privateKey_ **)**
 
 **Inputs**
 
@@ -288,18 +288,18 @@ Restores account from a private key and saves it into the browser's localstorage
 
 **Returns**
 
-*promise* User (User Object)
+_promise_ User (User Object)
 
 ```javascript
 //retrieve backup from
-await FDS.RestoreAccountFromPrivateKey('username', 'password', 'private-key-with-0x');
+await FDS.RestoreAccountFromPrivateKey('username', 'password', 'private-key-with-0x')
 ```
 
 #### RestoreAccountFromJSON
 
 Restores account from a json V3 wallet and saves it into the browser's localstorage.
 
-*async* **FDS.RestoreAccountFromJSON(** *username, jsonString* **)**
+_async_ **FDS.RestoreAccountFromJSON(** _username, jsonString_ **)**
 
 **Inputs**
 
@@ -308,17 +308,17 @@ Restores account from a json V3 wallet and saves it into the browser's localstor
 
 **Returns**
 
-*promise* User (User Object)
+_promise_ User (User Object)
 
 ```javascript
-await FDS.RestoreAccountFromJSON('username', '{..}' );
+await FDS.RestoreAccountFromJSON('username', '{..}')
 ```
 
 #### DeleteAccount(username);
 
 Deletes an account from localstorage.
 
-*async* **FDS.DeleteAccount(** *username* **)**
+_async_ **FDS.DeleteAccount(** _username_ **)**
 
 **Inputs**
 
@@ -329,39 +329,43 @@ Deletes an account from localstorage.
 null
 
 ```javascript
-FDS.DeleteAccount('username');
+FDS.DeleteAccount('username')
 ```
 
-----
+---
+
 ### User Object
-----
+
+---
 
 Everything in FDS happens within a user context - this handles permissions, authorisation, encrytion and authentication under the hood so that everything is crypto-secure 🌍.
 
 You may create or retrieve a user object using the CreateAccount, GetAccounts or UnlockAccount methods of the FDS object, then use it to interact with the FDS multiverse, Swarm and Ethereum networks.
 
-----
+---
+
 #### Attributes
 
 - subdomain (string) the username of the account
 - address (string) the address of the account
 - publicKey (string) the public key of the account
 - privateKey (string) the private key of the account
-- nonce (int) 
+- nonce (int)
 
-----
+---
+
 #### Functions
 
 #### send
 
 Sends a file object from one user to another user's [multibox](#multibox-contract) path.
 
-*async* **user.send(** *recipientSubdomain, file, multiboxPath, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log* **)**
+_async_ **user.send(** _recipientSubdomain, file, multiboxPath, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log_ **)**
 
 **Inputs**
 
-- recipientSubdomain (string) [ the user name of the recipient  ]
-- file (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](file-objects-in-node).  ]
+- recipientSubdomain (string) [ the user name of the recipient ]
+- file (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](file-objects-in-node). ]
 - multiboxPath (string) [ the [Multibox](#multibox-contract) path to send your file to ]
 - encryptionCallback (function) [ callback function, encryptionStatus true if encryption complete ]
 - uploadCallback (function) [ callback function, returns percentage uploaded as first argument [(see examples)](#upload-progress-bar) ]
@@ -372,14 +376,21 @@ Sends a file object from one user to another user's [multibox](#multibox-contrac
 Success (Bool)
 
 ```javascript
-let success = await bob.send('alice', file, '/shared/mail', (encryptionStatus)=>{}, (percentageUploaded)=>{}, (progressMessageCallback)=>{});
+let success = await bob.send(
+  'alice',
+  file,
+  '/shared/mail',
+  (encryptionStatus) => {},
+  (percentageUploaded) => {},
+  (progressMessageCallback) => {},
+)
 ```
 
 #### messages
 
-Checks to see if any files have been received by a user by [multibox](#multibox-contract) path. 
+Checks to see if any files have been received by a user by [multibox](#multibox-contract) path.
 
-*async* **user.messages(** *query, multiboxPath, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log* **)**
+_async_ **user.messages(** _query, multiboxPath, encryptionCallback = console.log, uploadCallback = console.log, progressMessageCallback = console.log_ **)**
 
 **Inputs**
 
@@ -394,36 +405,40 @@ Checks to see if any files have been received by a user by [multibox](#multibox-
 Messages (Array)[Message Object]
 
 ```javascript
-let messages = await bob.messages('received', '/shared/files');
+let messages = await bob.messages('received', '/shared/files')
 ```
-
 
 #### store
 
 Stores a private file. The file is encrypted using AES-256-CTR and the user's private key before it is uploaded into Swarm. An encrypted record of the location and metadata of the file is encrypted and stored into Swarm Feeds for later retrieval.
 
-*async* **user.store(** *file, encryptionCallback, uploadCallback, progressMessageCallback* **)**
+_async_ **user.store(** _file, encryptionCallback, uploadCallback, progressMessageCallback_ **)**
 
 **Inputs**
 
-- file (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](file-objects-in-node).  ]
-- encryptionCallback (function) [ callback function, encryptionStatus true when complete,  ] *default: console.log*
-- uploadCallback (function) [ callback function, returns percentage uploaded as first argument [(see examples)](#upload-progress-bar) ] *default: console.log*
-- progressMessageCallback (function) [ callback function, returns string progress messages *default: console.log*
+- file (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](file-objects-in-node). ]
+- encryptionCallback (function) [ callback function, encryptionStatus true when complete, ] _default: console.log_
+- uploadCallback (function) [ callback function, returns percentage uploaded as first argument [(see examples)](#upload-progress-bar) ] _default: console.log_
+- progressMessageCallback (function) [ callback function, returns string progress messages _default: console.log_
 
 **Returns**
 
 Success (Bool)
 
 ```javascript
-let success = await bob.store(file, (encryptionStatus)=>{}, (percentageUploaded)=>{}, (progressMessage)=>{});
+let success = await bob.store(
+  file,
+  (encryptionStatus) => {},
+  (percentageUploaded) => {},
+  (progressMessage) => {},
+)
 ```
 
 #### stored
 
-Gets a list of stored files. 
+Gets a list of stored files.
 
-*async* **user.stored(** ** **)**
+_async_ **user.stored(** \*\* **)**
 
 **Inputs**
 
@@ -432,18 +447,19 @@ Gets a list of stored files.
 StoredFiles (Array) [Hash Object]
 
 ```javascript
-let stored = await bob.stored();
+let stored = await bob.stored()
 ```
 
 #### storeValue
 
-Stores an encrypted string `value` that can later be retrieved using the `key`. 
+Stores an encrypted string `value` that can later be retrieved using the `key`.
 
 Useful for storing application state and much more. This value can only be accesed by the `user`.
 
-*async* **user.storeValue(** *key, value* **)**
+_async_ **user.storeValue(** _key, value_ **)**
 
 **Inputs**
+
 - key (string) [ a string identifier for the `value`]
 - value (string) [ a string ]
 
@@ -452,24 +468,25 @@ Useful for storing application state and much more. This value can only be acces
 StoredFiles (Array) [Hash Object]
 
 ```javascript
-let success = await a.storeValue('key231', 'hello encrypted value world');
+let success = await a.storeValue('key231', 'hello encrypted value world')
 ```
 
 #### getValue
 
-Retrieves an encrypted string `value` that can has been stored by the `user` identified by a string `key`. 
+Retrieves an encrypted string `value` that can has been stored by the `user` identified by a string `key`.
 
-*async* **user.getValue(** *key* **)**
+_async_ **user.getValue(** _key_ **)**
 
 **Inputs**
-- key (string) [ a string identifier for the required `value` ] 
+
+- key (string) [ a string identifier for the required `value` ]
 
 **Returns**
 
 Value (string)
 
 ```javascript
-let value = await a.retrieveValue('key231');
+let value = await a.retrieveValue('key231')
 // 'hello encrypted value world'
 ```
 
@@ -479,12 +496,13 @@ Deploys a contract from the user's account context, returns a [Contract Object](
 
 [See example](#use-your-own-contracts)
 
-*async* **user.deployContract(** *abi, bytecode, args = []* **)**
+_async_ **user.deployContract(** _abi, bytecode, args = []_ **)**
 
 **Inputs**
+
 - abi (object) [ the [application binary interface]() of the contract to be deployed ]
-- bytecode (string) [ 0x prefixed of the contract to be deployed  ]
-- args (array) [ an array of arguments to be passed to the contract constructor  ]
+- bytecode (string) [ 0x prefixed of the contract to be deployed ]
+- args (array) [ an array of arguments to be passed to the contract constructor ]
 - contractAddress (string) [address of the contract]
 
 **Returns**
@@ -499,9 +517,10 @@ let contract = await alice.deployContract([ { "inputs": [], ... } ] , '608060405
 
 Gets a [Contract Object]() with the user's account context, which you may call the functions of to interact with the blockchain.
 
-*async* **user.getContract(** *abi, address* **)**
+_async_ **user.getContract(** _abi, address_ **)**
 
 **Inputs**
+
 - abi (object) [ the [application binary interface]() of the contract to be deployed ]
 - address (string) [ address of the deployed contract ]
 
@@ -518,10 +537,9 @@ let success = await alice.getContract([ { "inputs": [], ... } ], '0xab234...' );
 
 Gets a user's balance.
 
-*async* **user.getBalance(** ** **)**
+_async_ **user.getBalance(** \*\* **)**
 
 **Inputs**
-
 
 **Returns**
 
@@ -537,17 +555,16 @@ let balance = await alice.getBalance([ { "inputs": [], ... } ], '0xsa3bsdfs' );
 
 Gets a user's balance.
 
-*async* **user.getBlockNumber(** ** **)**
+_async_ **user.getBlockNumber(** \*\* **)**
 
 **Inputs**
-
 
 **Returns**
 
 Value (integer)
 
 ```javascript
-let bn = await alice.getBlockNumber();
+let bn = await alice.getBlockNumber()
 123456789
 // true
 ```
@@ -556,10 +573,10 @@ let bn = await alice.getBlockNumber();
 
 Pays a user native balance.
 
-*async* **user.pay(** *recipientSubdomain, amount, transactionCallback = console.log, transactionSignedCallback = console.log* **)**
-
+_async_ **user.pay(** _recipientSubdomain, amount, transactionCallback = console.log, transactionSignedCallback = console.log_ **)**
 
 **Inputs**
+
 - abi (object) [ the [application binary interface]() of the contract to be deployed ]
 - address (string) [ address of the deployed contract ]
 - transactionCallback (function)
@@ -578,10 +595,10 @@ let balance = await alice.pay([ 'bob', '0.1' );
 
 Pays a address native balance.
 
-*async* **user.pay(** *recipientAddress, amount, transactionCallback = console.log, transactionSignedCallback = console.log* **)**
-
+_async_ **user.pay(** _recipientAddress, amount, transactionCallback = console.log, transactionSignedCallback = console.log_ **)**
 
 **Inputs**
+
 - abi (object) [ the [application binary interface]() of the contract to be deployed ]
 - address (string) [ address of the deployed contract ]
 - transactionCallback (function)
@@ -600,10 +617,10 @@ let balance = await alice.pay([ '0x234...', '0.1' );
 
 Signs a arbitary data.
 
-*async* **user.sign(** *message* **)**
-
+_async_ **user.sign(** _message_ **)**
 
 **Inputs**
+
 - message (string) [ the message to be signed ]
 
 **Returns**
@@ -611,7 +628,7 @@ Signs a arbitary data.
 Success (bool)
 
 ```javascript
-let balance = await alice.sign('message');
+let balance = await alice.sign('message')
 //0x3cff2d1..
 ```
 
@@ -619,10 +636,10 @@ let balance = await alice.sign('message');
 
 Checks a message and signature and returns the address.
 
-*async* **user.recover(** *message, sig* **)**
-
+_async_ **user.recover(** _message, sig_ **)**
 
 **Inputs**
+
 - message (string) [ the message which has been signed ]
 - sig (string) [ the signature ]
 
@@ -631,57 +648,60 @@ Checks a message and signature and returns the address.
 Address (address)
 
 ```javascript
-let balance = await alice.recover('message', '0xabc...');
+let balance = await alice.recover('message', '0xabc...')
 //0x3cff2d1..
 ```
 
+---
 
------
 ### Message Object
------
+
+---
 
 #### Description
 
 Message objects are returned from user.messages()
 
------
+---
+
 #### Attributes
 
 - to (string) [user the message was sent to]
 - from (string) [user the message was sent from]
 - hash (Hash Object) [the hash for the file that was sent]
 
------
+---
+
 #### Functions
 
 #### getFile
 
-Retrieves and decrypts a file from Swarm. 
+Retrieves and decrypts a file from Swarm.
 
-*async* **message.getFile(** *decryptProgressCallback = console.log, downloadProgressCallback = console.log* **)**
+_async_ **message.getFile(** _decryptProgressCallback = console.log, downloadProgressCallback = console.log_ **)**
 
 **Inputs**
 
-- decryptProgressCallback (string) [ the user name of the recipient  ] 
-- downloadProgressCallback (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](file-objects-in-node).  ]
+- decryptProgressCallback (string) [ the user name of the recipient ]
+- downloadProgressCallback (File Object) [ the file to be sent, should be either a browser [File object](https://developer.mozilla.org/en-US/docs/Web/API/File) or a [File Stub Object](file-objects-in-node). ]
 
 **Returns**
 
 File (File)
 
 ```javascript
-let file = await message.getFile();
+let file = await message.getFile()
 ```
 
 #### saveAs
 
-Uses [filesaver](https://github.com/eligrey/FileSaver.js/) to prompt a file download from the browser environment. 
+Uses [filesaver](https://github.com/eligrey/FileSaver.js/) to prompt a file download from the browser environment.
 
-*async* **message.saveAs(** *decryptProgressCallback = console.log, downloadProgressCallback = console.log* **)**
+_async_ **message.saveAs(** _decryptProgressCallback = console.log, downloadProgressCallback = console.log_ **)**
 
 **Inputs**
 
-- decryptProgressCallback (function) [ decryption progress callback ] 
+- decryptProgressCallback (function) [ decryption progress callback ]
 - downloadProgressCallback (function) [ download progress callback ]
 
 **Returns**
@@ -689,23 +709,26 @@ Uses [filesaver](https://github.com/eligrey/FileSaver.js/) to prompt a file down
 File (File)
 
 ```javascript
-let file = await message.saveAs();
+let file = await message.saveAs()
 ```
 
------
+---
+
 ### Hash Object
------
+
+---
 
 #### Description
 
 Hash objects are used to represent files encrypted and stored into swarm.
 
------
+---
+
 #### Attributes
 
-  address: 'ece513967ad1d7610f280ff1a6c619ae7458780bbd0e0ba687e60ba6e3ae47e2',
-  file: { name: 'test.txt', type: 'text/plain' },
-  time: 1569241451971,
+address: 'ece513967ad1d7610f280ff1a6c619ae7458780bbd0e0ba687e60ba6e3ae47e2',
+file: { name: 'test.txt', type: 'text/plain' },
+time: 1569241451971,
 
 - address (string) [location in Swarm]
 - file (object) [file meta info]
@@ -713,37 +736,38 @@ Hash objects are used to represent files encrypted and stored into swarm.
 
 Hash objects contain references to encrypted files stored in Swarm.
 
------
+---
+
 #### Functions
 
 #### getFile
 
-Retrieves and decrypts a file from Swarm. 
+Retrieves and decrypts a file from Swarm.
 
-*async* **hash.getFile(** *decryptProgressCallback = console.log, downloadProgressCallback = console.log* **)**
+_async_ **hash.getFile(** _decryptProgressCallback = console.log, downloadProgressCallback = console.log_ **)**
 
 **Inputs**
 
-- decryptProgressCallback (function) [ decryption progress callback ] 
+- decryptProgressCallback (function) [ decryption progress callback ]
 - downloadProgressCallback (function) [ download progress callback ]
 
 **Returns**
 
-*promise* File (File)
+_promise_ File (File)
 
 ```javascript
-let file = await hash.getFile();
+let file = await hash.getFile()
 ```
 
 #### saveAs
 
-Uses [filesaver](https://github.com/eligrey/FileSaver.js/) to prompt a file download from the browser environment. 
+Uses [filesaver](https://github.com/eligrey/FileSaver.js/) to prompt a file download from the browser environment.
 
-*async* **hash.saveAs(** *decryptProgressCallback = console.log, downloadProgressCallback = console.log* **)**
+_async_ **hash.saveAs(** _decryptProgressCallback = console.log, downloadProgressCallback = console.log_ **)**
 
 **Inputs**
 
-- decryptProgressCallback (function) [ decryption progress callback ] 
+- decryptProgressCallback (function) [ decryption progress callback ]
 - downloadProgressCallback (function) [ download progress callback ]
 
 **Returns**
@@ -751,18 +775,18 @@ Uses [filesaver](https://github.com/eligrey/FileSaver.js/) to prompt a file down
 null
 
 ```javascript
-let file = await hash.saveAs();
+let file = await hash.saveAs()
 ```
 
 #### gatewayLink
 
-Uses [filesaver](https://github.com/eligrey/FileSaver.js/) to prompt a file download from the browser environment. 
+Uses [filesaver](https://github.com/eligrey/FileSaver.js/) to prompt a file download from the browser environment.
 
-*async* **hash.gatewayLink(** ** **)**
+_async_ **hash.gatewayLink(** \*\* **)**
 
 **Inputs**
 
-- decryptProgressCallback (function) [ decryption progress callback ] 
+- decryptProgressCallback (function) [ decryption progress callback ]
 - downloadProgressCallback (function) [ download progress callback ]
 
 **Returns**
@@ -770,31 +794,34 @@ Uses [filesaver](https://github.com/eligrey/FileSaver.js/) to prompt a file down
 GatewayLink (string)
 
 ```javascript
-let file = await hash.gatewayLink();
+let file = await hash.gatewayLink()
 ```
 
+---
 
------
 ### Contract Object
------
 
-The contract object exposes any Solidity methods, which can be called just like normal functions. 
+---
+
+The contract object exposes any Solidity methods, which can be called just like normal functions.
 
 It is returned from GetContract or DeployContract.
-
 
 - contractAddress (string) [ address of the deployed contract ]
 - web3Instance (object) [ web3 instance of the deployed contract ]
 
-*async* **contract.myMethod(** *arg1, arg2, ...* **)**
+_async_ **contract.myMethod(** _arg1, arg2, ..._ **)**
 
 myMethod can be any function, getter or setter of your contract
 
 **Inputs**
+
 - arg1 (any) [ the argument to the solidty function ] #todo
 
 ---
+
 ## Notes
+
 ---
 
 ### Notes on the Node Environment
@@ -804,11 +831,11 @@ myMethod can be any function, getter or setter of your contract
 Because the node environment does not include the file object, you must include a stub file object so that FDS has knowledge of what meta information is associated with the file.
 
 ```javascript
-class File{
-  constructor(content, name,options){
-    this.content = content;
-    this.name = name;
-    this.type = options.type;
+class File {
+  constructor(content, name, options) {
+    this.content = content
+    this.name = name
+    this.type = options.type
   }
 }
 ```
@@ -823,7 +850,7 @@ node --experimental-repl-await
 
 ### Multibox Contract
 
-![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pigeon-hole_messagebox_3.jpg/640px-Pigeon-hole_messagebox_3.jpg "Fair Data Society")
+![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pigeon-hole_messagebox_3.jpg/640px-Pigeon-hole_messagebox_3.jpg 'Fair Data Society')
 
 ### Troubleshooting Windows installation
 
@@ -834,11 +861,14 @@ node: 10.15.1
 npm: 6.4.1
 
 1. Clone the FDS repo:
+
 ```
 git clone https://github.com/fairDataSociety/fds.js.git
 ```
+
 2. Change directory to the FDS repo
-3. Run: 
+3. Run:
+
 ```
 npm link
 ```
@@ -854,6 +884,7 @@ npm ERR! Verification failed while extracting file-saver@1.3.8:
 ```
 
 Install latest file-saver
+
 ```
 npm install file-saver --save
 ```
@@ -888,6 +919,7 @@ After installation is complete, open new command prompt window, change directory
 npm link
 
 The libray should compile and build and if you come across vulnerabilities message:
+
 ```
 Added 354 packages from 216 contributors and audited 172164 packages in 64.674s
 found 2 high severity vulnerabilities
@@ -895,6 +927,7 @@ run `npm audit fix` to fix them, or `npm audit` for details
 ```
 
 run twice:
+
 ```
 npm audit fix
 ```
@@ -904,5 +937,3 @@ Now FDS repo is available to be imported in your project:
 ```
 import FDS from 'fds';
 ```
-
-
