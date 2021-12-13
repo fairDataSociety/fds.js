@@ -4,6 +4,7 @@
   "description": "App Toolkit for the Web3 Generation",
   "main": "./dist/ES5/index.js",
   "scripts": {
+    "pre-commit": "pretty-quick --staged",
     "test": "npm run compile && TESTENV=noordung truffle test --network noordung",
     "test-goerli": "npm run compile && TESTENV=goerli truffle test --network goerli",
     "test-dev": "npm run compile && TESTENV=test truffle test --network test",
@@ -13,7 +14,8 @@
     "build-dev": "npm run compile && webpack --mode development --config webpack.config.js",
     "analyse": "npm run compile && webpack --mode production --config webpack.config.analyse.js",
     "prepare": "npm run build",
-    "dev-chain": "ganache-cli --networkId 235813 -l 80000000 -m 'enough pipe can mule vibrant rice autumn genuine public brisk news erupt'"
+    "dev-chain": "ganache-cli --networkId 235813 -l 80000000 -m 'enough pipe can mule vibrant rice autumn genuine public brisk news erupt'",
+    "pretty": "prettier -write ."
   },
   "author": "significance",
   "license": "ISC",
@@ -62,8 +64,14 @@
     "babel-register": "^6.26.0",
     "form-data": "^3.0.0",
     "ifdef-loader": "^2.1.4",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.5.1",
+    "pretty-quick": "^3.1.2",
     "webpack": "^4.41.2",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.9"
-  }
+  },
+  "pre-commit": [
+    "pre-commit"
+  ]
 }
