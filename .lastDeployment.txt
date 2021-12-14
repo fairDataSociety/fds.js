@@ -1,0 +1,132 @@
+truffle migrate --reset --network xdai
+
+Compiling your contracts...
+===========================
+✔ Fetching solc version list from solc-bin. Attempt #1
+✔ Fetching solc version list from solc-bin. Attempt #1
+> Compiling ./contracts/Multibox.sol
+> Compilation warnings encountered:
+
+    Warning: Visibility for constructor is ignored. If you want the contract to be non-deployable, making it "abstract" is sufficient.
+   --> project:/contracts/Multibox.sol:157:5:
+    |
+157 |     constructor(address payable _owner) public {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+,Warning: Visibility for constructor is ignored. If you want the contract to be non-deployable, making it "abstract" is sufficient.
+   --> project:/contracts/Multibox.sol:457:5:
+    |
+457 |     constructor() public {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+> Artifacts written to /Users/manu/Workspace/swarm/fds.js/build/contracts
+> Compiled successfully using:
+   - solc: 0.8.10+commit.fc410830.Emscripten.clang
+
+
+
+Starting migrations...
+======================
+> Network name:    'xdai'
+> Network id:      100
+> Block gas limit: 29970705 (0x1c95111)
+
+
+1_initial_migration.js
+======================
+
+   Replacing 'Migrations'
+   ----------------------
+   > transaction hash:    0x5cce8159a2c596b35a1af45cb27b834cf595922a7758364f60536880bd9ad917
+   > Blocks: 1            Seconds: 4
+   > contract address:    0x1d90ddf9CB952CB0d00ffE4451facCF30e95db37
+   > block number:        19575154
+   > block timestamp:     1639486885
+   > account:             0xecBa8361dc3BAF27F26Fc12146fD0254f305017c
+   > balance:             9.946875182203182122
+   > gas used:            226537 (0x374e9)
+   > gas price:           1.219999999 gwei
+   > value sent:          0 ETH
+   > total cost:          0.000276375139773463 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.000276375139773463 ETH
+
+
+1563788331_ens.js
+=================
+
+   Replacing 'ENSRegistry'
+   -----------------------
+   > transaction hash:    0x74859bf48fe7235bcadabdb333d50c8193732299624bd05d445fb1d51e4a125f
+   > Blocks: 0            Seconds: 0
+   > contract address:    0xc064e0b7152Db3a5a3e58176CeA0A62d2E6A2D89
+   > block number:        19575156
+   > block timestamp:     1639486895
+   > account:             0xecBa8361dc3BAF27F26Fc12146fD0254f305017c
+   > balance:             9.946043602143863745
+   > gas used:            635860 (0x9b3d4)
+   > gas price:           1.219999999 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00077574919936414 ETH
+
+
+   Replacing 'TestRegistrar'
+   -------------------------
+   > transaction hash:    0xa4709ef9f25002c36cc2c8f3271916e8b9a3cb01690d4fea572769f926386446
+   > Blocks: 1            Seconds: 4
+   > contract address:    0x428B3405Fd384402e97F1A80C8a714Fb5f986a0c
+   > block number:        19575157
+   > block timestamp:     1639486900
+   > account:             0xecBa8361dc3BAF27F26Fc12146fD0254f305017c
+   > balance:             9.945732155664119029
+   > gas used:            255284 (0x3e534)
+   > gas price:           1.219999999 gwei
+   > value sent:          0 ETH
+   > total cost:          0.000311446479744716 ETH
+
+
+   Replacing 'PublicResolver'
+   --------------------------
+   > transaction hash:    0xeb6e6012f6fa1c9027ccf005eb68e79a0e880a51593076195cacbb2dd94d35b2
+   > Blocks: 1            Seconds: 4
+   > contract address:    0xfe38502762621f368E487240f18273246e591c95
+   > block number:        19575158
+   > block timestamp:     1639486905
+   > account:             0xecBa8361dc3BAF27F26Fc12146fD0254f305017c
+   > balance:             9.943335937806083142
+   > gas used:            1964113 (0x1df851)
+   > gas price:           1.219999999 gwei
+   > value sent:          0 ETH
+   > total cost:          0.002396217858035887 ETH
+
+
+   Replacing 'SubdomainRegistrar'
+   ------------------------------
+   > transaction hash:    0x267e43ff80e384f779b2b609233e79b3889665b36822679c8366b07e6543434e
+   > Blocks: 1            Seconds: 4
+   > contract address:    0x3C56F2Cc894ef5E8A7c37EF35d7b2b501c95ab7D
+   > block number:        19575163
+   > block timestamp:     1639486930
+   > account:             0xecBa8361dc3BAF27F26Fc12146fD0254f305017c
+   > balance:             9.942810405726513906
+   > gas used:            255284 (0x3e534)
+   > gas price:           1.219999999 gwei
+   > value sent:          0 ETH
+   > total cost:          0.000311446479744716 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.003794860016889459 ETH
+
+
+Summary
+=======
+> Total deployments:   5
+> Final cost:          0.004071235156662922 ETH
