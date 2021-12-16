@@ -31,7 +31,7 @@ var fdsConfig = async () => {
     httpTimeout: 1000,
     gasPrice: 0.1,
     ensConfig: {
-      domain: 'datafund.eth',
+      domain: 'fairdrop.eth',
       registryAddress: ens.address,
       subdomainRegistrarAddress: sub.address,
       resolverContractAddress: res.address,
@@ -100,7 +100,7 @@ contract('FDS', function (accounts) {
         gasPrice: 2,
         walletVersion: 1,
         ensConfig: {
-          domain: 'datafund.eth',
+          domain: 'fairdrop.eth',
           registryAddress: '0x51Cdac0fc850A85BdC30b4bb431ADab4b4BfcF4e',
           subdomainRegistrarAddress: '0xf72D7d66c0780080DE8d1219F57C2f8055D169Cd',
           resolverContractAddress: '0x2D9Cdd0aA10C743Aac81B69291D7cF21a1Fd3dbD',

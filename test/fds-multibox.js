@@ -31,7 +31,7 @@ var fdsConfig = async () => {
     httpTimeout: 1000,
     gasPrice: 0.1,
     ensConfig: {
-      domain: 'datafund.eth',
+      domain: 'fairdrop.eth',
       registryAddress: ens.address,
       subdomainRegistrarAddress: sub.address,
       resolverContractAddress: res.address,

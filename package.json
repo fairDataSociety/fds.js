@@ -7,6 +7,7 @@
     "pre-commit": "pretty-quick --staged",
     "test": "npm run compile && TESTENV=noordung truffle test --network noordung",
     "test-goerli": "npm run compile && TESTENV=goerli truffle test --network goerli",
+    "test-xdai": "npm run compile && TESTENV=xdai truffle test --network xdai",
     "test-dev": "npm run compile && TESTENV=test truffle test --network test",
     "test-dev-inspect": "npm run compile && TESTENV=test node --inspect ./node_modules/truffle/build/cli.bundled.js test --network=test",
     "compile": "babel --copy-files lib --out-dir dist/ES5",
@@ -23,7 +24,7 @@
     "lib": "lib"
   },
   "dependencies": {
-    "@ethersphere/bee-js": "^2.1.0",
+    "@ethersphere/bee-js": "^3.1.0",
     "axios": ">=0.21.1",
     "buffer": "^5.4.3",
     "dotenv": "^8.2.0",
