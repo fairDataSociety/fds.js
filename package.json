@@ -1,5 +1,5 @@
 {
-  "name": "fds.js",
+  "name": "@fairdatasociety/fds",
   "version": "0.2.0",
   "description": "App Toolkit for the Web3 Generation",
   "main": "./dist/ES5/index.js",
