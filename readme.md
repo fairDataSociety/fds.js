@@ -18,6 +18,13 @@ FDS make it easy for front end developers to create Dapps running on the Ethereu
 
 The FDS Dapp Framework provides a high level javascript SDK for DApp developers to create and manage accounts, sign transactions using the associated Ethereum wallets, and interact with the Ethereum compatible blockchains and the Swarm network.
 
+## New in 0.2.0
+
+- Added support for node >=14.
+- Now works over the xDAI network
+- Minor bugs has been fixed!
+- ...and much more!
+
 ## New in 0.1.0
 
 - Now works in a Node environment.
