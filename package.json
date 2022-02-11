@@ -1,6 +1,6 @@
 {
   "name": "@fairdatasociety/fds",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "App Toolkit for the Web3 Generation",
   "main": "./dist/ES5/index.js",
   "scripts": {
