@@ -1,7 +1,6 @@
 bin
 .vs
 obj
-package-lock.json
 
 
 # Logs

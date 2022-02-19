@@ -18,7 +18,6 @@ As a starting point for a library, this has it's merits and dismerits. There wer
 
 `git clone git@github.com:fairDataSociety/fds.js.git`
 
-
 # Install Dependencies
 
 Note: you must use node v10 at present, although [we're working on it!](https://github.com/fairDataSociety/fds.js/issues/61) - we recommend [Node Version Manager](https://github.com/fairDataSociety/fds.js/issues/61).

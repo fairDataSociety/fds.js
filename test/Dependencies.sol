@@ -5,5 +5,5 @@ pragma solidity ^0.5.0;
 // import "@ensdomains/ethregistrar/contracts/BaseRegistrarImplementation.sol";
 
 contract Dependencies {
-    constructor() public { }
+  constructor() public {}
 }
