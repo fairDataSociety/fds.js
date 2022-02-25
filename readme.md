@@ -130,7 +130,6 @@ var fds = new FDS({
   faucetAddress: 'https://faucet-noordung.fairdatasociety.org/gimmie',
   chainID: '235813',
   httpTimeout: 1000,
-  gasPrice: 0.1,
   walletVersion: 1,
   scratchDir: '/tmp/something',
   ensConfig: {
@@ -594,7 +593,7 @@ _async_ **user.pay(** _recipientSubdomain, amount, transactionCallback = console
 TransactionHash (string)
 
 ```javascript
-let balance = await alice.pay([ 'bob', '0.1' );
+let balance = await alice.pay('bob', '0.1')
 //0x3cf52d1..
 ```
 
@@ -616,7 +615,7 @@ _async_ **user.pay(** _recipientAddress, amount, transactionCallback = console.l
 TransactionHash (string)
 
 ```javascript
-let balance = await alice.pay([ '0x234...', '0.1' );
+let balance = await alice.pay('0x234...', '0.1')
 //0x3cff2d1..
 ```
 
