@@ -1,6 +1,6 @@
 {
   "name": "@fairdatasociety/fds",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "App Toolkit for the Web3 Generation",
   "main": "./dist/ES5/index.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "lib": "lib"
   },
   "dependencies": {
-    "@ethersphere/bee-js": "^3.1.0",
+    "@ethersphere/bee-js": "3.1.0",
     "axios": ">=0.21.1",
     "buffer": "^5.4.3",
     "dotenv": "^15.0.0",
