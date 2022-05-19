@@ -7,18 +7,12 @@ var namehash = require('eth-ens-namehash')
 var sha3 = require('js-sha3').keccak_256
 var Promise = require('bluebird')
 
+const networks = ['test', 'development', 'noordung', 'fivesecs', 'goerli', 'xdai']
 // var domainnames = require('../app/js/domains.json');
 
 module.exports = function (deployer, network, accounts) {
   return deployer.then(async () => {
-    if (
-      network == 'test' ||
-      network == 'development' ||
-      network == 'noordung' ||
-      network == 'fivesecs' ||
-      network == 'goerli' ||
-      network == 'xdai'
-    ) {
+    if (networks.includes(network)) {
       await deployer.deploy(ENS)
 
       const ens = await ENS.deployed()
