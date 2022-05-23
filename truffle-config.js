@@ -75,10 +75,7 @@ module.exports = {
 
     goerli: {
       provider: () => {
-        return new HDWalletProvider(
-          process.env.GOERLI_PRIVATE_KEY,
-          'https://goerli.infura.io/v3/b28fea7750bd4cf9b45e7857efb125b9',
-        )
+        return new HDWalletProvider(process.env.GOERLI_PRIVATE_KEY, 'https://xdai.dev.fairdatasociety.org/')
       },
       network_id: 5,
     },
