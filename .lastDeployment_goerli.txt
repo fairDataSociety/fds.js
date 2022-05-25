@@ -1,0 +1,148 @@
+Compiling your contracts...
+===========================
+> Everything is up to date, there is nothing to compile.
+
+
+Migrations dry-run (simulation)
+===============================
+> Network name:    'goerli-fork'
+> Network id:      5
+> Block gas limit: 29970676 (0x1c950f4)
+
+
+1_initial_migration.js
+======================
+[ '0x9bc9F8378Be5903C2E0a6264A9beBa968744DE2f' ]
+
+   Replacing 'Migrations'
+   ----------------------
+   > block number:        6906702
+   > block timestamp:     1652885930
+   > account:             0x9bc9F8378Be5903C2E0a6264A9beBa968744DE2f
+   > balance:             0.037613983807853558
+   > gas used:            226537 (0x374e9)
+   > gas price:           2.500000007 gwei
+   > value sent:          0 ETH
+   > total cost:          0.000566342501585759 ETH
+
+   -------------------------------------
+   > Total cost:     0.000566342501585759 ETH
+
+
+1563788331_ens.js
+=================
+[ '0x9bc9F8378Be5903C2E0a6264A9beBa968744DE2f' ]
+   -------------------------------------
+   > Total cost:                   0 ETH
+
+Summary
+=======
+> Total deployments:   1
+> Final cost:          0.000566342501585759 ETH
+
+
+
+
+Starting migrations...
+======================
+> Network name:    'goerli'
+> Network id:      5
+> Block gas limit: 29999943 (0x1c9c347)
+
+
+1_initial_migration.js
+======================
+[ '0x9bc9F8378Be5903C2E0a6264A9beBa968744DE2f' ]
+
+   Replacing 'Migrations'
+   ----------------------
+   > transaction hash:    0x43eee675669ade19da1e5c9462362410eec1096e91da562b849e7e5f3fe917ef
+   > Blocks: 2            Seconds: 32
+   > contract address:    0xc84fA586199594F08eBf7c05aD7D467E27C2CE01
+   > block number:        6906708
+   > block timestamp:     1652885969
+   > account:             0x9bc9F8378Be5903C2E0a6264A9beBa968744DE2f
+   > balance:             0.037859400005446882
+   > gas used:            226537 (0x374e9)
+   > gas price:           1.416661755 gwei
+   > value sent:          0 ETH
+   > total cost:          0.000320926303992435 ETH
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.000320926303992435 ETH
+
+
+1563788331_ens.js
+=================
+[ '0x9bc9F8378Be5903C2E0a6264A9beBa968744DE2f' ]
+
+   Deploying 'ENSRegistry'
+   -----------------------
+   > transaction hash:    0xfd6e632a8d287907e01d0468dfc64d2c1974953f6a996f315d9cd0d06f101988
+   > Blocks: 1            Seconds: 12
+   > contract address:    0x1483B961506EeA78ca762d4D07D60DB41DdB72a2
+   > block number:        6906710
+   > block timestamp:     1652885999
+   > account:             0x9bc9F8378Be5903C2E0a6264A9beBa968744DE2f
+   > balance:             0.036893770770018517
+   > gas used:            635860 (0x9b3d4)
+   > gas price:           1.416661755 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0009007985435343 ETH
+
+
+   Deploying 'TestRegistrar'
+   -------------------------
+   > transaction hash:    0x42f58b21f4ff48ffee20346cfed614639f6999c0191d7e553bd8abdefc9fde76
+   > Blocks: 0            Seconds: 8
+   > contract address:    0xB3aeA9531800fB0C1c60BD22e30Cfd543390dB35
+   > block number:        6906711
+   > block timestamp:     1652886014
+   > account:             0x9bc9F8378Be5903C2E0a6264A9beBa968744DE2f
+   > balance:             0.036532119688002257
+   > gas used:            255284 (0x3e534)
+   > gas price:           1.416661765 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00036165108201626 ETH
+
+
+   Deploying 'PublicResolver'
+   --------------------------
+   > transaction hash:    0xb56ce4b3ea756a826c567a24c614af5160ca41dbaaef93b5f43732bf51cbd878
+   > Blocks: 0            Seconds: 8
+   > contract address:    0x08c41Bdf5FD6DdAbcD83AF6a388b01850d4DC029
+   > block number:        6906712
+   > block timestamp:     1652886029
+   > account:             0x9bc9F8378Be5903C2E0a6264A9beBa968744DE2f
+   > balance:             0.033749635918403942
+   > gas used:            1964113 (0x1df851)
+   > gas price:           1.416661755 gwei
+   > value sent:          0 ETH
+   > total cost:          0.002782483769598315 ETH
+
+
+   Deploying 'SubdomainRegistrar'
+   ------------------------------
+   > transaction hash:    0x1614815d2d1d9767267fd330eedca4746b71f1e3821b9370a22b0261c47515dd
+   > Blocks: 1            Seconds: 8
+   > contract address:    0x05aE425E8fff60d5CFB63B3e8d52AFaC305C6903
+   > block number:        6906718
+   > block timestamp:     1652886119
+   > account:             0x9bc9F8378Be5903C2E0a6264A9beBa968744DE2f
+   > balance:             0.033139389034173122
+   > gas used:            255284 (0x3e534)
+   > gas price:           1.416661755 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00036165107946342 ETH
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:     0.004406584474612295 ETH
+
+Summary
+=======
+> Total deployments:   5
+> Final cost:          0.00472751077860473 ETH

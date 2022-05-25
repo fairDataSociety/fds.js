@@ -28,6 +28,8 @@ require('dotenv').config()
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 module.exports = {
+  networkCheckTimeoutnetworkCheckTimeout: 10000,
+  timeoutBlocks: 200,
   /**
    * Networks define how you connect to your ethereum client and let you set the
    * defaults web3 uses to send transactions. If you don't specify one truffle
@@ -73,7 +75,7 @@ module.exports = {
 
     goerli: {
       provider: () => {
-        return new HDWalletProvider(process.env.GOERLI_PRIVATE_KEY, 'http://localhost:8545')
+        return new HDWalletProvider(process.env.GOERLI_PRIVATE_KEY, 'https://xdai.dev.fairdatasociety.org/')
       },
       network_id: 5,
     },
